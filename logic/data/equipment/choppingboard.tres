@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ChoppingBoard" format=3 uid="uid://cb5volo31fm6h"]
+
+[ext_resource type="Texture2D" uid="uid://cvf7o2xri2gsa" path="res://assets/equipment/knife.tres" id="1_2a6pr"]
+[ext_resource type="Script" uid="uid://c64483n2fo0gt" path="res://logic/data/Equipment/ChoppingBoard.cs" id="1_02rkv"]
+
+[resource]
+script = ExtResource("1_02rkv")
+icon = ExtResource("1_2a6pr")
+metadata/_custom_type_script = "uid://c64483n2fo0gt"

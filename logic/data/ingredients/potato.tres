@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Ingredient" format=3 uid="uid://22j37pi7qi2x"]
+
+[ext_resource type="Script" uid="uid://chqsxs53tfjdw" path="res://logic/data/ingredients/Ingredient.cs" id="1_6pyhp"]
+[ext_resource type="Texture2D" uid="uid://dowdohg2y0x7w" path="res://assets/ingredients/potato.png" id="1_ecgjh"]
+
+[resource]
+script = ExtResource("1_6pyhp")
+name = "potato"
+icon = ExtResource("1_ecgjh")
+metadata/_custom_type_script = "uid://chqsxs53tfjdw"

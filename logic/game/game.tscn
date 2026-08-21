@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dld8xvfsckamw"]
+
+[ext_resource type="Script" uid="uid://hpnq8fw382ef" path="res://logic/game/GameController.cs" id="1_4t1an"]
+[ext_resource type="Script" uid="uid://djgxb604sn6n8" path="res://logic/game/ui/EndGameButton.cs" id="1_uwrxv"]
+
+[node name="Game" type="Control" unique_id=1754398188]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4t1an")
+
+[node name="Button" type="Button" parent="." unique_id=1900686129]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "end game"
+script = ExtResource("1_uwrxv")
+
+[connection signal="pressed" from="Button" to="Button" method="OnClick"]

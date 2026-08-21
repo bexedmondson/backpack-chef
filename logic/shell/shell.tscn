@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://dc5p27ys75wk6"]
+
+[ext_resource type="Script" uid="uid://djcjdc5fc6751" path="res://logic/shell/statemachine/Shell.cs" id="1_bo4bk"]
+[ext_resource type="PackedScene" uid="uid://b3mn3bp7c5fdw" path="res://logic/shell/ui/loadingscreen/loading_screen.tscn" id="2_sb42f"]
+[ext_resource type="Script" uid="uid://c5r1uxouruhot" path="res://logic/shell/InitialGameSceneReference.cs" id="3_6fq18"]
+[ext_resource type="Script" uid="uid://ddxyfnmdknoar" path="res://logic/shell/debug/DebugButton.cs" id="3_8y80q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sl10i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1d7mr"]
+bg_color = Color(0.6, 0.6, 0.6, 0.47843137)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oxe5a"]
+
+[node name="Shell" type="Control" unique_id=2088602404]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BootstrapStateMachine" type="Node" parent="." unique_id=1147055039]
+script = ExtResource("1_bo4bk")
+
+[node name="InitialGameSceneReference" type="Node" parent="." unique_id=1807723897]
+script = ExtResource("3_6fq18")
+initialSaveSelectSceneUid = "uid://s0jw8cmw3mew"
+initialGameSceneUid = "uid://bnncd67bcv1yx"
+
+[node name="DebugButton" type="Button" parent="." unique_id=92678271]
+z_index = 100
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+offset_right = 15.0
+offset_bottom = 15.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_sl10i")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1d7mr")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_oxe5a")
+script = ExtResource("3_8y80q")
+
+[node name="LoadingCanvasLayer" parent="." unique_id=592895361 instance=ExtResource("2_sb42f")]
+visible = false
+
+[connection signal="pressed" from="DebugButton" to="DebugButton" method="OnClick"]

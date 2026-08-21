@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://krr41nlfkr4a"]
+
+[ext_resource type="Script" uid="uid://bs57167oqllg7" path="res://logic/shell/ui/saveselect/SelectSaveButton.cs" id="1_0ik2a"]
+
+[node name="SelectSaveButton" type="HBoxContainer" unique_id=988692182 node_paths=PackedStringArray("selectButton", "deleteButton")]
+offset_right = 84.0
+offset_bottom = 58.0
+script = ExtResource("1_0ik2a")
+selectButton = NodePath("SelectButton")
+deleteButton = NodePath("DeleteButton")
+
+[node name="DeleteButton" type="Button" parent="." unique_id=1839890753]
+layout_mode = 2
+theme_type_variation = &"DangerButton"
+text = "X"
+
+[node name="SelectButton" type="Button" parent="." unique_id=64467937]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "save"
+
+[connection signal="pressed" from="DeleteButton" to="." method="OnDeleteButton"]
+[connection signal="pressed" from="SelectButton" to="." method="OnClick"]

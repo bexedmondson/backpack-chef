@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Plate" format=3 uid="uid://drdomgnr8pewu"]
+
+[ext_resource type="Script" uid="uid://bnhc0hufw1pc3" path="res://logic/data/equipment/Plate.cs" id="1_4rqqp"]
+[ext_resource type="Texture2D" uid="uid://dcdn08xo1hg45" path="res://assets/equipment/Plate.png" id="1_x6ij7"]
+
+[resource]
+script = ExtResource("1_4rqqp")
+name = "plate"
+icon = ExtResource("1_x6ij7")
+metadata/_custom_type_script = "uid://bnhc0hufw1pc3"

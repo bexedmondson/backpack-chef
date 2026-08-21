@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dkrxnal3wdmbd"]
+
+[ext_resource type="Script" uid="uid://di6njgthdfm1e" path="res://logic/game/OrderDisplay.cs" id="1_yt0pd"]
+
+[sub_resource type="Gradient" id="Gradient_cs7hg"]
+colors = PackedColorArray(0.51577926, 0.38457647, 0.25728384, 1, 0.7, 0.5517166, 0.41300002, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cs7hg"]
+gradient = SubResource("Gradient_cs7hg")
+width = 60
+
+[node name="OrderDisplay" type="TextureRect" unique_id=2140043774 node_paths=PackedStringArray("recipeNameLabel")]
+texture = SubResource("GradientTexture1D_cs7hg")
+script = ExtResource("1_yt0pd")
+recipeNameLabel = NodePath("RecipeNameLabel")
+
+[node name="RecipeNameLabel" type="Label" parent="." unique_id=213830656]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

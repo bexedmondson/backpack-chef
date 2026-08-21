@@ -1,0 +1,56 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Backpack Chef"
+run/main_scene="uid://dc5p27ys75wk6"
+config/features=PackedStringArray("4.7", "C#", "Mobile")
+config/icon="res://icon.svg"
+
+[autoload]
+
+CurrentSceneAccessor="*uid://bwiu84ppnca5p"
+
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=320
+window/stretch/mode="viewport"
+
+[dotnet]
+
+project/assembly_name="Backpack Chef"
+
+[editor_plugins]
+
+enabled=PackedStringArray()
+
+[gui]
+
+common/default_scroll_deadzone=3
+theme/stretch/mode="disabled"
+
+[input]
+
+debug_toggle={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":66,"physical_keycode":0,"key_label":0,"unicode":98,"location":0,"echo":false,"script":null)
+]
+}
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+rendering_device/driver.windows="d3d12"
+renderer/rendering_method="mobile"

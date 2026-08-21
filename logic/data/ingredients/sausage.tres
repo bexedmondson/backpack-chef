@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Ingredient" format=3 uid="uid://biqxnnqag5ia4"]
+
+[ext_resource type="Script" uid="uid://chqsxs53tfjdw" path="res://logic/data/ingredients/Ingredient.cs" id="1_g57ue"]
+[ext_resource type="Texture2D" uid="uid://dbf277vg0marw" path="res://assets/ingredients/sausage.png" id="1_xt8r1"]
+
+[resource]
+script = ExtResource("1_g57ue")
+name = "sausage"
+icon = ExtResource("1_xt8r1")
+metadata/_custom_type_script = "uid://chqsxs53tfjdw"

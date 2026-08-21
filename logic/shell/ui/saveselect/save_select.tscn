@@ -1,0 +1,300 @@
+[gd_scene format=3 uid="uid://s0jw8cmw3mew"]
+
+[ext_resource type="Script" uid="uid://b0hlevyesa7wg" path="res://logic/shell/ui/saveselect/SaveSelectScreen.cs" id="1_hf2sl"]
+[ext_resource type="PackedScene" uid="uid://krr41nlfkr4a" path="res://logic/shell/ui/saveselect/select_save_button.tscn" id="2_w13ci"]
+[ext_resource type="Texture2D" uid="uid://b8uj5nhupjbal" path="res://assets/ui/icons/icon_cog.svg" id="3_6rvkg"]
+[ext_resource type="Script" uid="uid://ccehm4g62njcx" path="res://logic/shell/ui/saveselect/SaveDeleteConfirmationPopup.cs" id="3_w13ci"]
+[ext_resource type="Script" uid="uid://bmcedl3s5ywmc" path="res://logic/shell/ui/saveselect/SettingsPanel.cs" id="5_4tenx"]
+[ext_resource type="Texture2D" uid="uid://firomlnfbiun" path="res://assets/ui/cursor.png" id="6_0mv2v"]
+
+[sub_resource type="Gradient" id="Gradient_4kq5x"]
+interpolation_color_space = 1
+colors = PackedColorArray(0.22352941, 0.5294118, 0.3882353, 1, 0.1254902, 0.4, 0.3019608, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bxlp5"]
+gradient = SubResource("Gradient_4kq5x")
+width = 100
+
+[node name="SaveSelect" type="Control" unique_id=1739363096 node_paths=PackedStringArray("saveButtonContainer", "deleteConfirmPopup")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hf2sl")
+saveButtonContainer = NodePath("PanelContainer/MarginContainer/VBoxContainer")
+saveButtonScene = ExtResource("2_w13ci")
+deleteConfirmPopup = NodePath("SaveDeleteConfirmationPanel")
+
+[node name="BGTextureRect" type="TextureRect" parent="." unique_id=2004450774]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_bxlp5")
+
+[node name="TitleLabel" type="Label" parent="." unique_id=1848826444]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -52.0
+offset_top = 49.0
+offset_right = 53.0
+offset_bottom = 77.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "select save"
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1056636270]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -27.0
+offset_right = 150.0
+offset_bottom = 19.0
+grow_horizontal = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1604279053]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=422879809]
+layout_mode = 2
+offset_transform_enabled = true
+
+[node name="SettingsButton" type="Button" parent="." unique_id=1437095572]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -60.0
+offset_right = -30.0
+offset_bottom = -30.0
+grow_horizontal = 0
+grow_vertical = 0
+icon = ExtResource("3_6rvkg")
+expand_icon = true
+
+[node name="SaveDeleteConfirmationPanel" type="Panel" parent="." unique_id=960762987 node_paths=PackedStringArray("deleteConfirmPathLabel")]
+visible = false
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -200.0
+offset_right = 250.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_w13ci")
+deleteConfirmPathLabel = NodePath("PanelContainer/SavePathLabel")
+
+[node name="ColorRect" type="ColorRect" parent="SaveDeleteConfirmationPanel" unique_id=137020603]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1000.0
+offset_top = -750.0
+offset_right = 1000.0
+offset_bottom = 750.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.373437, 0.373437, 0.373437, 0.5019608)
+
+[node name="TitleLabel" type="Label" parent="SaveDeleteConfirmationPanel" unique_id=1069358478]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -212.0
+offset_top = 50.0
+offset_right = 212.0
+offset_bottom = 102.000015
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.9540109, 0.00014521048, 0.20760411, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 40
+text = "delete save permanently?"
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="SaveDeleteConfirmationPanel" unique_id=1120922687]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.5
+offset_top = -20.0
+offset_right = 82.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"PanelContainerEmbedded"
+
+[node name="SavePathLabel" type="Label" parent="SaveDeleteConfirmationPanel/PanelContainer" unique_id=854334346]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 28
+text = "savePathHere"
+horizontal_alignment = 1
+
+[node name="CancelButton" type="Button" parent="SaveDeleteConfirmationPanel" unique_id=913935760]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 90.0
+offset_top = -110.0
+offset_right = 220.602
+offset_bottom = -52.0
+grow_vertical = 0
+theme_override_constants/outline_size = 6
+text = "cancel"
+
+[node name="ConfirmDeleteButton" type="Button" parent="SaveDeleteConfirmationPanel" unique_id=1195744955]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 280.0
+offset_top = -110.0
+offset_right = 410.60208
+offset_bottom = -52.0
+grow_vertical = 0
+theme_type_variation = &"DangerButton"
+theme_override_constants/outline_size = 6
+text = "yes, delete"
+
+[node name="SettingsConfirmationPanel" type="Panel" parent="." unique_id=896275096]
+visible = false
+custom_minimum_size = Vector2(600, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -200.0
+offset_right = 250.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_4tenx")
+bigCursor = ExtResource("6_0mv2v")
+
+[node name="ColorRect" type="ColorRect" parent="SettingsConfirmationPanel" unique_id=661437497]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1000.0
+offset_top = -750.0
+offset_right = 1000.0
+offset_bottom = 750.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.373437, 0.373437, 0.373437, 0.5019608)
+
+[node name="TitleLabel" type="Label" parent="SettingsConfirmationPanel" unique_id=924404384]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -212.0
+offset_top = 50.0
+offset_right = 212.0
+offset_bottom = 102.000015
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 48
+text = "settings"
+horizontal_alignment = 1
+
+[node name="ConfirmButton" type="Button" parent="SettingsConfirmationPanel" unique_id=1113928366]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -65.300995
+offset_top = -110.0
+offset_right = 65.300995
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 6
+text = "OK"
+
+[node name="CursorCheckButton" type="CheckButton" parent="SettingsConfirmationPanel" unique_id=1048019259]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -90.0
+offset_right = 125.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "big cursor"
+
+[node name="FullscreenCheckButton" type="CheckButton" parent="SettingsConfirmationPanel" unique_id=2025505072]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -10.0
+offset_right = 125.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "fullscreen"
+
+[connection signal="pressed" from="SettingsButton" to="SettingsConfirmationPanel" method="set_visible" binds= [true]]
+[connection signal="pressed" from="SaveDeleteConfirmationPanel/CancelButton" to="SaveDeleteConfirmationPanel" method="OnDeleteCancelled"]
+[connection signal="pressed" from="SaveDeleteConfirmationPanel/ConfirmDeleteButton" to="SaveDeleteConfirmationPanel" method="OnDeleteConfirmed"]
+[connection signal="pressed" from="SettingsConfirmationPanel/ConfirmButton" to="SettingsConfirmationPanel" method="set_visible" binds= [false]]
+[connection signal="toggled" from="SettingsConfirmationPanel/CursorCheckButton" to="SettingsConfirmationPanel" method="ToggleBigCursor"]
+[connection signal="toggled" from="SettingsConfirmationPanel/FullscreenCheckButton" to="SettingsConfirmationPanel" method="ToggleFullscreen"]

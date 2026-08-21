@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://b3mn3bp7c5fdw"]
+
+[ext_resource type="Script" uid="uid://cf7yyy8posvy4" path="res://logic/shell/ui/loadingscreen/LoadingScreenLayer.cs" id="1_k0c16"]
+
+[sub_resource type="Gradient" id="Gradient_2cnh3"]
+colors = PackedColorArray(0, 0.6392157, 0.94509804, 1, 0, 0.30980393, 0.6, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_oel05"]
+gradient = SubResource("Gradient_2cnh3")
+
+[node name="LoadingCanvasLayer" type="CanvasLayer" unique_id=592895361 node_paths=PackedStringArray("progressBar")]
+follow_viewport_enabled = true
+script = ExtResource("1_k0c16")
+progressBar = NodePath("ProgressBar")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=232421607]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_oel05")
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1502447692]
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 1.0
+anchor_right = 0.7
+anchor_bottom = 1.0
+offset_top = -180.0
+offset_bottom = -148.0
+grow_horizontal = 2
+grow_vertical = 0
+max_value = 1.0
+step = 0.001
+show_percentage = false
+
+[node name="Label" type="Label" parent="." unique_id=799660032]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -120.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(0, 100)
+theme_override_font_sizes/font_size = 64
+text = "Loading..."
+horizontal_alignment = 1

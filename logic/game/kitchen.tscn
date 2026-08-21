@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://bnncd67bcv1yx"]
+
+[ext_resource type="Script" uid="uid://dnhi1hxx2ssfr" path="res://logic/game/OrderDisplayController.cs" id="1_3xvsb"]
+[ext_resource type="Script" uid="uid://co5om3p7g4qmk" path="res://logic/game/GameTimeMonitor.cs" id="1_jlkki"]
+
+[node name="Kitchen" type="Control" unique_id=2063850017]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="KitchenTimer" type="Node" parent="." unique_id=379787737]
+script = ExtResource("1_jlkki")
+
+[node name="CounterBG" type="Panel" parent="." unique_id=654962827]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -219.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="EquipmentSlot1" type="Panel" parent="CounterBG" unique_id=2055789255]
+layout_mode = 0
+offset_left = 383.0
+offset_top = 150.0
+offset_right = 423.0
+offset_bottom = 190.0
+
+[node name="EquipmentTextureRect" type="TextureRect" parent="CounterBG/EquipmentSlot1" unique_id=1408702654]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 3
+
+[node name="EquipmentSlot2" type="Panel" parent="CounterBG" unique_id=622866627]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 154.0
+offset_right = 256.0
+offset_bottom = 194.0
+
+[node name="EquipmentTextureRect" type="TextureRect" parent="CounterBG/EquipmentSlot2" unique_id=1471803538]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 3
+
+[node name="EquipmentSlot3" type="Panel" parent="CounterBG" unique_id=1539257622]
+layout_mode = 0
+offset_left = 480.0
+offset_top = 48.0
+offset_right = 520.0
+offset_bottom = 88.0
+
+[node name="EquipmentTextureRect" type="TextureRect" parent="CounterBG/EquipmentSlot3" unique_id=2044034294]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 3
+
+[node name="EquipmentSlot4" type="Panel" parent="CounterBG" unique_id=2013608749]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 59.0
+offset_right = 184.0
+offset_bottom = 99.0
+
+[node name="EquipmentTextureRect" type="TextureRect" parent="CounterBG/EquipmentSlot4" unique_id=980215567]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 3
+
+[node name="OrderDisplayController" type="HBoxContainer" parent="." unique_id=1214550338 node_paths=PackedStringArray("orderDisplayPlaceholder")]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 63.0
+grow_horizontal = 2
+alignment = 2
+script = ExtResource("1_3xvsb")
+orderDisplayPlaceholder = NodePath("OrderDisplay")
+
+[node name="OrderDisplay" parent="OrderDisplayController" unique_id=2140043774 instance_placeholder="res://logic/game/order_display.tscn"]
+layout_mode = 2
