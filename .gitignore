@@ -1,0 +1,5 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+Backpack Chef.sln.DotSettings.user
+.idea/**
