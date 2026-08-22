@@ -49,7 +49,7 @@ public abstract class AbstractState
 
     protected void EndState()
     {
-        Log.Print($"Ending state: {Name}", Colors.Aqua);
+        Log.Print($"{Name}", Colors.Aqua, true);
         OnFinished?.Invoke(GetNextState());
     }
 
