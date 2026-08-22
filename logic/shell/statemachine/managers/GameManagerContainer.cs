@@ -19,7 +19,7 @@ public class GameManagerContainer : IInjectable
         if (managers.Contains(manager))
             managers.Remove(manager);
         else
-            Log.Warn($"[GameManagerContainer] Trying to deregister manager {manager} but not registered in GameManagerContainer!");
+            Log.Warn($"Trying to deregister manager {manager} but not registered in GameManagerContainer!");
     }
 
     public AbstractManager[] GetManagers()

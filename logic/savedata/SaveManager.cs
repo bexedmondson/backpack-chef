@@ -25,7 +25,7 @@ public class SaveManager : IInjectable
         {
             directories = DirAccess.GetDirectoriesAt(s_saveDirectoryPath);
             foreach (var directory in directories)
-                Log.Print($"[SaveManager] Found save at {directory}");
+                Log.Print($"Found save at {directory}");
         }
         else
         {
@@ -50,7 +50,7 @@ public class SaveManager : IInjectable
         }
         else if (!DirAccess.DirExistsAbsolute(Path.Combine(s_saveDirectoryPath, nameOfSelectedSaveDirectory)))
         {
-            Log.Error($"[SaveManager] Trying to load save from {Path.Combine(s_saveDirectoryPath, nameOfSelectedSaveDirectory)} but directory doesn't exist!");
+            Log.Error($"Trying to load save from {Path.Combine(s_saveDirectoryPath, nameOfSelectedSaveDirectory)} but directory doesn't exist!");
             directoryToLoadFrom = s_defaultSaveContainerDirectory;
         }
         else
@@ -61,24 +61,24 @@ public class SaveManager : IInjectable
         var saveContainerFileToLoad = Path.Combine(directoryToLoadFrom, s_saveDataContainerFileName);
         if (!ResourceLoader.Exists(saveContainerFileToLoad))
         {
-            Log.Error($"[SaveManager] No save container file found at {saveContainerFileToLoad}!");
+            Log.Error($"No save container file found at {saveContainerFileToLoad}!");
             return;
         }
         
         ResourceLoader.LoadThreadedRequest(saveContainerFileToLoad, cacheMode: ResourceLoader.CacheMode.Ignore);
 
         await LoadTask.WaitUntil(() => {
-            Log.Print($"[SaveManager] awaiting resource load at path {saveContainerFileToLoad}");
+            Log.Print($"Awaiting resource load at path {saveContainerFileToLoad}");
             return ResourceLoader.LoadThreadedGetStatus(saveContainerFileToLoad) != ResourceLoader.ThreadLoadStatus.InProgress;
         });
 
         if (ResourceLoader.LoadThreadedGetStatus(saveContainerFileToLoad) == ResourceLoader.ThreadLoadStatus.Failed)
         {
-            Log.Error($"[SaveManager] resource load failed, path {saveContainerFileToLoad}");
+            Log.Error($"Resource load failed, path {saveContainerFileToLoad}");
             return;
         }
 
-        Log.Print($"[SaveManager] Resource load finished, getting file at path {saveContainerFileToLoad}");
+        Log.Print($"Resource load finished, getting file at path {saveContainerFileToLoad}");
         saveDataContainer = (SaveData)ResourceLoader.LoadThreadedGet(saveContainerFileToLoad);
 
         if (saveContainerFileToLoad.Contains(s_defaultSaveContainerDirectory))
@@ -91,13 +91,13 @@ public class SaveManager : IInjectable
                 var newFilePath = Path.Combine(newSaveDirectory, saveData.fileName + ".tres");
                 ResourceSaver.Save(saveData, newFilePath);
                 saveData.TakeOverPath(newFilePath);
-                Log.Print($"[SaveManager] Saved copy of default save file at {newFilePath}");
+                Log.Print($"Saved copy of default save file at {newFilePath}");
             }
             
             var newSaveContainerPath = Path.Combine(newSaveDirectory, s_saveDataContainerFileName);
             ResourceSaver.Save(saveDataContainer, newSaveContainerPath);
             //saveDataContainer.TakeOverPath(newSaveContainerPath);
-            Log.Print($"[SaveManager] Saved copy of default save file container in new directory at {newSaveContainerPath}");
+            Log.Print($"Saved copy of default save file container in new directory at {newSaveContainerPath}");
         }
     }
 
@@ -109,7 +109,7 @@ public class SaveManager : IInjectable
                 return saveDataT;
         }
         
-        Log.Error($"[SaveManager] Save data of type {typeof(T).Name} not found! Using default save data");
+        Log.Error($"Save data of type {typeof(T).Name} not found! Using default save data");
 
         var defaultSaveContainerFilePath = Path.Combine(s_defaultSaveContainerDirectory, s_saveDataContainerFileName);
         var defaultSaveContainer = ResourceLoader.Load<SaveData>(defaultSaveContainerFilePath);
@@ -121,16 +121,16 @@ public class SaveManager : IInjectable
             var newFilePath = Path.Combine(s_saveDirectoryPath, nameOfSelectedSaveDirectory, saveDataT.fileName + ".tres");
             ResourceSaver.Save(saveDataT, newFilePath);
             saveDataT.TakeOverPath(newFilePath);
-            Log.Print($"[SaveManager] Saved copy of default save file at {newFilePath}");
+            Log.Print($"Saved copy of default save file at {newFilePath}");
 
             saveDataContainer.saveDatas.Add(saveDataT);
             ResourceSaver.Save(saveDataContainer);
-            Log.Print($"[SaveManager] Added reference to copy of default save file in save container at {saveDataContainer.ResourcePath}");
+            Log.Print($"Added reference to copy of default save file in save container at {saveDataContainer.ResourcePath}");
 
             return saveDataT;
         }
         
-        Log.Error($"[SaveManager] Default save data of type {typeof(T).Name} not found! Returning null!");
+        Log.Error($"Default save data of type {typeof(T).Name} not found! Returning null!");
         return null;
     }
 
@@ -139,7 +139,7 @@ public class SaveManager : IInjectable
         if (!saveDataContainer.saveDatas.Contains(saveData))
         {
             var savePath = Path.Combine(s_saveDirectoryPath, nameOfSelectedSaveDirectory, saveData.fileName + ".tres");
-            Log.Print($"[SaveManager] Saving file of type {saveData.GetType().Name} {saveData} to {savePath}");
+            Log.Print($"Saving file of type {saveData.GetType().Name} {saveData} to {savePath}");
             ResourceSaver.Save(saveData, savePath);
             saveDataContainer.saveDatas.Add(saveData);
             ResourceSaver.Save(saveDataContainer);
@@ -147,7 +147,7 @@ public class SaveManager : IInjectable
         else
         {
             ResourceSaver.Save(saveData);
-            Log.Print($"[SaveManager] Saving file of type {saveData.GetType().Name} {saveData} to {saveData.ResourcePath}");
+            Log.Print($"Saving file of type {saveData.GetType().Name} {saveData} to {saveData.ResourcePath}");
         }
     }
 
@@ -175,7 +175,7 @@ public class SaveManager : IInjectable
         var deletePath = Path.Combine(s_saveDirectoryPath, nameOfSaveToDelete);
         if (DirAccess.DirExistsAbsolute(deletePath))
         {
-            Log.Print($"[SaveManager] Deleting save at {deletePath}", "red");
+            Log.Print($"Deleting save at {deletePath}", Colors.Red);
             OS.MoveToTrash(ProjectSettings.GlobalizePath(deletePath));
         }
     }

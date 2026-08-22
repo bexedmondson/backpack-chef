@@ -1,41 +1,75 @@
 using System;
+using System.IO;
 using Godot;
 
 public static class Log
 {
     public static bool showDetailedLogs { get; private set; } = false;
 
-    public static void PrintVerbose(string log)
+    public static void PrintVerbose(string log,
+        bool includeMethod = false,
+        [System.Runtime.CompilerServices.CallerMemberName] string memberName = "", 
+        [System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "")
+    {
+        log = PrependCallSourceInfo(log, includeMethod, memberName, sourceFilePath);
+        if (showDetailedLogs)
+            log = PrependCallSourceInfo(log, includeMethod, memberName, sourceFilePath);
+    }
+    
+    public static void PrintVerbose(string log, Color color,
+        bool includeMethod = false,
+        [System.Runtime.CompilerServices.CallerMemberName] string memberName = "", 
+        [System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "")
     {
         if (showDetailedLogs)
-            Print(log);
+            Print(log, color, includeMethod, memberName, sourceFilePath);
     }
     
-    public static void PrintVerbose(string log, string colorName)
+    public static void Print(string log,
+        bool includeMethod = false,
+        [System.Runtime.CompilerServices.CallerMemberName] string memberName = "", 
+        [System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "")
     {
-        if (showDetailedLogs)
-            Print(log, colorName);
+        log = PrependCallSourceInfo(log, includeMethod, memberName, sourceFilePath);
+        GD.Print($"{DateTime.Now} {log}");
     }
     
-    public static void Print(string log)
+    public static void Print(string log, Color color,
+        bool includeMethod = false,
+        [System.Runtime.CompilerServices.CallerMemberName] string memberName = "", 
+        [System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "")
     {
-        GD.Print($"{DateTime.Now}\t {log}");
-    }
-    
-    public static void Print(string log, string colorName)
-    {
-        GD.PrintRich($"{DateTime.Now}\t [color={colorName}]{log}[/color]");
+        log = PrependCallSourceInfo(log, includeMethod, memberName, sourceFilePath);
+        GD.PrintRich($"{DateTime.Now} [color={color.ToHtml().ToLower()}]{log}[/color]");
     }
 
-    public static void Warn(string log)
+    public static void Warn(string log,
+        bool includeMethod = false,
+        [System.Runtime.CompilerServices.CallerMemberName] string memberName = "", 
+        [System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "")
     {
-        GD.PrintRich($"[color=yellow]{DateTime.Now}\t {log}[/color]");
+        log = PrependCallSourceInfo(log, includeMethod, memberName, sourceFilePath);
+        GD.PrintRich($"[color=yellow]{DateTime.Now} {log}[/color]");
         GD.PushWarning(log);
     }
     
-    public static void Error(string log)
+    public static void Error(string log,
+        bool includeMethod = false,
+        [System.Runtime.CompilerServices.CallerMemberName] string memberName = "", 
+        [System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "")
     {
+        log = PrependCallSourceInfo(log, includeMethod, memberName, sourceFilePath);
         GD.PrintErr($"{DateTime.Now.ToLongTimeString()}\t {log}");
         GD.PushError(log);
+    }
+
+    private static string PrependCallSourceInfo(string log, bool includeMethod, string memberName, string sourceFilePath)
+    {
+        var fileName = Path.GetFileNameWithoutExtension(sourceFilePath);
+        
+        if (includeMethod)
+            return $"[{fileName}] {memberName}: {log}";
+        
+        return $"[{fileName}] {log}";
     }
 }

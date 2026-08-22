@@ -71,6 +71,6 @@ public class StateMachine
     {
         if (!GameDebug.On)
             return;
-        Log.Print($"[StateMachine] Current state: {currentState.GetType().Name}");
+        Log.Print($"Current state: {currentState.GetType().Name}");
     }
 }

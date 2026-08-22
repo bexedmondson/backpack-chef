@@ -10,7 +10,7 @@ public abstract class AbstractDatabase
 
 public abstract class AbstractDatabase<T> : AbstractDatabase where T : AbstractLoadableDataResource
 {
-    protected virtual string resourceDirectoryPath => "";
+    protected abstract string resourceDirectoryPath { get; }
 
     private List<T> dataItems = new();
     
@@ -43,13 +43,13 @@ public abstract class AbstractDatabase<T> : AbstractDatabase where T : AbstractL
             ResourceLoader.LoadThreadedRequest(filePath, useSubThreads:true, cacheMode: ResourceLoader.CacheMode.Ignore);
 
             await LoadTask.WaitUntil(() => {
-                Log.Print($"DataLoader: awaiting resource load at path {filePath}");
+                Log.Print($"Awaiting resource load at path {filePath}");
                 return ResourceLoader.LoadThreadedGetStatus(filePath) != ResourceLoader.ThreadLoadStatus.InProgress;
             });
 
             if (ResourceLoader.LoadThreadedGetStatus(filePath) == ResourceLoader.ThreadLoadStatus.Failed)
             {
-                Log.Error($"DataLoader: resource load failed, path {filePath}");
+                Log.Error($"Resource load failed, path {filePath}");
                 continue;
             }
 

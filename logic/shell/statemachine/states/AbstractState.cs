@@ -32,11 +32,11 @@ public abstract class AbstractState
 
     private async Task StateTasksAsync()
     {
-        Log.Print($"State tasks begin: {Name}", "lightblue");
+        Log.Print($"State tasks begin: {Name}", Colors.Aqua);
 
         bool shouldEndStateImmediately = await DoStateTasksAsync();
 
-        Log.Print($"State tasks end: {Name}, should end state: {shouldEndStateImmediately}", "lightblue");
+        Log.Print($"State tasks end: {Name}, should end state: {shouldEndStateImmediately}", Colors.LightBlue);
         
         if (shouldEndStateImmediately)
             EndState();
@@ -49,7 +49,7 @@ public abstract class AbstractState
 
     protected void EndState()
     {
-        Log.Print($"Ending state: {Name}", "aqua");
+        Log.Print($"Ending state: {Name}", Colors.Aqua);
         OnFinished?.Invoke(GetNextState());
     }
 

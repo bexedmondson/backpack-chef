@@ -10,7 +10,7 @@ public static class Injection
     {
         if (s_injectableMap.ContainsKey(typeof(T)))
         {
-            Log.Error("[Injection] Injectable of type " + typeof(T).AssemblyQualifiedName + " already registered! Discarding new.");
+            Log.Error("Injectable of type " + typeof(T).AssemblyQualifiedName + " already registered! Discarding new.");
             return;
         }
 
@@ -21,7 +21,7 @@ public static class Injection
     {
         if (!s_injectableMap.TryGetValue(typeof(T), out var registered) || !registered.Equals(injectable))
         {
-            Log.Error($"[Injection] Injectable {injectable} of type {typeof(T).AssemblyQualifiedName} not registered! Discarding attempt to deregister.");
+            Log.Error($"Injectable {injectable} of type {typeof(T).AssemblyQualifiedName} not registered! Discarding attempt to deregister.");
             return;
         }
 
