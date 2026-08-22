@@ -12,6 +12,4 @@ public partial class Recipe : AbstractLoadableDataResource
 
     [Export]
     public Array<RecipeStep> steps { get; private set; }
-
-    public override void PostLoadSetup() { }
 }

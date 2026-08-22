@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass, Icon("res://assets/editor/icons/microwave.svg")]
-public abstract partial class Equipment : Resource
+public abstract partial class Equipment : AbstractLoadableDataResource
 {
     [Export]
     public string name { get; private set; }

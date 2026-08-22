@@ -19,6 +19,8 @@ public class DataLoader : IInjectable
     {
         Injection.Register(this);
         databases.Add(new RecipeDatabase());
+        databases.Add(new IngredientDatabase());
+        databases.Add(new EquipmentDatabase());
     }
 
     public Task LoadAllResources()

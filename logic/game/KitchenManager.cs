@@ -1,6 +1,6 @@
 public class KitchenManager: AbstractManager
 {
-    public KitchenManager()
+    protected override void RegisterInjection()
     {
         Injection.Register(this);
     }
@@ -14,8 +14,4 @@ public class KitchenManager: AbstractManager
     {
         Injection.Deregister(this);
     }
-
-    public override void UpdateSaveFile() { }
-
-    public override void LoadFromSaveFile() { }
 }

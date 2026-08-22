@@ -9,7 +9,7 @@ public class OrderManager : AbstractManager
     private double timeSinceLastOrderCreated = 0f;
     private int ordersCreated = 0;
     
-    public OrderManager()
+    protected override void RegisterInjection()
     {
         Injection.Register(this);
     }
@@ -39,15 +39,16 @@ public class OrderManager : AbstractManager
 
     private void MakeNewOrder()
     {
-        //TODO 
+        Log.PrintVerbose($"Orders still to generate: {totalLevelOrders - ordersCreated}", true);
+
+        
+
+        ordersCreated++;
+        timeSinceLastOrderCreated = 0;
     }
 
     public override void Cleanup()
     {
         Injection.Deregister(this);
     }
-
-    public override void UpdateSaveFile() { }
-
-    public override void LoadFromSaveFile() { }
 }

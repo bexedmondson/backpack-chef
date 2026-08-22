@@ -8,11 +8,18 @@ public abstract class AbstractDatabase
     public abstract void DoLoad();
 }
 
-public abstract class AbstractDatabase<T> : AbstractDatabase where T : AbstractLoadableDataResource
+public abstract class AbstractDatabase<T> : AbstractDatabase, IInjectable where T : AbstractLoadableDataResource
 {
     protected abstract string resourceDirectoryPath { get; }
 
     private List<T> dataItems = new();
+
+    protected AbstractDatabase()
+    {
+        RegisterInjection();
+    }
+
+    protected abstract void RegisterInjection();
     
     public async override void DoLoad()
     {

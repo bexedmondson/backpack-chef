@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass, Icon("res://assets/editor/icons/apple.svg")]
-public partial class Ingredient : Resource
+public partial class Ingredient : AbstractLoadableDataResource
 {
     [Export]
     public string name { get; private set; }
