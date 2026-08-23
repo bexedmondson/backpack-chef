@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dnhi1hxx2ssfr" path="res://logic/game/OrderDisplayController.cs" id="1_3xvsb"]
 [ext_resource type="Script" uid="uid://co5om3p7g4qmk" path="res://logic/game/GameTimeMonitor.cs" id="1_jlkki"]
+[ext_resource type="Script" uid="uid://bq6yxwctqf5i3" path="res://logic/game/EquipmentDisplayController.cs" id="2_ctdt0"]
+[ext_resource type="PackedScene" uid="uid://m6w100o8crnd" path="res://logic/game/equipment_display.tscn" id="3_mdxf6"]
 
 [node name="Kitchen" type="Control" unique_id=2063850017]
 layout_mode = 3
@@ -14,7 +16,7 @@ grow_vertical = 2
 [node name="KitchenTimer" type="Node" parent="." unique_id=379787737]
 script = ExtResource("1_jlkki")
 
-[node name="CounterBG" type="Panel" parent="." unique_id=654962827]
+[node name="EquipmentDisplayController" type="Panel" parent="." unique_id=654962827 node_paths=PackedStringArray("equipmentDisplays")]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -23,94 +25,36 @@ anchor_bottom = 1.0
 offset_top = -219.0
 grow_horizontal = 2
 grow_vertical = 0
+script = ExtResource("2_ctdt0")
+equipmentDisplays = [NodePath("EquipmentSlot1"), NodePath("EquipmentSlot2"), NodePath("EquipmentSlot3"), NodePath("EquipmentSlot4")]
 
-[node name="EquipmentSlot1" type="Panel" parent="CounterBG" unique_id=2055789255]
+[node name="EquipmentSlot1" parent="EquipmentDisplayController" unique_id=1936882093 instance=ExtResource("3_mdxf6")]
 layout_mode = 0
-offset_left = 383.0
-offset_top = 150.0
-offset_right = 423.0
-offset_bottom = 190.0
+offset_left = 379.0
+offset_top = 140.0
+offset_right = 419.0
+offset_bottom = 180.0
 
-[node name="EquipmentTextureRect" type="TextureRect" parent="CounterBG/EquipmentSlot1" unique_id=1408702654]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch_mode = 3
-
-[node name="EquipmentSlot2" type="Panel" parent="CounterBG" unique_id=622866627]
+[node name="EquipmentSlot2" parent="EquipmentDisplayController" unique_id=29746989 instance=ExtResource("3_mdxf6")]
 layout_mode = 0
-offset_left = 216.0
-offset_top = 154.0
-offset_right = 256.0
-offset_bottom = 194.0
+offset_left = 494.0
+offset_top = 50.0
+offset_right = 534.0
+offset_bottom = 90.0
 
-[node name="EquipmentTextureRect" type="TextureRect" parent="CounterBG/EquipmentSlot2" unique_id=1471803538]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch_mode = 3
-
-[node name="EquipmentSlot3" type="Panel" parent="CounterBG" unique_id=1539257622]
+[node name="EquipmentSlot3" parent="EquipmentDisplayController" unique_id=211690628 instance=ExtResource("3_mdxf6")]
 layout_mode = 0
-offset_left = 480.0
+offset_left = 205.0
+offset_top = 137.0
+offset_right = 245.0
+offset_bottom = 177.0
+
+[node name="EquipmentSlot4" parent="EquipmentDisplayController" unique_id=1051882674 instance=ExtResource("3_mdxf6")]
+layout_mode = 0
+offset_left = 134.0
 offset_top = 48.0
-offset_right = 520.0
+offset_right = 174.0
 offset_bottom = 88.0
-
-[node name="EquipmentTextureRect" type="TextureRect" parent="CounterBG/EquipmentSlot3" unique_id=2044034294]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch_mode = 3
-
-[node name="EquipmentSlot4" type="Panel" parent="CounterBG" unique_id=2013608749]
-layout_mode = 0
-offset_left = 144.0
-offset_top = 59.0
-offset_right = 184.0
-offset_bottom = 99.0
-
-[node name="EquipmentTextureRect" type="TextureRect" parent="CounterBG/EquipmentSlot4" unique_id=980215567]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch_mode = 3
 
 [node name="OrderDisplayController" type="HBoxContainer" parent="." unique_id=1214550338 node_paths=PackedStringArray("orderDisplayPlaceholder")]
 layout_mode = 1

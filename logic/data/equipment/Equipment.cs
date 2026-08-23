@@ -7,5 +7,5 @@ public abstract partial class Equipment : AbstractLoadableDataResource
     public string name { get; private set; }
 
     [Export]
-    public Texture icon;
+    public Texture2D icon;
 }

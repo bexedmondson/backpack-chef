@@ -4,6 +4,8 @@ public class Order
     private RecipeStep currentStep;
     private float timeRemaining;
 
+    public OrderState state = OrderState.Waiting;
+
     public void SetRecipe(Recipe recipe)
     {
         this.recipe = recipe;

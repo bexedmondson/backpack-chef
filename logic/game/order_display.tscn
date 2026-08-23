@@ -10,6 +10,9 @@ gradient = SubResource("Gradient_cs7hg")
 width = 60
 
 [node name="OrderDisplay" type="TextureRect" unique_id=2140043774 node_paths=PackedStringArray("recipeNameLabel")]
+custom_minimum_size = Vector2(32, 32)
+offset_right = 60.0
+offset_bottom = 60.0
 texture = SubResource("GradientTexture1D_cs7hg")
 script = ExtResource("1_yt0pd")
 recipeNameLabel = NodePath("RecipeNameLabel")

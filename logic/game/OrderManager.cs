@@ -4,14 +4,14 @@ public class OrderManager : AbstractManager
 {
     //placeholder values for testing with :)
     //TODO REPLACE
-    private float orderSeparationTime = 10f;
+    private float orderSeparationTime = 5f;
     private int totalLevelOrders = 10;
 
     private RecipeAvailabilityManager recipeAvailabilityManager;
     private GameTimeMonitor timeMonitor;
     private double timeSinceLastOrderCreated = 0f;
 
-    private List<Order> currentOrders = new();
+    private List<Order> currentLevelOrders = new();
     
     protected override void RegisterInjection()
     {
@@ -37,7 +37,7 @@ public class OrderManager : AbstractManager
         if (timeSinceLastOrderCreated < orderSeparationTime)
             return;
 
-        if (totalLevelOrders <= currentOrders.Count)
+        if (totalLevelOrders <= currentLevelOrders.Count)
             return;
         
         MakeNewOrder();
@@ -45,7 +45,7 @@ public class OrderManager : AbstractManager
 
     private void MakeNewOrder()
     {
-        Log.PrintVerbose($"Orders still to generate: {totalLevelOrders - currentOrders.Count}", true);
+        Log.PrintVerbose($"Orders still to generate: {totalLevelOrders - currentLevelOrders.Count}", true);
 
         var newOrder = new Order();
         
@@ -54,9 +54,18 @@ public class OrderManager : AbstractManager
         var selectedRecipe = availableRecipes[RNG.RandiRange(0, availableRecipes.Count - 1)];
         newOrder.SetRecipe(selectedRecipe);
 
-        currentOrders.Add(newOrder);
+        currentLevelOrders.Add(newOrder);
         timeSinceLastOrderCreated = 0;
         eventDispatcher.Dispatch(new OrderCreatedEvent(newOrder));
+    }
+
+    public void OnOrderMovedToEquipment(Equipment equipment, Order order)
+    {
+        if (order.state == OrderState.Waiting)
+        {
+            order.state = OrderState.InProgress;
+            eventDispatcher.Dispatch(new OrderStateChangedEvent(order));
+        }
     }
 
     public override void Cleanup()
