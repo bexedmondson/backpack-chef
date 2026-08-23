@@ -2,10 +2,19 @@
 
 [ext_resource type="Script" uid="uid://djcjdc5fc6751" path="res://logic/shell/statemachine/Shell.cs" id="1_bo4bk"]
 [ext_resource type="Script" uid="uid://dlq2jfsnapqfm" path="res://logic/shell/ui/CustomCursorSetup.cs" id="1_sl10i"]
-[ext_resource type="Texture2D" uid="uid://dph7uck5tbyun" path="res://assets/ui/cursors/cursor_default_arrow.tres" id="2_oxe5a"]
+[ext_resource type="Script" uid="uid://covq1h0y4t4sp" path="res://logic/shell/ui/CursorSettings.cs" id="2_nlgwu"]
 [ext_resource type="PackedScene" uid="uid://b3mn3bp7c5fdw" path="res://logic/shell/ui/loadingscreen/loading_screen.tscn" id="2_sb42f"]
 [ext_resource type="Script" uid="uid://c5r1uxouruhot" path="res://logic/shell/InitialGameSceneReference.cs" id="3_6fq18"]
 [ext_resource type="Script" uid="uid://ddxyfnmdknoar" path="res://logic/shell/debug/DebugButton.cs" id="3_8y80q"]
+[ext_resource type="Texture2D" uid="uid://dh66itltukw30" path="res://assets/ui/cursors/cursor_large_arrow.tres" id="3_i6ufa"]
+[ext_resource type="Texture2D" uid="uid://dph7uck5tbyun" path="res://assets/ui/cursors/cursor_default_arrow.tres" id="4_i6ufa"]
+
+[sub_resource type="Resource" id="Resource_nlgwu"]
+script = ExtResource("2_nlgwu")
+texture = ExtResource("4_i6ufa")
+largeTexture = ExtResource("3_i6ufa")
+hotspot = Vector2i(3, 2)
+metadata/_custom_type_script = "uid://covq1h0y4t4sp"
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sl10i"]
 
@@ -25,8 +34,8 @@ mouse_filter = 2
 
 [node name="CustomCursorSetup" type="Node" parent="." unique_id=1300396246]
 script = ExtResource("1_sl10i")
-cursorShapeMap = Dictionary[int, AtlasTexture]({
-0: ExtResource("2_oxe5a")
+cursorShapeMap = Dictionary[int, ExtResource("2_nlgwu")]({
+0: SubResource("Resource_nlgwu")
 })
 
 [node name="BootstrapStateMachine" type="Node" parent="." unique_id=1147055039]

@@ -7,7 +7,7 @@ public partial class SettingsPanel : Control
     
     public void ToggleBigCursor(bool on)
     {
-        Input.SetCustomMouseCursor(on ? bigCursor : null);
+        Injection.Get<CustomCursorSetup>().SetForceLarge(on);
     }
 
     public void ToggleFullscreen(bool on)

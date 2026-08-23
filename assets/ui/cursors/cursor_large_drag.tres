@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://45wjr7fv5ss3"]
+
+[ext_resource type="Texture2D" uid="uid://3y17qkf50ykp" path="res://assets/ui/cursors/cursor_3x_tilemap_packed.png" id="1_ofmte"]
+
+[resource]
+atlas = ExtResource("1_ofmte")
+region = Rect2(912, 288, 48, 48)
+filter_clip = true
