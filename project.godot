@@ -25,7 +25,6 @@ window/size/viewport_width=640
 window/size/viewport_height=360
 window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
-mouse_cursor/custom_image="uid://firomlnfbiun"
 
 [dotnet]
 
@@ -38,6 +37,7 @@ enabled=PackedStringArray()
 [gui]
 
 common/default_scroll_deadzone=3
+theme/custom_font="uid://biqti4kx5qcl2"
 theme/stretch/mode="disabled"
 
 [input]
