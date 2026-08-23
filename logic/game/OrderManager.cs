@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class OrderManager : AbstractManager
 {
     //placeholder values for testing with :)
@@ -5,9 +7,11 @@ public class OrderManager : AbstractManager
     private float orderSeparationTime = 10f;
     private int totalLevelOrders = 10;
 
+    private RecipeAvailabilityManager recipeAvailabilityManager;
     private GameTimeMonitor timeMonitor;
     private double timeSinceLastOrderCreated = 0f;
-    private int ordersCreated = 0;
+
+    private List<Order> currentOrders = new();
     
     protected override void RegisterInjection()
     {
@@ -16,7 +20,8 @@ public class OrderManager : AbstractManager
 
     public override void Setup()
     {
-        
+        eventDispatcher = Injection.Get<EventDispatcher>();
+        recipeAvailabilityManager = Injection.Get<RecipeAvailabilityManager>();
     }
 
     public void OnGameStart(GameTimeMonitor gameTimeMonitor)
@@ -31,7 +36,7 @@ public class OrderManager : AbstractManager
         if (timeSinceLastOrderCreated < orderSeparationTime)
             return;
 
-        if (totalLevelOrders <= ordersCreated)
+        if (totalLevelOrders <= currentOrders.Count)
             return;
         
         MakeNewOrder();
@@ -39,16 +44,24 @@ public class OrderManager : AbstractManager
 
     private void MakeNewOrder()
     {
-        Log.PrintVerbose($"Orders still to generate: {totalLevelOrders - ordersCreated}", true);
+        Log.PrintVerbose($"Orders still to generate: {totalLevelOrders - currentOrders.Count}", true);
 
+        var newOrder = new Order();
         
+        var availableRecipes = recipeAvailabilityManager.GetAvailableRecipes();
+        //TODO change to use RNG at least, if not overhaul entirely
+        var selectedRecipe = availableRecipes[RNG.RandiRange(0, availableRecipes.Count - 1)];
+        newOrder.SetRecipe(selectedRecipe);
 
-        ordersCreated++;
+        currentOrders.Add(newOrder);
         timeSinceLastOrderCreated = 0;
+        eventDispatcher.Dispatch(new OrderCreatedEvent(newOrder));
     }
 
     public override void Cleanup()
     {
+        recipeAvailabilityManager = null;
+        eventDispatcher = null;
         Injection.Deregister(this);
     }
 }
