@@ -68,6 +68,12 @@ public class OrderManager : AbstractManager
         }
     }
 
+    public bool CanOrderMoveToEquipment(Order order, Equipment equipment)
+    {
+        var nextOrderStep = order.GetNextStep(); //TODO check for current step complete
+        return nextOrderStep.equipment == equipment;
+    }
+
     public override void Cleanup()
     {
         recipeAvailabilityManager = null;

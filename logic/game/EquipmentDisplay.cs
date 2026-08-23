@@ -8,8 +8,21 @@ public partial class EquipmentDisplay : Control
     [Export]
     private Control orderDisplayContainer;
 
+    private OrderManager orderManager;
     private Equipment equipment;
     private OrderDisplay currentOrderDisplay;
+
+    public override void _EnterTree()
+    {
+        base._EnterTree();
+        orderManager = Injection.Get<OrderManager>();
+    }
+
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+        orderManager = null;
+    }
 
     public override void _Ready()
     {
@@ -25,7 +38,13 @@ public partial class EquipmentDisplay : Control
 
     public override bool _CanDropData(Vector2 atPosition, Variant data)
     {
-        return currentOrderDisplay == null;
+        if (currentOrderDisplay != null)
+            return false;
+        
+        if (data.As<GodotObject>() is not OrderDisplay orderDisplay)
+            return false;
+
+        return orderManager.CanOrderMoveToEquipment(orderDisplay.order, equipment);
     }
 
     public override void _DropData(Vector2 atPosition, Variant data)
