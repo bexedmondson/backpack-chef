@@ -7,12 +7,7 @@ using System.Text.Json.Serialization;
 public class DataLoader : IInjectable
 {
     private bool m_isInitialised = false;
-
-    private JsonSerializerOptions m_serializerOptions = new JsonSerializerOptions{
-        Converters = {
-            new JsonStringEnumConverter()
-        }
-    };
+    
     private List<AbstractDatabase> databases = new();
 
     public DataLoader()
@@ -23,13 +18,14 @@ public class DataLoader : IInjectable
         databases.Add(new EquipmentDatabase());
     }
 
-    public Task LoadAllResources()
+    public async Task LoadAllResources()
     {
+        var loadTasks = new List<Task>();
         foreach (var database in databases)
         {
-            database.DoLoad();
+            loadTasks.Add(database.DoLoad());
         }
-        
-        return Task.CompletedTask;
+
+        await Task.WhenAll(loadTasks);
     }
 }

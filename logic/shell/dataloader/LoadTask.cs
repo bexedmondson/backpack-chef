@@ -10,8 +10,7 @@ public static class LoadTask
             while (!condition()) await Task.Delay(frequency);
         });
 
-        if (waitTask != await Task.WhenAny(waitTask, 
-                Task.Delay(timeout))) 
+        if (waitTask != await Task.WhenAny(waitTask, Task.Delay(timeout))) 
             throw new TimeoutException();
     }
 }
