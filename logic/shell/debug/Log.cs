@@ -54,7 +54,7 @@ public static class Log
     }
     
     public static void Error(string log,
-        bool includeMethod = false,
+        bool includeMethod = true,
         [System.Runtime.CompilerServices.CallerMemberName] string memberName = "", 
         [System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "")
     {
