@@ -26,6 +26,7 @@ public class OrderManager : AbstractManager
 
     public void OnGameStart(GameTimeMonitor gameTimeMonitor)
     {
+        timeSinceLastOrderCreated = orderSeparationTime;
         this.timeMonitor = gameTimeMonitor;
         timeMonitor.OnProcess += OnGameTicked;
     }
