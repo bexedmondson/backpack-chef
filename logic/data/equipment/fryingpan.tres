@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="FryingPan" format=3 uid="uid://bobfeom8sldq5"]
 
-[ext_resource type="Script" uid="uid://dfnfw6osx7kfs" path="res://logic/data/Equipment/FryingPan.cs" id="1_cfb7f"]
+[ext_resource type="Script" uid="uid://dfnfw6osx7kfs" path="res://logic/data/equipment/FryingPan.cs" id="1_cfb7f"]
 [ext_resource type="Texture2D" uid="uid://bnknvwkp5npct" path="res://assets/equipment/fryingpan.tres" id="1_euyit"]
 
 [resource]

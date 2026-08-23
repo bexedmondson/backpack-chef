@@ -9,4 +9,7 @@ public partial class RecipeStep : Resource
     
     [Export]
     public Array<Ingredient> ingredientsRequired { get; private set; }
+
+    [Export]
+    public PackedScene equipmentVisualOverlay;
 }

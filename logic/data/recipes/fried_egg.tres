@@ -4,18 +4,22 @@
 [ext_resource type="Script" uid="uid://d0v7gs05d5id1" path="res://logic/data/recipes/Recipe.cs" id="1_tvm0n"]
 [ext_resource type="Resource" uid="uid://bobfeom8sldq5" path="res://logic/data/equipment/fryingpan.tres" id="3_0n6ba"]
 [ext_resource type="Script" uid="uid://cp5erx0v52kre" path="res://logic/data/recipes/RecipeStep.cs" id="3_msjln"]
+[ext_resource type="PackedScene" uid="uid://cknicub76im5t" path="res://assets/recipe/recipes-in-progress/fried_egg_in_progress.tscn" id="4_ptpc5"]
 [ext_resource type="Resource" uid="uid://drdomgnr8pewu" path="res://logic/data/equipment/plate.tres" id="5_6klh2"]
+[ext_resource type="PackedScene" uid="uid://dfbxr362a50l" path="res://assets/recipe/recipes-in-progress/fried_egg_done.tscn" id="7_2kqdy"]
 
 [sub_resource type="Resource" id="Resource_4t1an"]
 script = ExtResource("3_msjln")
 equipment = ExtResource("3_0n6ba")
 ingredientsRequired = Array[Object]([ExtResource("1_f1i2c")])
+equipmentVisualOverlay = ExtResource("4_ptpc5")
 metadata/_custom_type_script = "uid://cp5erx0v52kre"
 
 [sub_resource type="Resource" id="Resource_0n6ba"]
 script = ExtResource("3_msjln")
 equipment = ExtResource("5_6klh2")
 ingredientsRequired = null
+equipmentVisualOverlay = ExtResource("7_2kqdy")
 metadata/_custom_type_script = "uid://cp5erx0v52kre"
 
 [resource]

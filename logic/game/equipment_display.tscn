@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b2xptimqqq4xf" path="res://logic/game/EquipmentDisplay.cs" id="1_863he"]
 
-[node name="EquipmentSlot" type="Panel" unique_id=1936882093 node_paths=PackedStringArray("equipmentTextureRect", "orderDisplayContainer")]
+[node name="EquipmentSlot" type="Panel" unique_id=1936882093 node_paths=PackedStringArray("equipmentTextureRect", "orderDisplayContainer", "currentOrderStepVisualOverlayParent")]
 custom_minimum_size = Vector2(32, 32)
 offset_right = 40.0
 offset_bottom = 40.0
@@ -10,6 +10,7 @@ mouse_default_cursor_shape = 2
 script = ExtResource("1_863he")
 equipmentTextureRect = NodePath("EquipmentTextureRect")
 orderDisplayContainer = NodePath("CurrentOrderContainer")
+currentOrderStepVisualOverlayParent = NodePath("CurrentOrderStepOverlayParent")
 
 [node name="EquipmentTextureRect" type="TextureRect" parent="." unique_id=1771465139]
 custom_minimum_size = Vector2(32, 32)
@@ -27,6 +28,15 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 flat = true
+
+[node name="CurrentOrderStepOverlayParent" type="Control" parent="." unique_id=298280601]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="CurrentOrderContainer" type="PanelContainer" parent="." unique_id=1564768304]
 layout_mode = 1

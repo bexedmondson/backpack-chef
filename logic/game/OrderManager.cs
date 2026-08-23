@@ -66,6 +66,8 @@ public class OrderManager : AbstractManager
             order.state = OrderState.InProgress;
             eventDispatcher.Dispatch(new OrderStateChangedEvent(order));
         }
+
+        order.currentStep.StartStep();
     }
 
     public bool CanOrderMoveToEquipment(Order order, Equipment equipment)

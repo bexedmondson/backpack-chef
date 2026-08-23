@@ -8,9 +8,13 @@ public partial class EquipmentDisplay : Control
     [Export]
     private Control orderDisplayContainer;
 
+    [Export]
+    private Node currentOrderStepVisualOverlayParent;
+
     private OrderManager orderManager;
     private Equipment equipment;
     private OrderDisplay currentOrderDisplay;
+    private Node currentOrderStepVisualOverlay;
 
     public override void _EnterTree()
     {
@@ -57,12 +61,19 @@ public partial class EquipmentDisplay : Control
         
         currentOrderDisplay = orderDisplay;
         orderDisplay.Reparent(orderDisplayContainer);
+
+        currentOrderStepVisualOverlay = orderDisplay.order.currentStep.equipmentVisualOverlay.Instantiate();
+        currentOrderStepVisualOverlayParent.AddChild(currentOrderStepVisualOverlay);
     }
 
-    public void RefreshCurrentOrderDisplay()
+    private void RefreshCurrentOrderDisplay()
     {
         if (currentOrderDisplay.GetParent() != orderDisplayContainer)
+        {
             currentOrderDisplay = null;
+            if (currentOrderStepVisualOverlay != null)
+                currentOrderStepVisualOverlay.QueueFree();
+        }
     }
     
     public Order GetCurrentDisplayedOrder()
