@@ -70,7 +70,10 @@ public class OrderManager : AbstractManager
 
     public bool CanOrderMoveToEquipment(Order order, Equipment equipment)
     {
-        var nextOrderStep = order.GetNextStep(); //TODO check for current step complete
+        if (order.currentStep.isStepInProgress)
+            return false;
+        
+        var nextOrderStep = order.GetNextStep();
         return nextOrderStep.equipment == equipment;
     }
 
