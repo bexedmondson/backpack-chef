@@ -43,7 +43,7 @@ public partial class CustomCursorSetup : Node, IInjectable
                 scale = windowSize.X / GetWindow().ContentScaleSize.X;
             else
                 scale = windowSize.Y / GetWindow().ContentScaleSize.Y;
-            Log.Print(scale.ToString(), Colors.Green);
+            
             if (scale >= 3)
                 useLargeCursor = true;
         }

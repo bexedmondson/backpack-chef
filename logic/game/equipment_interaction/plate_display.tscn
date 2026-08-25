@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dcdn08xo1hg45" path="res://assets/equipment/Plate.png" id="2_7whdj"]
 [ext_resource type="Script" uid="uid://dsywlcj7jmoem" path="res://logic/game/equipment_interaction/PlateDisplay.cs" id="2_f2jll"]
 
-[node name="EquipmentDisplay" unique_id=1936882093 node_paths=PackedStringArray("orderDisplayContainer", "currentOrderStepVisualOverlayParent") instance=ExtResource("1_21djq")]
+[node name="PlateDisplay" unique_id=1936882093 node_paths=PackedStringArray("orderDisplayContainer", "currentOrderStepVisualOverlayParent") instance=ExtResource("1_21djq")]
 script = ExtResource("2_f2jll")
 orderDisplayContainer = NodePath("CurrentOrderContainer")
 currentOrderStepVisualOverlayParent = NodePath("CurrentOrderStepOverlayParent")

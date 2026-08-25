@@ -25,15 +25,10 @@ public abstract partial class EquipmentDisplay : Control
         orderManager = null;
     }
 
-    public override void _Ready()
-    {
-        base._Ready();
-        orderDisplayContainer.ChildOrderChanged += RefreshCurrentOrderDisplay;
-    }
-
     public void SetEquipment(Equipment e)
     {
         equipment = e;
+        equipment.OnChange += RefreshCurrentOrderDisplay;
     }
 
     public override bool _CanDropData(Vector2 atPosition, Variant data)
@@ -53,40 +48,55 @@ public abstract partial class EquipmentDisplay : Control
         if (data.As<GodotObject>() is not OrderDisplay orderDisplay)
             return;
 
-        //TODO this should update some kind of manager, which should then update the visuals of everything
-        //because we will eventually want to save which order is at which equipment
-        Injection.Get<OrderManager>().OnOrderMovedToEquipment(this.equipment, orderDisplay.order);
+        Log.Print(this.Name, true);
         
         currentOrderDisplay = orderDisplay;
-        orderDisplay.Reparent(orderDisplayContainer);
+        orderDisplay.Reparent(orderDisplayContainer); //should we move this to the refresh display maybe??
 
-        currentOrderStepVisualOverlay = orderDisplay.order.currentStep.visualOverlayStepStart.Instantiate<Control>();
-        currentOrderStepVisualOverlayParent.AddChild(currentOrderStepVisualOverlay);
-
-        currentOrderDisplay.order.currentStep.OnStepCompleted += RefreshCurrentOrderDisplay;
+        Log.Print($"{this.Name} order display obtained", true);
+        
+        //TODO this should update some kind of manager, which should then update the visuals of everything
+        //because we will eventually want to save which order is at which equipment
+        
+        Log.Print($"{this.Name} order {orderDisplay.order.recipe.name} moving to equipment", true);
+        orderManager.OnOrderMovedToEquipment(this.equipment, orderDisplay.order);
+        Log.Print($"{this.Name} order {orderDisplay.order.recipe.name} moved to equipment", true);
+        
+        Log.Print($"{this.Name} setting {equipment.name} current order", true);
+        equipment.SetCurrentOrder(orderDisplay.order);
     }
 
     private void RefreshCurrentOrderDisplay()
     {
-        RefreshCurrentOrderDisplay(null); //TODO kind of hate this. find a better way to do it!
-    }
-    
-    private void RefreshCurrentOrderDisplay(OrderStep currentStep)
-    {
-        if (currentOrderDisplay.GetParent() != orderDisplayContainer)
+        var currentOrderAtEquipment = equipment.currentOrder;
+        if (currentOrderAtEquipment == null)
         {
-            currentOrderDisplay = null;
             if (currentOrderStepVisualOverlay != null)
+            {
                 currentOrderStepVisualOverlay.QueueFree();
+                currentOrderStepVisualOverlay = null;
+            }
+            currentOrderDisplay = null;
+            return;
         }
-        else if (currentStep != null && currentStep.isStepFinished && currentOrderStepVisualOverlay != null)
+
+        var currentStep = equipment.currentOrder.currentStep;
+
+        if (currentOrderStepVisualOverlay == null)
+        {
+            currentOrderStepVisualOverlay = currentStep.GetVisualOverlayScene().Instantiate<Control>();
+            currentOrderStepVisualOverlayParent.AddChild(currentOrderStepVisualOverlay);
+        }
+
+        if (currentStep.isStepFinished)
         {
             if (currentStep.didStepFail)
                 currentOrderStepVisualOverlay.Modulate = Colors.DimGray;
             else
             {
+                //TODO not the greatest way to swap overlays but not bad for now
                 currentOrderStepVisualOverlay.QueueFree();
-                currentOrderStepVisualOverlay = currentStep.visualOverlayStepEnd.Instantiate<Control>();
+                currentOrderStepVisualOverlay = currentStep.GetVisualOverlayScene().Instantiate<Control>();
                 currentOrderStepVisualOverlayParent.AddChild(currentOrderStepVisualOverlay);
             }
         }
@@ -107,7 +117,7 @@ public abstract partial class EquipmentDisplay : Control
 
     private void MakeProgress()
     {
-        currentOrderDisplay.order.currentStep.MakeProgress(10);
+        currentOrderDisplay.order.currentStep.MakeProgress(50);
     }
     
     public Order GetCurrentDisplayedOrder()

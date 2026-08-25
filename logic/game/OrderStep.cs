@@ -15,7 +15,7 @@ public class OrderStep(RecipeStep step)
 
     public float progressPercent { get; private set; } = 0;
 
-    public Action<OrderStep> OnStepCompleted;
+    public Action OnStepCompleted;
 
     public void StartStep()
     {
@@ -25,17 +25,22 @@ public class OrderStep(RecipeStep step)
     public void MakeProgress(float percentIncrease)
     {
         progressPercent += percentIncrease;
-        if (progressPercent > 100 && !isStepFinished)
+        if (progressPercent >= 100 && !isStepFinished)
         {
             CompleteStep();
         }
+    }
+
+    public PackedScene GetVisualOverlayScene()
+    {
+        return this.isStepFinished ? visualOverlayStepEnd : visualOverlayStepStart;
     }
 
     public void CompleteStep()
     {
         isStepInProgress = false;
         isStepFinished = true;
-        OnStepCompleted?.Invoke(this);
+        OnStepCompleted?.Invoke();
     }
 
     public void FailStep()

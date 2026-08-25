@@ -68,15 +68,20 @@ public class OrderManager : AbstractManager
         if (order.state == OrderState.Waiting)
         {
             order.state = OrderState.InProgress;
-            eventDispatcher.Dispatch(new OrderStateChangedEvent(order));
         }
 
-        order.currentStep.StartStep();
+        if (order.currentStep.equipment != equipment)
+            order.MoveToNextStep();
+        
+        if (!order.currentStep.isStepInProgress)
+            order.currentStep.StartStep();
+        
+        eventDispatcher.Dispatch(new OrderStateChangedEvent(order));
     }
 
     public bool CanOrderMoveToEquipment(Order order, Equipment equipment)
     {
-        if (order.currentStep.isStepInProgress)
+        if (order.currentStep.isStepInProgress || order.currentStep.didStepFail) //TODO figure out action to remove from equipment after failing
             return false;
         
         var nextOrderStep = order.GetNextStep();

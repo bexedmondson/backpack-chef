@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bnknvwkp5npct" path="res://assets/equipment/fryingpan.tres" id="2_4e6m7"]
 [ext_resource type="Script" uid="uid://c5kqen54tyru1" path="res://logic/game/equipment_interaction/FryingPanDisplay.cs" id="2_rylgc"]
 
-[node name="EquipmentDisplay" unique_id=1936882093 node_paths=PackedStringArray("orderDisplayContainer", "currentOrderStepVisualOverlayParent") instance=ExtResource("1_2sqgr")]
+[node name="FryingPanDisplay" unique_id=1936882093 node_paths=PackedStringArray("orderDisplayContainer", "currentOrderStepVisualOverlayParent") instance=ExtResource("1_2sqgr")]
 script = ExtResource("2_rylgc")
 orderDisplayContainer = NodePath("CurrentOrderContainer")
 currentOrderStepVisualOverlayParent = NodePath("CurrentOrderStepOverlayParent")

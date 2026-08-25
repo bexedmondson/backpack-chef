@@ -26,6 +26,11 @@ public class Order
         currentStep = orderSteps[0];
     }
 
+    public void MoveToNextStep()
+    {
+        currentStep = GetNextStep();
+    }
+
     public OrderStep GetNextStep()
     {
         if (state == OrderState.Waiting)
