@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://bnhc0hufw1pc3" path="res://logic/data/equipment/Plate.cs" id="1_4rqqp"]
 [ext_resource type="Texture2D" uid="uid://dcdn08xo1hg45" path="res://assets/equipment/Plate.png" id="1_x6ij7"]
+[ext_resource type="Texture2D" uid="uid://biy1ubamvyyt2" path="res://assets/equipment/plate_small.tres" id="3_2axgd"]
 
 [resource]
 script = ExtResource("1_4rqqp")
 name = "plate"
 icon = ExtResource("1_x6ij7")
+smallIcon = ExtResource("3_2axgd")
 metadata/_custom_type_script = "uid://bnhc0hufw1pc3"

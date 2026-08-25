@@ -5,6 +5,8 @@ public class Order
     public Recipe recipe { get; private set;  }
 
     private List<OrderStep> orderSteps = new();
+    public OrderStep[] steps => orderSteps.ToArray();
+    
     public OrderStep currentStep { get; private set; }
     
     private float timeRemaining;

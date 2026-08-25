@@ -2,8 +2,17 @@
 
 [ext_resource type="Script" uid="uid://dnhi1hxx2ssfr" path="res://logic/game/OrderDisplayController.cs" id="1_3xvsb"]
 [ext_resource type="Script" uid="uid://co5om3p7g4qmk" path="res://logic/game/GameTimeMonitor.cs" id="1_jlkki"]
+[ext_resource type="Texture2D" uid="uid://bfmf8f477qmly" path="res://assets/woodpanel_bg_frame.png" id="2_ct3hu"]
 [ext_resource type="Script" uid="uid://bq6yxwctqf5i3" path="res://logic/game/EquipmentDisplayController.cs" id="2_ctdt0"]
 [ext_resource type="PackedScene" uid="uid://m6w100o8crnd" path="res://logic/game/equipment_display.tscn" id="3_mdxf6"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mdxf6"]
+texture = ExtResource("2_ct3hu")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+axis_stretch_horizontal = 1
 
 [node name="Kitchen" type="Control" unique_id=2063850017]
 layout_mode = 3
@@ -25,6 +34,7 @@ anchor_bottom = 1.0
 offset_top = -219.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_mdxf6")
 script = ExtResource("2_ctdt0")
 equipmentDisplays = [NodePath("EquipmentSlot1"), NodePath("EquipmentSlot2"), NodePath("EquipmentSlot3"), NodePath("EquipmentSlot4")]
 

@@ -4,6 +4,9 @@ public partial class OrderDisplay : Control
 {
     [Export]
     private Label recipeNameLabel;
+
+    [Export]
+    private InstancePlaceholder stepDisplayPlaceholder;
     
     public Order order { get; private set; }
 
@@ -11,6 +14,13 @@ public partial class OrderDisplay : Control
     {
         this.order = newOrder;
         recipeNameLabel.Text = order.recipe.name;
+
+        for (int i = 0; i < order.steps.Length; i++)
+        {
+            var step = order.steps[i];
+            var newStepDisplay = stepDisplayPlaceholder.CreateInstance() as OrderStepDisplay;
+            newStepDisplay.SetStep(i, step);
+        }
     }
 
     public override Variant _GetDragData(Vector2 atPosition)

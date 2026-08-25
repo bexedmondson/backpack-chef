@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="Recipe" format=3 uid="uid://b88hrgpb5c1kl"]
 
 [ext_resource type="Resource" uid="uid://butpppfu5uscs" path="res://logic/data/ingredients/egg.tres" id="1_f1i2c"]
+[ext_resource type="Texture2D" uid="uid://doak00et0bpfr" path="res://assets/recipe/friedegg.png" id="1_q4twg"]
 [ext_resource type="Script" uid="uid://d0v7gs05d5id1" path="res://logic/data/recipes/Recipe.cs" id="1_tvm0n"]
 [ext_resource type="Resource" uid="uid://bobfeom8sldq5" path="res://logic/data/equipment/fryingpan.tres" id="3_0n6ba"]
 [ext_resource type="Script" uid="uid://cp5erx0v52kre" path="res://logic/data/recipes/RecipeStep.cs" id="3_msjln"]
@@ -25,6 +26,7 @@ metadata/_custom_type_script = "uid://cp5erx0v52kre"
 [resource]
 script = ExtResource("1_tvm0n")
 name = "fried egg"
+icon = ExtResource("1_q4twg")
 ingredientsRequired = Array[Object]([ExtResource("1_f1i2c")])
 steps = Array[Object]([SubResource("Resource_4t1an"), SubResource("Resource_0n6ba")])
 metadata/_custom_type_script = "uid://d0v7gs05d5id1"

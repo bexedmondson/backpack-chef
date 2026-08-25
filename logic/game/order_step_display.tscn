@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://clnim2vile6y4"]
+
+[ext_resource type="Script" uid="uid://xeyni75ylrww" path="res://logic/game/OrderStepDisplay.cs" id="1_6ho77"]
+[ext_resource type="Texture2D" uid="uid://bcwdt4mfhltgy" path="res://assets/equipment/knife_small.tres" id="1_xdygu"]
+[ext_resource type="Texture2D" uid="uid://bdl22t76vrgdk" path="res://assets/ui/MedievalFree.png" id="2_6ho77"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b036j"]
+atlas = ExtResource("2_6ho77")
+region = Rect2(64, 96, 16, 16)
+
+[node name="OrderStepContainer" type="MarginContainer" unique_id=436217235 node_paths=PackedStringArray("stepNumberLabel", "stepEquipmentTextureRect", "checkmarkIcon")]
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_right = 3
+script = ExtResource("1_6ho77")
+stepNumberLabel = NodePath("HBoxContainer/StepNumberLabel")
+stepEquipmentTextureRect = NodePath("HBoxContainer/EquipmentTextureRect")
+checkmarkIcon = NodePath("CheckmarkTextureRect")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=712878758]
+layout_mode = 2
+
+[node name="StepNumberLabel" type="Label" parent="HBoxContainer" unique_id=239830596]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+
+[node name="EquipmentTextureRect" type="TextureRect" parent="HBoxContainer" unique_id=868783578]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_xdygu")
+stretch_mode = 5
+
+[node name="CheckmarkTextureRect" type="TextureRect" parent="." unique_id=384280475]
+modulate = Color(6.208867e-06, 0.7384776, 0.25384834, 1)
+layout_mode = 2
+texture = SubResource("AtlasTexture_b036j")
+stretch_mode = 5

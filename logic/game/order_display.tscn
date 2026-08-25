@@ -1,23 +1,59 @@
 [gd_scene format=3 uid="uid://dkrxnal3wdmbd"]
 
+[ext_resource type="Texture2D" uid="uid://ccdwhk1vyx4d7" path="res://assets/order_bg.png" id="1_sevke"]
 [ext_resource type="Script" uid="uid://di6njgthdfm1e" path="res://logic/game/OrderDisplay.cs" id="1_yt0pd"]
+[ext_resource type="Texture2D" uid="uid://doak00et0bpfr" path="res://assets/recipe/friedegg.png" id="3_b036j"]
 
-[sub_resource type="Gradient" id="Gradient_cs7hg"]
-colors = PackedColorArray(0.51577926, 0.38457647, 0.25728384, 1, 0.7, 0.5517166, 0.41300002, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ej5s1"]
+content_margin_left = 4.0
+content_margin_top = 8.0
+content_margin_right = 7.0
+content_margin_bottom = 7.0
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_cs7hg"]
-gradient = SubResource("Gradient_cs7hg")
-width = 60
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b036j"]
+texture = ExtResource("1_sevke")
+texture_margin_left = 7.0
+texture_margin_top = 11.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+expand_margin_left = 4.0
+expand_margin_top = 8.0
+expand_margin_right = 7.0
+expand_margin_bottom = 7.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 1
 
-[node name="OrderDisplay" type="TextureRect" unique_id=2140043774 node_paths=PackedStringArray("recipeNameLabel")]
-custom_minimum_size = Vector2(32, 32)
-offset_right = 60.0
-offset_bottom = 60.0
-texture = SubResource("GradientTexture1D_cs7hg")
+[node name="OrderDisplay" type="PanelContainer" unique_id=2056466931 node_paths=PackedStringArray("recipeNameLabel", "stepDisplayPlaceholder")]
+custom_minimum_size = Vector2(51, 64)
+offset_right = 51.0
+offset_bottom = 69.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ej5s1")
 script = ExtResource("1_yt0pd")
-recipeNameLabel = NodePath("RecipeNameLabel")
+recipeNameLabel = NodePath("DebugRecipeName/DebugRecipeNameLabel")
+stepDisplayPlaceholder = NodePath("VBoxContainer/OrderStepContainer")
 
-[node name="RecipeNameLabel" type="Label" parent="." unique_id=213830656]
+[node name="Panel" type="Panel" parent="." unique_id=1368360397]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_b036j")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=408181405]
+layout_mode = 2
+
+[node name="FinalOrderImage" type="TextureRect" parent="VBoxContainer" unique_id=1365924605]
+layout_mode = 2
+texture = ExtResource("3_b036j")
+stretch_mode = 5
+
+[node name="OrderStepContainer" parent="VBoxContainer" unique_id=436217235 instance_placeholder="res://logic/game/order_step_display.tscn"]
+layout_mode = 2
+
+[node name="DebugRecipeName" type="Control" parent="." unique_id=392949586]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DebugRecipeNameLabel" type="Label" parent="DebugRecipeName" unique_id=213830656]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_right = 36.0
+offset_bottom = 18.0
+theme_override_colors/font_color = Color(0.19, 0.19, 0.19, 1)
+text = "test"
