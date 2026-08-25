@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://m6w100o8crnd"]
 
-[ext_resource type="Script" uid="uid://b2xptimqqq4xf" path="res://logic/game/EquipmentDisplay.cs" id="1_863he"]
+[ext_resource type="Script" uid="uid://b2xptimqqq4xf" path="res://logic/game/equipment_interaction/EquipmentDisplay.cs" id="1_rwy7e"]
 
-[node name="EquipmentSlot" type="Panel" unique_id=1936882093 node_paths=PackedStringArray("equipmentTextureRect", "orderDisplayContainer", "currentOrderStepVisualOverlayParent")]
+[node name="EquipmentDisplay" type="Panel" unique_id=1936882093 node_paths=PackedStringArray("equipmentTextureRect", "orderDisplayContainer", "currentOrderStepVisualOverlayParent")]
 custom_minimum_size = Vector2(32, 32)
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_default_cursor_shape = 2
-script = ExtResource("1_863he")
+script = ExtResource("1_rwy7e")
 equipmentTextureRect = NodePath("EquipmentTextureRect")
 orderDisplayContainer = NodePath("CurrentOrderContainer")
 currentOrderStepVisualOverlayParent = NodePath("CurrentOrderStepOverlayParent")

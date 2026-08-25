@@ -11,5 +11,8 @@ public partial class RecipeStep : Resource
     public Array<Ingredient> ingredientsRequired { get; private set; }
 
     [Export]
-    public PackedScene equipmentVisualOverlay;
+    public PackedScene sceneStepStart;
+
+    [Export]
+    public PackedScene sceneStepEnd;
 }

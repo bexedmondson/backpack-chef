@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://ccdwhk1vyx4d7" path="res://assets/order_bg.png" id="1_sevke"]
 [ext_resource type="Script" uid="uid://di6njgthdfm1e" path="res://logic/game/OrderDisplay.cs" id="1_yt0pd"]
-[ext_resource type="Texture2D" uid="uid://doak00et0bpfr" path="res://assets/recipe/friedegg.png" id="3_b036j"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ej5s1"]
 content_margin_left = 4.0
@@ -23,13 +22,14 @@ expand_margin_bottom = 7.0
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 1
 
-[node name="OrderDisplay" type="PanelContainer" unique_id=2056466931 node_paths=PackedStringArray("recipeNameLabel", "stepDisplayPlaceholder")]
+[node name="OrderDisplay" type="PanelContainer" unique_id=2056466931 node_paths=PackedStringArray("recipeNameLabel", "recipeIcon", "stepDisplayPlaceholder")]
 custom_minimum_size = Vector2(51, 64)
 offset_right = 51.0
 offset_bottom = 69.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ej5s1")
 script = ExtResource("1_yt0pd")
 recipeNameLabel = NodePath("DebugRecipeName/DebugRecipeNameLabel")
+recipeIcon = NodePath("VBoxContainer/FinalOrderImage")
 stepDisplayPlaceholder = NodePath("VBoxContainer/OrderStepContainer")
 
 [node name="Panel" type="Panel" parent="." unique_id=1368360397]
@@ -41,7 +41,6 @@ layout_mode = 2
 
 [node name="FinalOrderImage" type="TextureRect" parent="VBoxContainer" unique_id=1365924605]
 layout_mode = 2
-texture = ExtResource("3_b036j")
 stretch_mode = 5
 
 [node name="OrderStepContainer" parent="VBoxContainer" unique_id=436217235 instance_placeholder="res://logic/game/order_step_display.tscn"]

@@ -3,8 +3,7 @@
 [ext_resource type="Script" uid="uid://dnhi1hxx2ssfr" path="res://logic/game/OrderDisplayController.cs" id="1_3xvsb"]
 [ext_resource type="Script" uid="uid://co5om3p7g4qmk" path="res://logic/game/GameTimeMonitor.cs" id="1_jlkki"]
 [ext_resource type="Texture2D" uid="uid://bfmf8f477qmly" path="res://assets/woodpanel_bg_frame.png" id="2_ct3hu"]
-[ext_resource type="Script" uid="uid://bq6yxwctqf5i3" path="res://logic/game/EquipmentDisplayController.cs" id="2_ctdt0"]
-[ext_resource type="PackedScene" uid="uid://m6w100o8crnd" path="res://logic/game/equipment_display.tscn" id="3_mdxf6"]
+[ext_resource type="Script" uid="uid://bq6yxwctqf5i3" path="res://logic/game/equipment_interaction/EquipmentDisplayController.cs" id="2_ctdt0"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mdxf6"]
 texture = ExtResource("2_ct3hu")
@@ -25,7 +24,7 @@ grow_vertical = 2
 [node name="KitchenTimer" type="Node" parent="." unique_id=379787737]
 script = ExtResource("1_jlkki")
 
-[node name="EquipmentDisplayController" type="Panel" parent="." unique_id=654962827 node_paths=PackedStringArray("equipmentDisplays")]
+[node name="EquipmentDisplayController" type="Panel" parent="." unique_id=654962827 node_paths=PackedStringArray("equipmentDisplayParents")]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -36,31 +35,39 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_mdxf6")
 script = ExtResource("2_ctdt0")
-equipmentDisplays = [NodePath("EquipmentSlot1"), NodePath("EquipmentSlot2"), NodePath("EquipmentSlot3"), NodePath("EquipmentSlot4")]
+equipmentDisplayParents = [NodePath("EquipmentDisplayParent"), NodePath("EquipmentDisplayParent2"), NodePath("EquipmentDisplayParent3"), NodePath("EquipmentDisplayParent4")]
 
-[node name="EquipmentSlot1" parent="EquipmentDisplayController" unique_id=1936882093 instance=ExtResource("3_mdxf6")]
-layout_mode = 0
+[node name="EquipmentDisplayParent" type="Control" parent="EquipmentDisplayController" unique_id=1603202176]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 0
 offset_left = 379.0
 offset_top = 140.0
 offset_right = 419.0
 offset_bottom = 180.0
 
-[node name="EquipmentSlot2" parent="EquipmentDisplayController" unique_id=29746989 instance=ExtResource("3_mdxf6")]
-layout_mode = 0
+[node name="EquipmentDisplayParent2" type="Control" parent="EquipmentDisplayController" unique_id=679292131]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 0
 offset_left = 494.0
 offset_top = 50.0
 offset_right = 534.0
 offset_bottom = 90.0
 
-[node name="EquipmentSlot3" parent="EquipmentDisplayController" unique_id=211690628 instance=ExtResource("3_mdxf6")]
-layout_mode = 0
+[node name="EquipmentDisplayParent3" type="Control" parent="EquipmentDisplayController" unique_id=996659729]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 0
 offset_left = 205.0
 offset_top = 137.0
 offset_right = 245.0
 offset_bottom = 177.0
 
-[node name="EquipmentSlot4" parent="EquipmentDisplayController" unique_id=1051882674 instance=ExtResource("3_mdxf6")]
-layout_mode = 0
+[node name="EquipmentDisplayParent4" type="Control" parent="EquipmentDisplayController" unique_id=415324606]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 0
 offset_left = 134.0
 offset_top = 48.0
 offset_right = 174.0

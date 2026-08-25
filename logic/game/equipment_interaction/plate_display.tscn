@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dtha4u26k68i8"]
+
+[ext_resource type="PackedScene" uid="uid://m6w100o8crnd" path="res://logic/game/equipment_interaction/equipment_display.tscn" id="1_21djq"]
+
+[node name="EquipmentDisplay" unique_id=1936882093 instance=ExtResource("1_21djq")]

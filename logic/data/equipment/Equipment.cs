@@ -11,4 +11,7 @@ public abstract partial class Equipment : AbstractLoadableDataResource
     
     [Export]
     public Texture2D smallIcon;
+
+    [Export]
+    public PackedScene scene;
 }

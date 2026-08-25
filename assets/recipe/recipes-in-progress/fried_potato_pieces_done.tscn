@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://2d66ijci3msd"]
+
+[ext_resource type="Texture2D" uid="uid://b7kgc2mgge20e" path="res://assets/recipe/fries.png" id="1_oftva"]
+
+[node name="RawPotatoPieces_InProgress" type="Control" unique_id=247871908]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="PotatoPieces" type="TextureRect" parent="." unique_id=1427681254]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_right = -3.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_oftva")

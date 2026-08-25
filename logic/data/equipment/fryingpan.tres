@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dfnfw6osx7kfs" path="res://logic/data/equipment/FryingPan.cs" id="1_cfb7f"]
 [ext_resource type="Texture2D" uid="uid://bnknvwkp5npct" path="res://assets/equipment/fryingpan.tres" id="1_euyit"]
+[ext_resource type="PackedScene" uid="uid://c0on5w86bm2fr" path="res://logic/game/equipment_interaction/frying_pan_display.tscn" id="2_6x1wn"]
 [ext_resource type="Texture2D" uid="uid://bt8f42hlf2i63" path="res://assets/equipment/fryingpan_small.tres" id="3_d05ak"]
 
 [resource]
 script = ExtResource("1_cfb7f")
 icon = ExtResource("1_euyit")
 smallIcon = ExtResource("3_d05ak")
+scene = ExtResource("2_6x1wn")
 metadata/_custom_type_script = "uid://dfnfw6osx7kfs"

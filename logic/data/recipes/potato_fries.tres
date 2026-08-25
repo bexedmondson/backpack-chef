@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="Recipe" format=3 uid="uid://csi2xnytyj17m"]
+
+[ext_resource type="Texture2D" uid="uid://b7kgc2mgge20e" path="res://assets/recipe/fries.png" id="1_5v2ab"]
+[ext_resource type="Script" uid="uid://d0v7gs05d5id1" path="res://logic/data/recipes/Recipe.cs" id="1_xof7s"]
+[ext_resource type="Resource" uid="uid://22j37pi7qi2x" path="res://logic/data/ingredients/potato.tres" id="2_p8mxt"]
+[ext_resource type="Resource" uid="uid://cb5volo31fm6h" path="res://logic/data/equipment/choppingboard.tres" id="4_ouvep"]
+[ext_resource type="Script" uid="uid://cp5erx0v52kre" path="res://logic/data/recipes/RecipeStep.cs" id="4_w5cre"]
+[ext_resource type="PackedScene" uid="uid://ce5qfbwl6vs3g" path="res://assets/recipe/recipes-in-progress/raw_potato_pieces_in_progress.tscn" id="5_35inl"]
+[ext_resource type="PackedScene" uid="uid://dwo1b8jfge7ws" path="res://assets/recipe/recipes-in-progress/raw_potato_in_progress.tscn" id="5_ouvep"]
+[ext_resource type="Resource" uid="uid://bobfeom8sldq5" path="res://logic/data/equipment/fryingpan.tres" id="8_h68g1"]
+[ext_resource type="PackedScene" uid="uid://d3wxp0bpxeiov" path="res://assets/recipe/recipes-in-progress/fried_potato_pieces_in_progress.tscn" id="9_d72f2"]
+[ext_resource type="Resource" uid="uid://drdomgnr8pewu" path="res://logic/data/equipment/plate.tres" id="10_rls84"]
+[ext_resource type="PackedScene" uid="uid://2d66ijci3msd" path="res://assets/recipe/recipes-in-progress/fried_potato_pieces_done.tscn" id="11_e46e7"]
+
+[sub_resource type="Resource" id="Resource_8w525"]
+script = ExtResource("4_w5cre")
+equipment = ExtResource("4_ouvep")
+ingredientsRequired = Array[Object]([ExtResource("2_p8mxt")])
+sceneStepStart = ExtResource("5_ouvep")
+sceneStepEnd = ExtResource("5_35inl")
+metadata/_custom_type_script = "uid://cp5erx0v52kre"
+
+[sub_resource type="Resource" id="Resource_h68g1"]
+script = ExtResource("4_w5cre")
+equipment = ExtResource("8_h68g1")
+ingredientsRequired = null
+sceneStepStart = ExtResource("5_35inl")
+sceneStepEnd = ExtResource("9_d72f2")
+metadata/_custom_type_script = "uid://cp5erx0v52kre"
+
+[sub_resource type="Resource" id="Resource_d72f2"]
+script = ExtResource("4_w5cre")
+equipment = ExtResource("10_rls84")
+ingredientsRequired = null
+sceneStepStart = ExtResource("11_e46e7")
+sceneStepEnd = ExtResource("11_e46e7")
+metadata/_custom_type_script = "uid://cp5erx0v52kre"
+
+[resource]
+script = ExtResource("1_xof7s")
+name = "fries"
+icon = ExtResource("1_5v2ab")
+ingredientsRequired = Array[Object]([ExtResource("2_p8mxt")])
+steps = Array[Object]([SubResource("Resource_8w525"), SubResource("Resource_h68g1"), SubResource("Resource_d72f2")])
+metadata/_custom_type_script = "uid://d0v7gs05d5id1"

@@ -64,6 +64,8 @@ public partial class EquipmentDisplay : Control
 
         currentOrderStepVisualOverlay = orderDisplay.order.currentStep.equipmentVisualOverlay.Instantiate();
         currentOrderStepVisualOverlayParent.AddChild(currentOrderStepVisualOverlay);
+        
+        //currentOrderDisplay.order.currentStep
     }
 
     private void RefreshCurrentOrderDisplay()

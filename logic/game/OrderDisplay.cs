@@ -4,6 +4,9 @@ public partial class OrderDisplay : Control
 {
     [Export]
     private Label recipeNameLabel;
+    
+    [Export]
+    private TextureRect recipeIcon;
 
     [Export]
     private InstancePlaceholder stepDisplayPlaceholder;
@@ -13,7 +16,9 @@ public partial class OrderDisplay : Control
     public void Setup(Order newOrder)
     {
         this.order = newOrder;
-        recipeNameLabel.Text = order.recipe.name;
+        recipeNameLabel.Text = GameDebug.On ? order.recipe.name : string.Empty;
+        
+        recipeIcon.Texture = order.recipe.icon;
 
         for (int i = 0; i < order.steps.Length; i++)
         {

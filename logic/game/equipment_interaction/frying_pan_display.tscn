@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c0on5w86bm2fr"]
+
+[ext_resource type="PackedScene" uid="uid://m6w100o8crnd" path="res://logic/game/equipment_interaction/equipment_display.tscn" id="1_2sqgr"]
+[ext_resource type="Texture2D" uid="uid://bnknvwkp5npct" path="res://assets/equipment/fryingpan.tres" id="2_4e6m7"]
+
+[node name="EquipmentDisplay" unique_id=1936882093 instance=ExtResource("1_2sqgr")]
+
+[node name="EquipmentTextureRect" parent="." index="0" unique_id=1771465139]
+texture = ExtResource("2_4e6m7")
