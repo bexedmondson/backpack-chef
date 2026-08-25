@@ -1,5 +1,37 @@
 [gd_scene format=3 uid="uid://o8nng32mwv2l"]
 
 [ext_resource type="PackedScene" uid="uid://m6w100o8crnd" path="res://logic/game/equipment_interaction/equipment_display.tscn" id="1_jryne"]
+[ext_resource type="Texture2D" uid="uid://bfmf8f477qmly" path="res://assets/woodpanel_bg_frame.png" id="2_tc2qu"]
+[ext_resource type="Texture2D" uid="uid://cvf7o2xri2gsa" path="res://assets/equipment/knife.tres" id="3_abrio"]
 
 [node name="EquipmentDisplay" unique_id=1936882093 instance=ExtResource("1_jryne")]
+custom_maximum_size = Vector2(32, 32)
+offset_right = 32.0
+offset_bottom = 32.0
+
+[node name="TextureRect" type="NinePatchRect" parent="EquipmentBackdropParent" parent_id_path=PackedInt32Array(1569199792) index="0" unique_id=1528890338]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_tc2qu")
+region_rect = Rect2(0, 0, 80, 80)
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="KnifeTextureRect" type="TextureRect" parent="." index="3" unique_id=992342012]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 6.0
+offset_right = 37.0
+offset_bottom = 38.0
+mouse_filter = 2
+texture = ExtResource("3_abrio")
+expand_mode = 3
+stretch_mode = 5

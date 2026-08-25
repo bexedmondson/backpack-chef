@@ -2,32 +2,28 @@
 
 [ext_resource type="Script" uid="uid://b2xptimqqq4xf" path="res://logic/game/equipment_interaction/EquipmentDisplay.cs" id="1_rwy7e"]
 
-[node name="EquipmentDisplay" type="Panel" unique_id=1936882093 node_paths=PackedStringArray("equipmentTextureRect", "orderDisplayContainer", "currentOrderStepVisualOverlayParent")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mdxf6"]
+
+[node name="EquipmentDisplay" type="Panel" unique_id=1936882093 node_paths=PackedStringArray("orderDisplayContainer", "currentOrderStepVisualOverlayParent")]
 custom_minimum_size = Vector2(32, 32)
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 1
 mouse_default_cursor_shape = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_mdxf6")
 script = ExtResource("1_rwy7e")
-equipmentTextureRect = NodePath("EquipmentTextureRect")
 orderDisplayContainer = NodePath("CurrentOrderContainer")
 currentOrderStepVisualOverlayParent = NodePath("CurrentOrderStepOverlayParent")
 
-[node name="EquipmentTextureRect" type="TextureRect" parent="." unique_id=1771465139]
+[node name="EquipmentBackdropParent" type="Control" parent="." unique_id=1569199792]
 custom_minimum_size = Vector2(32, 32)
-layout_mode = 1
-offset_right = 40.0
-offset_bottom = 40.0
-stretch_mode = 3
-
-[node name="EquipmentInteractButton" type="Button" parent="." unique_id=368407994]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
-flat = true
+mouse_filter = 2
 
 [node name="CurrentOrderStepOverlayParent" type="Control" parent="." unique_id=298280601]
 layout_mode = 1

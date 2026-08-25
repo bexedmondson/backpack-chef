@@ -3,9 +3,6 @@ using Godot;
 public partial class EquipmentDisplay : Control
 {
     [Export]
-    private TextureRect equipmentTextureRect;
-
-    [Export]
     private Control orderDisplayContainer;
 
     [Export]
@@ -37,7 +34,6 @@ public partial class EquipmentDisplay : Control
     public void SetEquipment(Equipment e)
     {
         equipment = e;
-        equipmentTextureRect.Texture = equipment.icon;
     }
 
     public override bool _CanDropData(Vector2 atPosition, Variant data)
@@ -57,6 +53,8 @@ public partial class EquipmentDisplay : Control
         if (data.As<GodotObject>() is not OrderDisplay orderDisplay)
             return;
 
+        //TODO this should update some kind of manager, which should then update the visuals of everything
+        //because we will eventually want to save which order is at which equipment
         Injection.Get<OrderManager>().OnOrderMovedToEquipment(this.equipment, orderDisplay.order);
         
         currentOrderDisplay = orderDisplay;

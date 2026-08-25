@@ -5,5 +5,8 @@
 
 [node name="EquipmentDisplay" unique_id=1936882093 instance=ExtResource("1_2sqgr")]
 
-[node name="EquipmentTextureRect" parent="." index="0" unique_id=1771465139]
+[node name="TextureRect" type="TextureRect" parent="EquipmentBackdropParent" parent_id_path=PackedInt32Array(1569199792) index="0" unique_id=321260033]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 texture = ExtResource("2_4e6m7")

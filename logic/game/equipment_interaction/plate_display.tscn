@@ -1,5 +1,12 @@
 [gd_scene format=3 uid="uid://dtha4u26k68i8"]
 
 [ext_resource type="PackedScene" uid="uid://m6w100o8crnd" path="res://logic/game/equipment_interaction/equipment_display.tscn" id="1_21djq"]
+[ext_resource type="Texture2D" uid="uid://dcdn08xo1hg45" path="res://assets/equipment/Plate.png" id="2_7whdj"]
 
 [node name="EquipmentDisplay" unique_id=1936882093 instance=ExtResource("1_21djq")]
+
+[node name="TextureRect" type="TextureRect" parent="EquipmentBackdropParent" parent_id_path=PackedInt32Array(1569199792) index="0" unique_id=1673829166]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_7whdj")
