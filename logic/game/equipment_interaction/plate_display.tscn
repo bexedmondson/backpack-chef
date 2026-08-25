@@ -2,8 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://m6w100o8crnd" path="res://logic/game/equipment_interaction/equipment_display.tscn" id="1_21djq"]
 [ext_resource type="Texture2D" uid="uid://dcdn08xo1hg45" path="res://assets/equipment/Plate.png" id="2_7whdj"]
+[ext_resource type="Script" uid="uid://dsywlcj7jmoem" path="res://logic/game/equipment_interaction/PlateDisplay.cs" id="2_f2jll"]
 
-[node name="EquipmentDisplay" unique_id=1936882093 instance=ExtResource("1_21djq")]
+[node name="EquipmentDisplay" unique_id=1936882093 node_paths=PackedStringArray("orderDisplayContainer", "currentOrderStepVisualOverlayParent") instance=ExtResource("1_21djq")]
+script = ExtResource("2_f2jll")
+orderDisplayContainer = NodePath("CurrentOrderContainer")
+currentOrderStepVisualOverlayParent = NodePath("CurrentOrderStepOverlayParent")
 
 [node name="TextureRect" type="TextureRect" parent="EquipmentBackdropParent" parent_id_path=PackedInt32Array(1569199792) index="0" unique_id=1673829166]
 layout_mode = 0

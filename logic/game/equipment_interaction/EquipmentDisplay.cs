@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class EquipmentDisplay : Control
+public abstract partial class EquipmentDisplay : Control
 {
     [Export]
     private Control orderDisplayContainer;
@@ -8,10 +8,10 @@ public partial class EquipmentDisplay : Control
     [Export]
     private Node currentOrderStepVisualOverlayParent;
 
-    private OrderManager orderManager;
-    private Equipment equipment;
-    private OrderDisplay currentOrderDisplay;
-    private Control currentOrderStepVisualOverlay;
+    protected OrderManager orderManager;
+    protected Equipment equipment;
+    protected OrderDisplay currentOrderDisplay;
+    protected Control currentOrderStepVisualOverlay;
 
     public override void _EnterTree()
     {
@@ -90,6 +90,24 @@ public partial class EquipmentDisplay : Control
                 currentOrderStepVisualOverlayParent.AddChild(currentOrderStepVisualOverlay);
             }
         }
+    }
+
+    public void TryMakeProgress()
+    {
+        if (CanMakeProgress())
+            MakeProgress();
+    }
+
+    protected virtual bool CanMakeProgress()
+    {
+        if (currentOrderDisplay?.order == null)
+            return false;
+        return true;
+    }
+
+    private void MakeProgress()
+    {
+        currentOrderDisplay.order.currentStep.MakeProgress(10);
     }
     
     public Order GetCurrentDisplayedOrder()

@@ -13,6 +13,8 @@ public class OrderStep(RecipeStep step)
     public bool isStepFinished { get; private set; }
     public bool didStepFail { get; private set; }
 
+    public float progressPercent { get; private set; } = 0;
+
     public Action<OrderStep> OnStepCompleted;
 
     public void StartStep()
@@ -20,10 +22,24 @@ public class OrderStep(RecipeStep step)
         isStepInProgress = true;
     }
 
+    public void MakeProgress(float percentIncrease)
+    {
+        progressPercent += percentIncrease;
+        if (progressPercent > 100 && !isStepFinished)
+        {
+            CompleteStep();
+        }
+    }
+
     public void CompleteStep()
     {
         isStepInProgress = false;
         isStepFinished = true;
         OnStepCompleted?.Invoke(this);
+    }
+
+    public void FailStep()
+    {
+        didStepFail = true;
     }
 }

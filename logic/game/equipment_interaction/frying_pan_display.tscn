@@ -2,8 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://m6w100o8crnd" path="res://logic/game/equipment_interaction/equipment_display.tscn" id="1_2sqgr"]
 [ext_resource type="Texture2D" uid="uid://bnknvwkp5npct" path="res://assets/equipment/fryingpan.tres" id="2_4e6m7"]
+[ext_resource type="Script" uid="uid://c5kqen54tyru1" path="res://logic/game/equipment_interaction/FryingPanDisplay.cs" id="2_rylgc"]
 
-[node name="EquipmentDisplay" unique_id=1936882093 instance=ExtResource("1_2sqgr")]
+[node name="EquipmentDisplay" unique_id=1936882093 node_paths=PackedStringArray("orderDisplayContainer", "currentOrderStepVisualOverlayParent") instance=ExtResource("1_2sqgr")]
+script = ExtResource("2_rylgc")
+orderDisplayContainer = NodePath("CurrentOrderContainer")
+currentOrderStepVisualOverlayParent = NodePath("CurrentOrderStepOverlayParent")
 
 [node name="TextureRect" type="TextureRect" parent="EquipmentBackdropParent" parent_id_path=PackedInt32Array(1569199792) index="0" unique_id=321260033]
 layout_mode = 0
