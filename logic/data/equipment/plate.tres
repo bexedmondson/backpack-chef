@@ -7,7 +7,7 @@
 
 [resource]
 script = ExtResource("1_4rqqp")
-name = "plate"
+name = "Plate"
 icon = ExtResource("1_x6ij7")
 smallIcon = ExtResource("3_2axgd")
 scene = ExtResource("2_mlp44")

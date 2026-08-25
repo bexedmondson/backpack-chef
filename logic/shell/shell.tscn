@@ -46,18 +46,20 @@ script = ExtResource("3_6fq18")
 initialSaveSelectSceneUid = "uid://s0jw8cmw3mew"
 initialGameSceneUid = "uid://bnncd67bcv1yx"
 
-[node name="DebugButton" type="Button" parent="." unique_id=92678271]
+[node name="LoadingCanvasLayer" parent="." unique_id=592895361 instance=ExtResource("2_sb42f")]
+visible = false
+
+[node name="DebugCanvasLayer" type="CanvasLayer" parent="." unique_id=1709295770]
+layer = 1000
+
+[node name="DebugButton" type="Button" parent="DebugCanvasLayer" unique_id=92678271]
 z_index = 100
 custom_minimum_size = Vector2(20, 20)
-layout_mode = 1
-offset_right = 15.0
-offset_bottom = 15.0
+offset_right = 20.0
+offset_bottom = 20.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_sl10i")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_1d7mr")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_oxe5a")
 script = ExtResource("3_8y80q")
 
-[node name="LoadingCanvasLayer" parent="." unique_id=592895361 instance=ExtResource("2_sb42f")]
-visible = false
-
-[connection signal="pressed" from="DebugButton" to="DebugButton" method="OnClick"]
+[connection signal="pressed" from="DebugCanvasLayer/DebugButton" to="DebugCanvasLayer/DebugButton" method="OnClick"]

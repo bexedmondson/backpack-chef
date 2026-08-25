@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Text;
+using Godot;
 
 public class OrderManager : AbstractManager
 {
@@ -22,6 +24,8 @@ public class OrderManager : AbstractManager
     {
         eventDispatcher = Injection.Get<EventDispatcher>();
         recipeAvailabilityManager = Injection.Get<RecipeAvailabilityManager>();
+
+        GameDebug.OnGameDebugToggled += OnDebugToggled;
     }
 
     public void OnGameStart(GameTimeMonitor gameTimeMonitor)
@@ -81,8 +85,37 @@ public class OrderManager : AbstractManager
 
     public override void Cleanup()
     {
+        GameDebug.OnGameDebugToggled -= OnDebugToggled;
         recipeAvailabilityManager = null;
         eventDispatcher = null;
         Injection.Deregister(this);
+    }
+
+    private void OnDebugToggled()
+    {
+        if (!GameDebug.On)
+            return;
+
+        StringBuilder sb = new();
+        sb.AppendLine($"Total order count for level: {totalLevelOrders}");
+        sb.AppendLine($"Current order count for level: {currentLevelOrders.Count}");
+
+        foreach (var order in currentLevelOrders)
+        {
+            sb.AppendLine($"[b]Order: {order.recipe.name}[/b]");
+            foreach (var step in order.steps)
+            {
+                sb.Append(step.isStepInProgress ? "[color=yellow]" : step.didStepFail ? "[color=red]" : step.isStepFinished ? "[color=grey]" : "");
+                
+                sb.AppendLine($"\tStep: {step.equipment.name}");
+                sb.AppendLine($"\t\tIn progress? {step.isStepInProgress}");
+                sb.AppendLine($"\t\tFinished? {step.isStepFinished}");
+                sb.AppendLine($"\t\tFailed? {step.didStepFail}");
+                
+                sb.Append((step.isStepInProgress || step.isStepFinished || step.didStepFail) ? "[/color]" : "");
+            }
+        }
+        
+        Log.Print(sb.ToString(), Colors.White);
     }
 }

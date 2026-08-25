@@ -7,6 +7,7 @@
 
 [resource]
 script = ExtResource("1_02rkv")
+name = "Chopping board"
 icon = ExtResource("1_2a6pr")
 smallIcon = ExtResource("3_piqnw")
 scene = ExtResource("2_kxw0k")

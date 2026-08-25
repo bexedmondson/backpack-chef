@@ -14,7 +14,7 @@ public partial class EquipmentDisplay : Control
     private OrderManager orderManager;
     private Equipment equipment;
     private OrderDisplay currentOrderDisplay;
-    private Node currentOrderStepVisualOverlay;
+    private Control currentOrderStepVisualOverlay;
 
     public override void _EnterTree()
     {
@@ -62,19 +62,35 @@ public partial class EquipmentDisplay : Control
         currentOrderDisplay = orderDisplay;
         orderDisplay.Reparent(orderDisplayContainer);
 
-        currentOrderStepVisualOverlay = orderDisplay.order.currentStep.equipmentVisualOverlay.Instantiate();
+        currentOrderStepVisualOverlay = orderDisplay.order.currentStep.visualOverlayStepStart.Instantiate<Control>();
         currentOrderStepVisualOverlayParent.AddChild(currentOrderStepVisualOverlay);
-        
-        //currentOrderDisplay.order.currentStep
+
+        currentOrderDisplay.order.currentStep.OnStepCompleted += RefreshCurrentOrderDisplay;
     }
 
     private void RefreshCurrentOrderDisplay()
+    {
+        RefreshCurrentOrderDisplay(null); //TODO kind of hate this. find a better way to do it!
+    }
+    
+    private void RefreshCurrentOrderDisplay(OrderStep currentStep)
     {
         if (currentOrderDisplay.GetParent() != orderDisplayContainer)
         {
             currentOrderDisplay = null;
             if (currentOrderStepVisualOverlay != null)
                 currentOrderStepVisualOverlay.QueueFree();
+        }
+        else if (currentStep != null && currentStep.isStepFinished && currentOrderStepVisualOverlay != null)
+        {
+            if (currentStep.didStepFail)
+                currentOrderStepVisualOverlay.Modulate = Colors.DimGray;
+            else
+            {
+                currentOrderStepVisualOverlay.QueueFree();
+                currentOrderStepVisualOverlay = currentStep.visualOverlayStepEnd.Instantiate<Control>();
+                currentOrderStepVisualOverlayParent.AddChild(currentOrderStepVisualOverlay);
+            }
         }
     }
     

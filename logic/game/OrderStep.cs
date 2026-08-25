@@ -6,13 +6,14 @@ public class OrderStep(RecipeStep step)
     private RecipeStep recipeStep = step;
     
     public Equipment equipment => recipeStep.equipment;
-    public PackedScene equipmentVisualOverlay => recipeStep.sceneStepStart;
+    public PackedScene visualOverlayStepStart => recipeStep.sceneStepStart;
+    public PackedScene visualOverlayStepEnd => recipeStep.sceneStepEnd;
     
     public bool isStepInProgress { get; private set; }
     public bool isStepFinished { get; private set; }
     public bool didStepFail { get; private set; }
 
-    public Action OnStepCompleted;
+    public Action<OrderStep> OnStepCompleted;
 
     public void StartStep()
     {
@@ -23,6 +24,6 @@ public class OrderStep(RecipeStep step)
     {
         isStepInProgress = false;
         isStepFinished = true;
-        OnStepCompleted?.Invoke();
+        OnStepCompleted?.Invoke(this);
     }
 }
