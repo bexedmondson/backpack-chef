@@ -1,6 +1,8 @@
 public enum OrderState
 {
-    Waiting,
+    WaitingToStart,
     InProgress,
-    Complete
+    WaitingToProgress,
+    Complete,
+    Failed,
 }

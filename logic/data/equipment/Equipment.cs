@@ -15,6 +15,9 @@ public abstract partial class Equipment : AbstractLoadableDataResource
 
     [Export]
     public PackedScene scene;
+    
+    [Export]
+    public float defaultProgress { get; private set; }
 
     public Action OnChange;
 
@@ -40,7 +43,6 @@ public abstract partial class Equipment : AbstractLoadableDataResource
         //if this is to do with another order than the one that's at this equipment, i don't care
         if (orderStateChangedEvent.order != currentOrder)
             return;
-
         
         Log.Print($"{name} {currentOrder.recipe.name}", true);
         
@@ -57,5 +59,10 @@ public abstract partial class Equipment : AbstractLoadableDataResource
     {
         Log.Print(name, true);
         OnChange?.Invoke();
+    }
+
+    public virtual float GetProgressPercent(float input = 0)
+    {
+        return defaultProgress * input;
     }
 }

@@ -65,15 +65,10 @@ public class OrderManager : AbstractManager
 
     public void OnOrderMovedToEquipment(Equipment equipment, Order order)
     {
-        if (order.state == OrderState.Waiting)
-        {
-            order.state = OrderState.InProgress;
-        }
-
         if (order.currentStep.equipment != equipment)
             order.MoveToNextStep();
         
-        if (!order.currentStep.isStepInProgress)
+        if (order.GetCurrentStepState() == OrderStepState.None)
             order.currentStep.StartStep();
         
         eventDispatcher.Dispatch(new OrderStateChangedEvent(order));

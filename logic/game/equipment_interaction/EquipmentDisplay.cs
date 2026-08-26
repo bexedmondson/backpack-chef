@@ -25,7 +25,7 @@ public abstract partial class EquipmentDisplay : Control
         orderManager = null;
     }
 
-    public void SetEquipment(Equipment e)
+    public virtual void SetEquipment(Equipment e)
     {
         equipment = e;
         equipment.OnChange += RefreshCurrentOrderDisplay;
@@ -110,14 +110,14 @@ public abstract partial class EquipmentDisplay : Control
 
     protected virtual bool CanMakeProgress()
     {
-        if (currentOrderDisplay?.order == null)
+        if (currentOrderDisplay?.order == null || equipment.currentOrder?.currentStep == null)
             return false;
         return true;
     }
 
-    private void MakeProgress()
+    protected virtual void MakeProgress()
     {
-        currentOrderDisplay.order.currentStep.MakeProgress(50);
+        equipment.currentOrder.currentStep.MakeProgress(equipment.GetProgressPercent());
     }
     
     public Order GetCurrentDisplayedOrder()
@@ -125,5 +125,10 @@ public abstract partial class EquipmentDisplay : Control
         if (currentOrderDisplay == null)
             return null;
         return currentOrderDisplay.order;
+    }
+    
+    public Order GetCurrentEquipmentOrder()
+    {
+        return equipment.currentOrder;
     }
 }

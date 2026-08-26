@@ -3,9 +3,48 @@
 [ext_resource type="PackedScene" uid="uid://m6w100o8crnd" path="res://logic/game/equipment_interaction/equipment_display.tscn" id="1_2sqgr"]
 [ext_resource type="Texture2D" uid="uid://bnknvwkp5npct" path="res://assets/equipment/fryingpan.tres" id="2_4e6m7"]
 [ext_resource type="Script" uid="uid://c5kqen54tyru1" path="res://logic/game/equipment_interaction/FryingPanDisplay.cs" id="2_rylgc"]
+[ext_resource type="Texture2D" uid="uid://bdl22t76vrgdk" path="res://assets/ui/MedievalFree.png" id="4_rylgc"]
 
-[node name="FryingPanDisplay" unique_id=1936882093 node_paths=PackedStringArray("orderDisplayContainer", "currentOrderStepVisualOverlayParent") instance=ExtResource("1_2sqgr")]
+[sub_resource type="AtlasTexture" id="AtlasTexture_rylgc"]
+atlas = ExtResource("4_rylgc")
+region = Rect2(8, 129, 6, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7lff3"]
+atlas = ExtResource("4_rylgc")
+region = Rect2(2, 102, 1, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4e6m7"]
+atlas = ExtResource("4_rylgc")
+region = Rect2(2, 98, 61, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_egk46"]
+texture = SubResource("AtlasTexture_4e6m7")
+texture_margin_left = 4.0
+texture_margin_top = 3.0
+texture_margin_right = 4.0
+texture_margin_bottom = 3.0
+expand_margin_left = 4.0
+expand_margin_top = 3.0
+expand_margin_right = 4.0
+expand_margin_bottom = 3.0
+axis_stretch_vertical = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3dh2"]
+atlas = ExtResource("4_rylgc")
+region = Rect2(1, 133, 4, 6)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gp1f8"]
+texture = SubResource("AtlasTexture_m3dh2")
+texture_margin_left = 1.0
+texture_margin_top = 1.0
+texture_margin_right = 1.0
+texture_margin_bottom = 1.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="FryingPanDisplay" unique_id=1936882093 node_paths=PackedStringArray("slider", "orderDisplayContainer", "currentOrderStepVisualOverlayParent") instance=ExtResource("1_2sqgr")]
 script = ExtResource("2_rylgc")
+slider = NodePath("TemperatureSlider")
 orderDisplayContainer = NodePath("CurrentOrderContainer")
 currentOrderStepVisualOverlayParent = NodePath("CurrentOrderStepOverlayParent")
 
@@ -14,3 +53,25 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("2_4e6m7")
+
+[node name="TemperatureSlider" type="HSlider" parent="." index="3" unique_id=1004662506]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -7.0
+offset_bottom = 9.000015
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_icons/grabber = SubResource("AtlasTexture_rylgc")
+theme_override_icons/grabber_highlight = SubResource("AtlasTexture_rylgc")
+theme_override_icons/tick = SubResource("AtlasTexture_7lff3")
+theme_override_styles/slider = SubResource("StyleBoxTexture_egk46")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_gp1f8")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_gp1f8")
+max_value = 20.0
+value = 10.0
+rounded = true
+tick_count = 5
+ticks_on_borders = true

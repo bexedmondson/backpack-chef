@@ -11,11 +11,11 @@ public class Order
     
     private float timeRemaining;
 
-    public OrderState state = OrderState.Waiting;
+    private OrderState state = OrderState.WaitingToStart;
 
-    public void SetRecipe(Recipe recipe)
+    public void SetRecipe(Recipe r)
     {
-        this.recipe = recipe;
+        this.recipe = r;
 
         foreach (var recipeStep in recipe.steps)
         {
@@ -33,7 +33,7 @@ public class Order
 
     public OrderStep GetNextStep()
     {
-        if (state == OrderState.Waiting)
+        if (state == OrderState.WaitingToStart)
             return currentStep;
         
         int currentStepIndex = orderSteps.IndexOf(currentStep);
@@ -45,5 +45,44 @@ public class Order
         }
         
         return orderSteps[nextStepIndex];
+    }
+
+    public OrderState GetState()
+    {
+        if (state == OrderState.Failed || state == OrderState.Complete)
+            return state;
+
+        UpdateState();
+        return state;
+    }
+
+    private void UpdateState()
+    {
+        var currentStepState = GetCurrentStepState();
+        if (currentStepState == OrderStepState.FinishedFailed)
+            state = OrderState.Failed;
+        else if (currentStep == steps[0] && currentStepState == OrderStepState.None)
+            state = OrderState.WaitingToStart;
+        else if (currentStepState == OrderStepState.InProgress)
+            state = OrderState.InProgress;
+        else if (currentStep == steps[^1] && currentStepState == OrderStepState.Finished)
+            state = OrderState.Complete;
+        else if (currentStepState == OrderStepState.Finished)
+            state = OrderState.WaitingToProgress;
+    }
+
+    public OrderStepState GetCurrentStepState()
+    {
+        switch (currentStep)
+        {
+            case { didStepFail: true }:
+                return OrderStepState.FinishedFailed;
+            case { isStepFinished: true }:
+                return OrderStepState.Finished;
+            case { isStepInProgress: true }:
+                return OrderStepState.InProgress;
+            default:
+                return OrderStepState.None;
+        }
     }
 }

@@ -5,8 +5,13 @@ public partial class ChoppingBoardDisplay : EquipmentDisplay
         if (!base.CanMakeProgress())
             return false;
 
-        if (currentOrderDisplay.order.currentStep.isStepFinished)
+        if (equipment.currentOrder.currentStep.isStepFinished)
             return false;
         return true;
+    }
+
+    protected override void MakeProgress()
+    {
+        currentOrderDisplay.order.currentStep.MakeProgress(10);
     }
 }
