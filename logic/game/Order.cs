@@ -24,11 +24,24 @@ public class Order
         }
         
         currentStep = orderSteps[0];
+        currentStep.OnStepFinished += OnCurrentStepFinished;
     }
 
     public void MoveToNextStep()
     {
+        currentStep.OnStepFinished -= OnCurrentStepFinished;
         currentStep = GetNextStep();
+        currentStep.OnStepFinished += OnCurrentStepFinished;
+        this.state = OrderState.InProgress;
+    }
+
+    private void OnCurrentStepFinished()
+    {
+        var isAtEquipment = Injection.Get<EquipmentManager>().TryGetEquipmentWithOrder(this, out var equipment);
+        if (!isAtEquipment)
+            return;
+        
+        Injection.Get<EquipmentDisplayController>().RefreshEquipmentDisplay(equipment);
     }
 
     public OrderStep GetNextStep()

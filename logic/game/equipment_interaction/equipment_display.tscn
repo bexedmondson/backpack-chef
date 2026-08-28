@@ -38,3 +38,8 @@ anchor_bottom = 1.0
 offset_top = 4.0
 offset_bottom = 4.0
 grow_horizontal = 2
+
+[node name="ReadyToMoveTextureRect" type="TextureRect" parent="." unique_id=110275400]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

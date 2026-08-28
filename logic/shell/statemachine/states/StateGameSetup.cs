@@ -16,7 +16,8 @@ public class StateGameSetup : AbstractState
             new KitchenManager(),
             new OrderManager(),
             new RecipeAvailabilityManager(),
-            new BackpackManager()
+            new BackpackManager(),
+            new EquipmentManager()
         };
 
         foreach (var manager in managers)

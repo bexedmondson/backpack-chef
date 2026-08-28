@@ -1,13 +1,18 @@
 using System.Collections.Generic;
 using Godot;
 
-public partial class EquipmentDisplayController : Node
+public partial class EquipmentDisplayController : Node, IInjectable
 {
-
     [Export]
     private Godot.Collections.Array<Control> equipmentDisplayParents = new();
     
-    private List<EquipmentDisplay> equipmentDisplays = new();
+    private Dictionary<Equipment, EquipmentDisplay> equipmentDisplays = new();
+
+    public override void _EnterTree()
+    {
+        base._EnterTree();
+        Injection.Register(this);
+    }
 
     public override void _Ready()
     {
@@ -21,19 +26,28 @@ public partial class EquipmentDisplayController : Node
 
             var equipmentInstance = allEquipment[i].scene.Instantiate() as EquipmentDisplay;
             equipmentInstance.SetEquipment(allEquipment[i]);
-            equipmentDisplays.Add(equipmentInstance);
+            
+            equipmentDisplays[allEquipment[i]] = equipmentInstance;
+            
             equipmentDisplayParents[i].AddChild(equipmentInstance);
         }
+    }
+
+    public void RefreshEquipmentDisplay(Equipment equipment)
+    {
+        equipmentDisplays[equipment].RefreshCurrentOrderDisplay();
     }
 
     public override void _ExitTree()
     {
         base._ExitTree();
         
-        foreach (var equipmentDisplay in equipmentDisplays)
+        foreach (var kvp in equipmentDisplays)
         {
-            equipmentDisplay.QueueFree();
+            kvp.Value.QueueFree();
         }
         equipmentDisplays.Clear();
+        
+        Injection.Deregister(this);
     }
 }

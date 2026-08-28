@@ -18,14 +18,16 @@ public partial class FryingPanDisplay : EquipmentDisplay
 
     private void OnEquipmentChange()
     {
-        var timedEquipment = equipment as TimedEquipment;
-        if (timedEquipment?.currentOrder == null)
+        var hasOrder = equipmentManager.TryGetOrder(equipment, out var currentOrder);
+        if (!hasOrder)
         {
             timeSinceLastProgressCheck = 0;
             return;
         }
+        
+        var timedEquipment = equipment as TimedEquipment;
 
-        if (timedEquipment.currentOrder.currentStep.progressPercent == 0) //proxy for finding the point where a new step is started
+        if (currentOrder.currentStep.progressPercent == 0) //proxy for finding the point where a new step is started
         {
             timeSinceLastProgressCheck = timedEquipment.secondsBetweenProgressChecks;
         }
@@ -38,13 +40,13 @@ public partial class FryingPanDisplay : EquipmentDisplay
         TryMakeProgress();
     }
 
-    protected override bool CanMakeProgress()
+    protected override bool CanTryMakingProgress()
     {
-        if (!base.CanMakeProgress())
+        if (!base.CanTryMakingProgress())
             return false;
         
-        if (equipment.currentOrder.currentStep.didStepFail)
-            return false;
+        //if (equipment.currentOrder.currentStep.didStepFail)
+            //return false;
 
         if (equipment is not TimedEquipment timedEquipment)
             return false;
@@ -66,6 +68,8 @@ public partial class FryingPanDisplay : EquipmentDisplay
         }
         
         //add a timer between progress increases here
-        equipment.currentOrder.currentStep.MakeProgress(10);
+        
+        if (equipmentManager.HasOrder(equipment))
+            equipment.ProgressCurrentOrder(equipment.GetProgressPercent(slider.Value));
     }
 }

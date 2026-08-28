@@ -9,20 +9,25 @@ public abstract partial class EquipmentDisplay : Control
     private Node currentOrderStepVisualOverlayParent;
 
     protected OrderManager orderManager;
+
+    protected EquipmentManager equipmentManager;
+    
     protected Equipment equipment;
     protected OrderDisplay currentOrderDisplay;
     protected Control currentOrderStepVisualOverlay;
-
+    
     public override void _EnterTree()
     {
         base._EnterTree();
         orderManager = Injection.Get<OrderManager>();
+        equipmentManager = Injection.Get<EquipmentManager>();
     }
 
     public override void _ExitTree()
     {
         base._ExitTree();
         orderManager = null;
+        equipmentManager = null;
     }
 
     public virtual void SetEquipment(Equipment e)
@@ -33,13 +38,10 @@ public abstract partial class EquipmentDisplay : Control
 
     public override bool _CanDropData(Vector2 atPosition, Variant data)
     {
-        if (currentOrderDisplay != null)
-            return false;
-        
         if (data.As<GodotObject>() is not OrderDisplay orderDisplay)
             return false;
 
-        return orderManager.CanOrderMoveToEquipment(orderDisplay.order, equipment);
+        return equipmentManager.CanOrderMoveToEquipment(orderDisplay.order, equipment);
     }
 
     public override void _DropData(Vector2 atPosition, Variant data)
@@ -51,25 +53,23 @@ public abstract partial class EquipmentDisplay : Control
         Log.Print(this.Name, true);
         
         currentOrderDisplay = orderDisplay;
-        orderDisplay.Reparent(orderDisplayContainer); //should we move this to the refresh display maybe??
+        orderDisplay.Reparent(orderDisplayContainer);
+        
+        equipmentManager.MoveOrderToEquipment(orderDisplay.order, equipment);
 
-        Log.Print($"{this.Name} order display obtained", true);
-        
-        //TODO this should update some kind of manager, which should then update the visuals of everything
-        //because we will eventually want to save which order is at which equipment
-        
+        /*Log.Print($"{this.Name} order display obtained", true);
         Log.Print($"{this.Name} order {orderDisplay.order.recipe.name} moving to equipment", true);
         orderManager.OnOrderMovedToEquipment(this.equipment, orderDisplay.order);
         Log.Print($"{this.Name} order {orderDisplay.order.recipe.name} moved to equipment", true);
-        
+
         Log.Print($"{this.Name} setting {equipment.name} current order", true);
-        equipment.SetCurrentOrder(orderDisplay.order);
+        equipment.SetCurrentOrder(orderDisplay.order);*/
     }
 
-    private void RefreshCurrentOrderDisplay()
+    public void RefreshCurrentOrderDisplay()
     {
-        var currentOrderAtEquipment = equipment.currentOrder;
-        if (currentOrderAtEquipment == null)
+        var hasOrder = equipmentManager.TryGetOrder(this.equipment, out var currentOrderAtEquipment);
+        if (!hasOrder)
         {
             if (currentOrderStepVisualOverlay != null)
             {
@@ -80,12 +80,13 @@ public abstract partial class EquipmentDisplay : Control
             return;
         }
 
-        var currentStep = equipment.currentOrder.currentStep;
+        var currentStep = currentOrderAtEquipment.currentStep;
 
         if (currentOrderStepVisualOverlay == null)
         {
             currentOrderStepVisualOverlay = currentStep.GetVisualOverlayScene().Instantiate<Control>();
             currentOrderStepVisualOverlayParent.AddChild(currentOrderStepVisualOverlay);
+            return;
         }
 
         if (currentStep.isStepFinished)
@@ -104,31 +105,17 @@ public abstract partial class EquipmentDisplay : Control
 
     public void TryMakeProgress()
     {
-        if (CanMakeProgress())
+        if (CanTryMakingProgress())
             MakeProgress();
     }
 
-    protected virtual bool CanMakeProgress()
+    protected virtual bool CanTryMakingProgress()
     {
-        if (currentOrderDisplay?.order == null || equipment.currentOrder?.currentStep == null)
-            return false;
-        return true;
+        return equipmentManager.HasOrder(equipment);
     }
 
     protected virtual void MakeProgress()
     {
-        equipment.currentOrder.currentStep.MakeProgress(equipment.GetProgressPercent());
-    }
-    
-    public Order GetCurrentDisplayedOrder()
-    {
-        if (currentOrderDisplay == null)
-            return null;
-        return currentOrderDisplay.order;
-    }
-    
-    public Order GetCurrentEquipmentOrder()
-    {
-        return equipment.currentOrder;
+        //equipment.currentOrder.currentStep.MakeProgress(equipment.GetProgressPercent());
     }
 }

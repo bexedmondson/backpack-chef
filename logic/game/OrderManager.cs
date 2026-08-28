@@ -65,22 +65,13 @@ public class OrderManager : AbstractManager
 
     public void OnOrderMovedToEquipment(Equipment equipment, Order order)
     {
-        if (order.currentStep.equipment != equipment)
+        //if (order.currentStep.equipment != equipment)
             order.MoveToNextStep();
         
         if (order.GetCurrentStepState() == OrderStepState.None)
             order.currentStep.StartStep();
         
         eventDispatcher.Dispatch(new OrderStateChangedEvent(order));
-    }
-
-    public bool CanOrderMoveToEquipment(Order order, Equipment equipment)
-    {
-        if (order.currentStep.isStepInProgress || order.currentStep.didStepFail) //TODO figure out action to remove from equipment after failing
-            return false;
-        
-        var nextOrderStep = order.GetNextStep();
-        return nextOrderStep.equipment == equipment;
     }
 
     public override void Cleanup()

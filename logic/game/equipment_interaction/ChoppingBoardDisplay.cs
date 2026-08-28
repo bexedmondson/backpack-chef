@@ -1,17 +1,18 @@
 public partial class ChoppingBoardDisplay : EquipmentDisplay
 {
-    protected override bool CanMakeProgress()
+    protected override bool CanTryMakingProgress()
     {
-        if (!base.CanMakeProgress())
+        if (!base.CanTryMakingProgress())
             return false;
 
-        if (equipment.currentOrder.currentStep.isStepFinished)
+        var hasOrder = equipmentManager.TryGetOrder(equipment, out var currentOrder);
+        if (currentOrder.currentStep.isStepFinished)
             return false;
         return true;
     }
 
     protected override void MakeProgress()
     {
-        currentOrderDisplay.order.currentStep.MakeProgress(10);
+        equipment.ProgressCurrentOrder(equipment.GetProgressPercent());
     }
 }
