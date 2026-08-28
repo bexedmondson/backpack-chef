@@ -11,6 +11,7 @@ public class OrderManager : AbstractManager
 
     private RecipeAvailabilityManager recipeAvailabilityManager;
     private GameTimeMonitor timeMonitor;
+    private EquipmentManager equipmentManager;
     private double timeSinceLastOrderCreated = 0f;
 
     private List<Order> currentLevelOrders = new();
@@ -24,6 +25,7 @@ public class OrderManager : AbstractManager
     {
         eventDispatcher = Injection.Get<EventDispatcher>();
         recipeAvailabilityManager = Injection.Get<RecipeAvailabilityManager>();
+        equipmentManager = Injection.Get<EquipmentManager>();
 
         GameDebug.OnGameDebugToggled += OnDebugToggled;
     }
@@ -74,10 +76,22 @@ public class OrderManager : AbstractManager
         eventDispatcher.Dispatch(new OrderStateChangedEvent(order));
     }
 
+    public void ServeCompleteOrder(Order order)
+    {
+        equipmentManager.RemoveOrderFromAllEquipment(order);
+        
+        //TODO give out reward here :)
+        
+        var isAtEquipment = Injection.Get<EquipmentManager>().TryGetEquipmentWithOrder(order, out var equipment);
+        if (isAtEquipment)
+            Injection.Get<EquipmentDisplayController>().RefreshEquipmentDisplay(equipment);
+    }
+
     public override void Cleanup()
     {
         GameDebug.OnGameDebugToggled -= OnDebugToggled;
         recipeAvailabilityManager = null;
+        equipmentManager = null;
         eventDispatcher = null;
         Injection.Deregister(this);
     }

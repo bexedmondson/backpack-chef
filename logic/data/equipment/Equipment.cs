@@ -32,7 +32,7 @@ public abstract partial class Equipment : AbstractLoadableDataResource
         return defaultProgress * input;
     }
 
-    public void ProgressCurrentOrder(double percentIncrease)
+    public virtual void ProgressCurrentOrder(double percentIncrease)
     {
         var hasOrder = Injection.Get<EquipmentManager>().TryGetOrder(this, out var order);
 

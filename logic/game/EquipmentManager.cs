@@ -71,6 +71,17 @@ public class EquipmentManager : AbstractManager
         equipmentDisplayController.RefreshEquipmentDisplay(target);
     }
 
+    public void RemoveOrderFromAllEquipment(Order order)
+    {
+        if (!TryGetEquipmentWithOrder(order, out var equipment))
+            return;
+
+        equipmentCurrentOrderMap[equipment] = null;
+        
+        equipmentDisplayController ??= Injection.Get<EquipmentDisplayController>();
+        equipmentDisplayController.RefreshEquipmentDisplay(equipment);
+    }
+
     public bool TryGetEquipmentWithOrder(Order order, out Equipment equipment)
     {
         equipment = null;
@@ -79,7 +90,6 @@ public class EquipmentManager : AbstractManager
             if (kvp.Value != order)
                 continue;
             
-            //TODO notify equipment to update itself
             equipment = kvp.Key;
             break;
         }

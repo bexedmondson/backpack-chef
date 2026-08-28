@@ -55,7 +55,7 @@ public abstract partial class EquipmentDisplay : Control
         equipmentManager.MoveOrderToEquipment(orderDisplay.order, equipment);
     }
 
-    public void RefreshCurrentOrderDisplay()
+    public virtual void RefreshCurrentOrderDisplay()
     {
         var hasOrder = equipmentManager.TryGetOrder(this.equipment, out var currentOrderAtEquipment);
         if (!hasOrder)
@@ -65,7 +65,7 @@ public abstract partial class EquipmentDisplay : Control
                 currentOrderStepVisualOverlay.QueueFree();
                 currentOrderStepVisualOverlay = null;
             }
-            currentOrderDisplay = null;
+            
             readyIndicator.Visible = false;
             return;
         }
