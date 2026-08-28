@@ -30,7 +30,7 @@ public class EquipmentManager : AbstractManager
         if (equipmentCurrentOrderMap[equipment] != null)
             return false;
         
-        if (order.currentStep.isStepInProgress || order.currentStep.didStepFail) //TODO figure out action to remove from equipment after failing
+        if (order.currentStep.isStepInProgress || order.currentStep.didStepFail || order.state == OrderState.Failed) //TODO figure out action to remove from equipment after failing
             return false;
         
         var nextOrderStep = order.GetNextStep();

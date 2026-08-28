@@ -11,7 +11,7 @@ public class Order
     
     private float timeRemaining;
 
-    private OrderState state = OrderState.WaitingToStart;
+    public OrderState state { get; private set; } = OrderState.WaitingToStart;
 
     public void SetRecipe(Recipe r)
     {
@@ -25,13 +25,16 @@ public class Order
         
         currentStep = orderSteps[0];
         currentStep.OnStepFinished += OnCurrentStepFinished;
+        currentStep.OnStepFailed += OnCurrentStepFailed;
     }
 
     public void MoveToNextStep()
     {
         currentStep.OnStepFinished -= OnCurrentStepFinished;
+        currentStep.OnStepFailed -= OnCurrentStepFailed;
         currentStep = GetNextStep();
         currentStep.OnStepFinished += OnCurrentStepFinished;
+        currentStep.OnStepFailed += OnCurrentStepFailed;
         this.state = OrderState.InProgress;
     }
 
@@ -40,6 +43,17 @@ public class Order
         var isAtEquipment = Injection.Get<EquipmentManager>().TryGetEquipmentWithOrder(this, out var equipment);
         if (!isAtEquipment)
             return;
+        
+        Injection.Get<EquipmentDisplayController>().RefreshEquipmentDisplay(equipment);
+    }
+
+    private void OnCurrentStepFailed()
+    {
+        var isAtEquipment = Injection.Get<EquipmentManager>().TryGetEquipmentWithOrder(this, out var equipment);
+        if (!isAtEquipment)
+            return;
+
+        this.state = OrderState.Failed;
         
         Injection.Get<EquipmentDisplayController>().RefreshEquipmentDisplay(equipment);
     }

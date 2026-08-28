@@ -7,8 +7,10 @@
 
 [resource]
 script = ExtResource("1_cfb7f")
+percentFailureThreshold = 200
 name = "Frying pan"
 icon = ExtResource("1_euyit")
 smallIcon = ExtResource("3_d05ak")
 scene = ExtResource("2_6x1wn")
+defaultProgress = 0.1
 metadata/_custom_type_script = "uid://dfnfw6osx7kfs"

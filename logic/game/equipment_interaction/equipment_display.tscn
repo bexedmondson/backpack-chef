@@ -1,6 +1,54 @@
 [gd_scene format=3 uid="uid://m6w100o8crnd"]
 
+[ext_resource type="Texture2D" uid="uid://bdl22t76vrgdk" path="res://assets/ui/MedievalFree.png" id="1_rwy7e"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mdxf6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlp44"]
+atlas = ExtResource("1_rwy7e")
+region = Rect2(32, 128, 32, 32)
+
+[sub_resource type="Animation" id="Animation_n0i7f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("AtlasTexture_mlp44")]
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gabjq"]
+atlas = ExtResource("1_rwy7e")
+region = Rect2(64, 128, 32, 32)
+
+[sub_resource type="Animation" id="Animation_rwy7e"]
+resource_name = "sparkle"
+loop_mode = 1
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [SubResource("AtlasTexture_gabjq"), SubResource("AtlasTexture_mlp44")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n0i7f"]
+_data = {
+&"RESET": SubResource("Animation_n0i7f"),
+&"sparkle": SubResource("Animation_rwy7e")
+}
 
 [node name="EquipmentDisplay" type="Panel" unique_id=1936882093]
 custom_minimum_size = Vector2(32, 32)
@@ -40,6 +88,14 @@ offset_bottom = 4.0
 grow_horizontal = 2
 
 [node name="ReadyToMoveTextureRect" type="TextureRect" parent="." unique_id=110275400]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+texture = SubResource("AtlasTexture_mlp44")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ReadyToMoveTextureRect" unique_id=1042060568]
+libraries/ = SubResource("AnimationLibrary_n0i7f")
+autoplay = &"sparkle"

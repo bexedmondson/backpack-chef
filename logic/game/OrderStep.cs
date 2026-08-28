@@ -16,6 +16,7 @@ public class OrderStep(RecipeStep step)
     public double progressPercent { get; private set; } = 0;
 
     public Action OnStepFinished;
+    public Action OnStepFailed;
 
     public void StartStep()
     {
@@ -30,6 +31,8 @@ public class OrderStep(RecipeStep step)
         {
             CompleteStep();
         }
+        if (this.recipeStep.equipment.HasOrderStepFailed(this, progressPercent))
+            FailStep();
     }
 
     public PackedScene GetVisualOverlayScene()
@@ -47,5 +50,6 @@ public class OrderStep(RecipeStep step)
     public void FailStep()
     {
         didStepFail = true;
+        OnStepFailed?.Invoke();
     }
 }

@@ -44,11 +44,14 @@ public partial class FryingPanDisplay : EquipmentDisplay
     {
         if (!base.CanTryMakingProgress())
             return false;
-        
-        //if (equipment.currentOrder.currentStep.didStepFail)
-            //return false;
 
         if (equipment is not TimedEquipment timedEquipment)
+            return false;
+
+        if (!equipmentManager.TryGetOrder(equipment, out var order))
+            return false;
+        
+        if (order.currentStep.didStepFail)
             return false;
         
         if (timeSinceLastProgressCheck < timedEquipment.secondsBetweenProgressChecks)
@@ -68,8 +71,10 @@ public partial class FryingPanDisplay : EquipmentDisplay
         }
         
         //add a timer between progress increases here
+
+        if (!equipmentManager.HasOrder(equipment))
+            return;
         
-        if (equipmentManager.HasOrder(equipment))
-            equipment.ProgressCurrentOrder(equipment.GetProgressPercent(slider.Value));
+        equipment.ProgressCurrentOrder(equipment.GetProgressPercent(slider.Value));
     }
 }

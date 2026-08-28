@@ -42,11 +42,12 @@ texture_margin_bottom = 1.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="FryingPanDisplay" unique_id=1936882093 node_paths=PackedStringArray("slider", "orderDisplayContainer", "currentOrderStepVisualOverlayParent") instance=ExtResource("1_2sqgr")]
+[node name="FryingPanDisplay" unique_id=1936882093 node_paths=PackedStringArray("slider", "orderDisplayContainer", "currentOrderStepVisualOverlayParent", "readyIndicator") instance=ExtResource("1_2sqgr")]
 script = ExtResource("2_rylgc")
 slider = NodePath("TemperatureSlider")
 orderDisplayContainer = NodePath("CurrentOrderContainer")
 currentOrderStepVisualOverlayParent = NodePath("CurrentOrderStepOverlayParent")
+readyIndicator = NodePath("ReadyToMoveTextureRect")
 
 [node name="TextureRect" type="TextureRect" parent="EquipmentBackdropParent" parent_id_path=PackedInt32Array(1569199792) index="0" unique_id=321260033]
 layout_mode = 0

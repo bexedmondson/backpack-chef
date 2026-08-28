@@ -11,4 +11,5 @@ name = "Plate"
 icon = ExtResource("1_x6ij7")
 smallIcon = ExtResource("3_2axgd")
 scene = ExtResource("2_mlp44")
+defaultProgress = 100.0
 metadata/_custom_type_script = "uid://bnhc0hufw1pc3"

@@ -11,4 +11,5 @@ name = "Chopping board"
 icon = ExtResource("1_2a6pr")
 smallIcon = ExtResource("3_piqnw")
 scene = ExtResource("2_kxw0k")
+defaultProgress = 10.0
 metadata/_custom_type_script = "uid://c64483n2fo0gt"

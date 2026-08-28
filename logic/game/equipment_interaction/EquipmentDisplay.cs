@@ -8,7 +8,8 @@ public abstract partial class EquipmentDisplay : Control
     [Export]
     private Node currentOrderStepVisualOverlayParent;
 
-    protected OrderManager orderManager;
+    [Export]
+    private Control readyIndicator;
 
     protected EquipmentManager equipmentManager;
     
@@ -19,14 +20,12 @@ public abstract partial class EquipmentDisplay : Control
     public override void _EnterTree()
     {
         base._EnterTree();
-        orderManager = Injection.Get<OrderManager>();
         equipmentManager = Injection.Get<EquipmentManager>();
     }
 
     public override void _ExitTree()
     {
         base._ExitTree();
-        orderManager = null;
         equipmentManager = null;
     }
 
@@ -49,21 +48,11 @@ public abstract partial class EquipmentDisplay : Control
         base._DropData(atPosition, data);
         if (data.As<GodotObject>() is not OrderDisplay orderDisplay)
             return;
-
-        Log.Print(this.Name, true);
         
         currentOrderDisplay = orderDisplay;
         orderDisplay.Reparent(orderDisplayContainer);
         
         equipmentManager.MoveOrderToEquipment(orderDisplay.order, equipment);
-
-        /*Log.Print($"{this.Name} order display obtained", true);
-        Log.Print($"{this.Name} order {orderDisplay.order.recipe.name} moving to equipment", true);
-        orderManager.OnOrderMovedToEquipment(this.equipment, orderDisplay.order);
-        Log.Print($"{this.Name} order {orderDisplay.order.recipe.name} moved to equipment", true);
-
-        Log.Print($"{this.Name} setting {equipment.name} current order", true);
-        equipment.SetCurrentOrder(orderDisplay.order);*/
     }
 
     public void RefreshCurrentOrderDisplay()
@@ -77,6 +66,7 @@ public abstract partial class EquipmentDisplay : Control
                 currentOrderStepVisualOverlay = null;
             }
             currentOrderDisplay = null;
+            readyIndicator.Visible = false;
             return;
         }
 
@@ -86,19 +76,25 @@ public abstract partial class EquipmentDisplay : Control
         {
             currentOrderStepVisualOverlay = currentStep.GetVisualOverlayScene().Instantiate<Control>();
             currentOrderStepVisualOverlayParent.AddChild(currentOrderStepVisualOverlay);
+            readyIndicator.Visible = false;
             return;
         }
 
         if (currentStep.isStepFinished)
         {
             if (currentStep.didStepFail)
+            {
                 currentOrderStepVisualOverlay.Modulate = Colors.DimGray;
+                readyIndicator.Visible = false;
+            }
             else
             {
                 //TODO not the greatest way to swap overlays but not bad for now
                 currentOrderStepVisualOverlay.QueueFree();
                 currentOrderStepVisualOverlay = currentStep.GetVisualOverlayScene().Instantiate<Control>();
                 currentOrderStepVisualOverlayParent.AddChild(currentOrderStepVisualOverlay);
+
+                readyIndicator.Visible = true;
             }
         }
     }
@@ -114,8 +110,5 @@ public abstract partial class EquipmentDisplay : Control
         return equipmentManager.HasOrder(equipment);
     }
 
-    protected virtual void MakeProgress()
-    {
-        //equipment.currentOrder.currentStep.MakeProgress(equipment.GetProgressPercent());
-    }
+    protected abstract void MakeProgress();
 }
