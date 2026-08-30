@@ -12,6 +12,7 @@ public abstract partial class EquipmentDisplay : Control
     private Control readyIndicator;
 
     protected EquipmentManager equipmentManager;
+    protected OrderDisplayController orderDisplayController;
     
     protected Equipment equipment;
     protected OrderDisplay currentOrderDisplay;
@@ -21,12 +22,14 @@ public abstract partial class EquipmentDisplay : Control
     {
         base._EnterTree();
         equipmentManager = Injection.Get<EquipmentManager>();
+        orderDisplayController = Injection.Get<OrderDisplayController>();
     }
 
     public override void _ExitTree()
     {
         base._ExitTree();
         equipmentManager = null;
+        orderDisplayController = null;
     }
 
     public virtual void SetEquipment(Equipment e)
@@ -39,8 +42,10 @@ public abstract partial class EquipmentDisplay : Control
     {
         if (data.As<GodotObject>() is not OrderDisplay orderDisplay)
             return false;
-
-        return equipmentManager.CanOrderMoveToEquipment(orderDisplay.order, equipment);
+        
+        orderDisplayController ??= Injection.Get<OrderDisplayController>();
+        
+        return equipmentManager.CanOrderMoveToEquipment(orderDisplayController.GetOrderForDisplay(orderDisplay), equipment);
     }
 
     public override void _DropData(Vector2 atPosition, Variant data)
@@ -52,7 +57,9 @@ public abstract partial class EquipmentDisplay : Control
         currentOrderDisplay = orderDisplay;
         orderDisplay.Reparent(orderDisplayContainer);
         
-        equipmentManager.MoveOrderToEquipment(orderDisplay.order, equipment);
+        orderDisplayController ??= Injection.Get<OrderDisplayController>();
+        
+        equipmentManager.MoveOrderToEquipment(orderDisplayController.GetOrderForDisplay(orderDisplay), equipment);
     }
 
     public virtual void RefreshCurrentOrderDisplay()
@@ -60,6 +67,8 @@ public abstract partial class EquipmentDisplay : Control
         var hasOrder = equipmentManager.TryGetOrder(this.equipment, out var currentOrderAtEquipment);
         if (!hasOrder)
         {
+            currentOrderDisplay = null; //other things should be handling cleanup (e.g. OrderDisplayController)
+            
             if (currentOrderStepVisualOverlay != null)
             {
                 currentOrderStepVisualOverlay.QueueFree();

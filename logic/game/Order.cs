@@ -11,7 +11,7 @@ public class Order
     
     private float timeRemaining;
 
-    public OrderState state { get; private set; } = OrderState.WaitingToStart;
+    private OrderState state = OrderState.WaitingToStart;
 
     public void SetRecipe(Recipe r)
     {
@@ -26,6 +26,12 @@ public class Order
         currentStep = orderSteps[0];
         currentStep.OnStepFinished += OnCurrentStepFinished;
         currentStep.OnStepFailed += OnCurrentStepFailed;
+    }
+
+    public bool CanMoveToNextStep()
+    {
+        var state = GetState();
+        return state is OrderState.WaitingToProgress or OrderState.WaitingToStart;
     }
 
     public void MoveToNextStep()
@@ -74,42 +80,45 @@ public class Order
         return orderSteps[nextStepIndex];
     }
 
+    public void Bin()
+    {
+        state = OrderState.FailedBinned;
+    }
+
     public OrderState GetState()
     {
-        if (state == OrderState.Failed || state == OrderState.Complete)
+        if (state == OrderState.Failed || state == OrderState.Complete || state == OrderState.FailedBinned)
             return state;
 
-        UpdateState();
+        RefreshState();
         return state;
     }
 
-    private void UpdateState()
+    private void RefreshState()
     {
         var currentStepState = GetCurrentStepState();
-        if (currentStepState == OrderStepState.FinishedFailed)
-            state = OrderState.Failed;
-        else if (currentStep == steps[0] && currentStepState == OrderStepState.None)
-            state = OrderState.WaitingToStart;
-        else if (currentStepState == OrderStepState.InProgress)
-            state = OrderState.InProgress;
-        else if (currentStep == steps[^1] && currentStepState == OrderStepState.Finished)
-            state = OrderState.Complete;
-        else if (currentStepState == OrderStepState.Finished)
-            state = OrderState.WaitingToProgress;
+        state = currentStepState switch {
+            OrderStepState.FinishedFailed => OrderState.Failed,
+            
+            OrderStepState.None when currentStep == steps[0] => OrderState.WaitingToStart,
+            
+            OrderStepState.InProgress => OrderState.InProgress,
+            
+            OrderStepState.Finished when currentStep == steps[^1] => OrderState.Complete,
+            
+            OrderStepState.Finished => OrderState.WaitingToProgress,
+            
+            _ => state
+        };
     }
 
     public OrderStepState GetCurrentStepState()
     {
-        switch (currentStep)
-        {
-            case { didStepFail: true }:
-                return OrderStepState.FinishedFailed;
-            case { isStepFinished: true }:
-                return OrderStepState.Finished;
-            case { isStepInProgress: true }:
-                return OrderStepState.InProgress;
-            default:
-                return OrderStepState.None;
-        }
+        return currentStep switch {
+            { didStepFail: true } => OrderStepState.FinishedFailed,
+            { isStepFinished: true } => OrderStepState.Finished,
+            { isStepInProgress: true } => OrderStepState.InProgress,
+            _ => OrderStepState.None
+        };
     }
 }

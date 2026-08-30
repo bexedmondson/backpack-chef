@@ -12,6 +12,7 @@ public class OrderManager : AbstractManager
     private RecipeAvailabilityManager recipeAvailabilityManager;
     private GameTimeMonitor timeMonitor;
     private EquipmentManager equipmentManager;
+    private OrderDisplayController orderDisplayController;
     private double timeSinceLastOrderCreated = 0f;
 
     private List<Order> currentLevelOrders = new();
@@ -67,8 +68,7 @@ public class OrderManager : AbstractManager
 
     public void OnOrderMovedToEquipment(Equipment equipment, Order order)
     {
-        //if (order.currentStep.equipment != equipment)
-            order.MoveToNextStep();
+        order.MoveToNextStep();
         
         if (order.GetCurrentStepState() == OrderStepState.None)
             order.currentStep.StartStep();
@@ -78,13 +78,30 @@ public class OrderManager : AbstractManager
 
     public void ServeCompleteOrder(Order order)
     {
-        equipmentManager.RemoveOrderFromAllEquipment(order);
         
         //TODO give out reward here :)
         
         var isAtEquipment = Injection.Get<EquipmentManager>().TryGetEquipmentWithOrder(order, out var equipment);
+        
+        equipmentManager.RemoveOrderFromAllEquipment(order);
+        
         if (isAtEquipment)
             Injection.Get<EquipmentDisplayController>().RefreshEquipmentDisplay(equipment);
+    }
+
+    public void BinOrder(Order order)
+    {
+        var isAtEquipment = Injection.Get<EquipmentManager>().TryGetEquipmentWithOrder(order, out var equipment);
+        
+        equipmentManager.RemoveOrderFromAllEquipment(order);
+        
+        if (isAtEquipment)
+            Injection.Get<EquipmentDisplayController>().RefreshEquipmentDisplay(equipment);
+
+        orderDisplayController ??= Injection.Get<OrderDisplayController>();
+        orderDisplayController.OnOrderBinned(order);
+        
+        order.Bin();
     }
 
     public override void Cleanup()

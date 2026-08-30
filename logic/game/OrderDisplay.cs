@@ -10,8 +10,8 @@ public partial class OrderDisplay : Control
 
     [Export]
     private InstancePlaceholder stepDisplayPlaceholder;
-    
-    public Order order { get; private set; }
+
+    private Order order;
 
     public void Setup(Order newOrder)
     {

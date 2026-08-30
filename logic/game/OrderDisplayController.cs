@@ -1,17 +1,19 @@
 using System.Collections.Generic;
 using Godot;
 
-public partial class OrderDisplayController : Node
+public partial class OrderDisplayController : Node, IInjectable
 {
     [Export]
     public InstancePlaceholder orderDisplayPlaceholder;
 
     private OrderManager orderManager;
-    private List<OrderDisplay> orderDisplays = new(); 
+    private Dictionary<Order, OrderDisplay> orderToDisplayMap = new();
+    private Dictionary<OrderDisplay, Order> displayToOrderMap = new();
 
     public override void _EnterTree()
     {
         base._EnterTree();
+        Injection.Register(this);
         orderManager = Injection.Get<OrderManager>();
 
         Injection.Get<EventDispatcher>().Add<OrderCreatedEvent>(OnOrderCreated);
@@ -23,7 +25,8 @@ public partial class OrderDisplayController : Node
         //placeholder is positioned in order "queue" display, so will automatically add to the queue area
         var newOrderDisplay = orderDisplayPlaceholder.CreateInstance() as OrderDisplay;
         newOrderDisplay.Setup(orderCreatedEvent.order);
-        orderDisplays.Add(newOrderDisplay);
+        orderToDisplayMap[orderCreatedEvent.order] = newOrderDisplay;
+        displayToOrderMap[newOrderDisplay] = orderCreatedEvent.order;
     }
 
     private void OnOrderStateChanged(OrderStateChangedEvent orderStateChangedEvent)
@@ -32,16 +35,36 @@ public partial class OrderDisplayController : Node
         //by this controller instead of passing that responsibility around to equipment displays and such
     }
 
+    public void OnOrderCompleted(Order order)
+    {
+        var display = orderToDisplayMap[order];
+        display.QueueFree();
+    }
+
+    public void OnOrderBinned(Order order)
+    {
+        var display = orderToDisplayMap[order];
+        display.QueueFree();
+    }
+
+    public Order GetOrderForDisplay(OrderDisplay orderDisplay)
+    {
+        return displayToOrderMap.GetValueOrDefault(orderDisplay);
+    }
+
     public override void _ExitTree()
     {
         base._ExitTree();
+        Injection.Deregister(this);
         Injection.Get<EventDispatcher>().Remove<OrderCreatedEvent>(OnOrderCreated);
         Injection.Get<EventDispatcher>().Remove<OrderStateChangedEvent>(OnOrderStateChanged);
         
-        foreach (var orderDisplay in orderDisplays)
+        foreach (var kvp in orderToDisplayMap)
         {
-            orderDisplay.QueueFree();
+            kvp.Value.QueueFree();
         }
-        orderDisplays.Clear();
+        orderToDisplayMap.Clear();
+        displayToOrderMap.Clear();
+        orderManager = null;
     }
 }

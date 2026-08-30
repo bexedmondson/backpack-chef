@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://co5om3p7g4qmk" path="res://logic/game/GameTimeMonitor.cs" id="1_jlkki"]
 [ext_resource type="Texture2D" uid="uid://bfmf8f477qmly" path="res://assets/woodpanel_bg_frame.png" id="2_ct3hu"]
 [ext_resource type="Script" uid="uid://bq6yxwctqf5i3" path="res://logic/game/equipment_interaction/EquipmentDisplayController.cs" id="2_ctdt0"]
+[ext_resource type="Texture2D" uid="uid://b2miutiudxeth" path="res://assets/foodbin.png" id="4_7w1vn"]
+[ext_resource type="Script" uid="uid://cgap0gwea33xu" path="res://logic/game/BinDisplay.cs" id="4_ct3hu"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mdxf6"]
 texture = ExtResource("2_ct3hu")
@@ -12,6 +14,14 @@ texture_margin_top = 16.0
 texture_margin_right = 16.0
 texture_margin_bottom = 16.0
 axis_stretch_horizontal = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7w1vn"]
+atlas = ExtResource("4_7w1vn")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4phug"]
+atlas = ExtResource("4_7w1vn")
+region = Rect2(64, 0, 64, 64)
 
 [node name="Kitchen" type="Control" unique_id=2063850017]
 layout_mode = 3
@@ -73,6 +83,22 @@ offset_left = 133.0
 offset_top = 24.0
 offset_right = 173.0
 offset_bottom = 64.0
+
+[node name="BinTextureRect" type="TextureRect" parent="EquipmentDisplayController" unique_id=144132135]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_top = -82.0
+offset_right = 81.0
+offset_bottom = -18.0
+grow_vertical = 0
+texture = SubResource("AtlasTexture_7w1vn")
+stretch_mode = 3
+script = ExtResource("4_ct3hu")
+defaultTexture = SubResource("AtlasTexture_7w1vn")
+hoverTexture = SubResource("AtlasTexture_4phug")
 
 [node name="OrderDisplayController" type="HBoxContainer" parent="." unique_id=1214550338 node_paths=PackedStringArray("orderDisplayPlaceholder")]
 layout_mode = 1

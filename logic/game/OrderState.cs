@@ -5,4 +5,5 @@ public enum OrderState
     WaitingToProgress,
     Complete,
     Failed,
+    FailedBinned
 }
