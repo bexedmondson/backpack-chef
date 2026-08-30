@@ -35,18 +35,22 @@ public partial class OrderDisplayController : Node, IInjectable
         //by this controller instead of passing that responsibility around to equipment displays and such
     }
 
-    public void OnOrderCompleted(Order order)
+    public void OnOrderEnded(Order order)
     {
         var display = orderToDisplayMap[order];
-        display.QueueFree();
+
+        display.DoOrderRemovalAnimation(() =>
+        {
+            RemoveOrderDisplayForOrder(order, display);
+        });
     }
 
-    public void OnOrderBinned(Order order)
+    private void RemoveOrderDisplayForOrder(Order order, OrderDisplay display)
     {
-        var display = orderToDisplayMap[order];
         display.QueueFree();
+        orderToDisplayMap[order] = null;
     }
-
+    
     public Order GetOrderForDisplay(OrderDisplay orderDisplay)
     {
         return displayToOrderMap.GetValueOrDefault(orderDisplay);

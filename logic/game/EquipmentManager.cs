@@ -31,7 +31,7 @@ public class EquipmentManager : AbstractManager
             return false;
 
         var orderState = order.GetState();
-        if (orderState is OrderState.InProgress or OrderState.Failed or OrderState.FailedBinned)
+        if (orderState == OrderState.InProgress || orderState.IsEnded())
             return false;
         
         var nextOrderStep = order.GetNextStep();

@@ -1,21 +1,23 @@
 using System.Collections.Generic;
 
-public class Order
+public class Order(Recipe recipe)
 {
-    public Recipe recipe { get; private set;  }
+    public Recipe recipe { get; private set; } = recipe;
 
     private List<OrderStep> orderSteps = new();
     public OrderStep[] steps => orderSteps.ToArray();
     
     public OrderStep currentStep { get; private set; }
-    
-    private float timeRemaining;
+
+    private double initialTimeRemaining;
+    private double timeRemaining;
 
     private OrderState state = OrderState.WaitingToStart;
 
-    public void SetRecipe(Recipe r)
+    public void Initialise()
     {
-        this.recipe = r;
+        initialTimeRemaining = recipe.defaultTimeLimit;
+        timeRemaining = recipe.defaultTimeLimit;
 
         foreach (var recipeStep in recipe.steps)
         {
@@ -59,7 +61,7 @@ public class Order
         if (!isAtEquipment)
             return;
 
-        this.state = OrderState.Failed;
+        this.state = OrderState.FailedStep;
         
         Injection.Get<EquipmentDisplayController>().RefreshEquipmentDisplay(equipment);
     }
@@ -87,18 +89,28 @@ public class Order
 
     public OrderState GetState()
     {
-        if (state == OrderState.Failed || state == OrderState.Complete || state == OrderState.FailedBinned)
+        if (state.IsEnded())
             return state;
 
         RefreshState();
         return state;
     }
 
+    public double GetTimeRemainingProportion()
+    {
+        return timeRemaining / initialTimeRemaining;
+    }
+
     private void RefreshState()
     {
         var currentStepState = GetCurrentStepState();
+        
+        //only need to update state if not ended already, so return early here
+        if (state.IsEnded())
+            return;
+        
         state = currentStepState switch {
-            OrderStepState.FinishedFailed => OrderState.Failed,
+            OrderStepState.FinishedFailed => OrderState.FailedStep,
             
             OrderStepState.None when currentStep == steps[0] => OrderState.WaitingToStart,
             
@@ -110,6 +122,14 @@ public class Order
             
             _ => state
         };
+    }
+
+    public void DecreaseTimeRemaining(double delta)
+    {
+        timeRemaining -= delta;
+
+        if (timeRemaining <= 0)
+            state = OrderState.FailedExpired;
     }
 
     public OrderStepState GetCurrentStepState()

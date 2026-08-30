@@ -26,7 +26,7 @@ public class OrderStep(RecipeStep step)
     public void MakeProgress(double percentIncrease)
     {
         progressPercent += percentIncrease;
-        Log.Print($"making progress on order step, increasing by {percentIncrease}, progress is now {progressPercent}");
+        Log.PrintVerbose($"making progress on order step, increasing by {percentIncrease}, progress is now {progressPercent}");
         if (progressPercent >= 100 && !isStepFinished)
         {
             CompleteStep();

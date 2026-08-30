@@ -40,6 +40,12 @@ public class OrderManager : AbstractManager
 
     private void OnGameTicked(double delta)
     {
+        TryMakeNewOrder(delta);
+        ReduceOrderTimeRemaining(delta);
+    }
+    
+    private void TryMakeNewOrder(double delta)
+    {
         timeSinceLastOrderCreated += delta;
         if (timeSinceLastOrderCreated < orderSeparationTime)
             return;
@@ -50,16 +56,32 @@ public class OrderManager : AbstractManager
         MakeNewOrder();
     }
 
+    private void ReduceOrderTimeRemaining(double delta)
+    {
+        foreach (var order in currentLevelOrders)
+        {
+            var orderState = order.GetState();
+            if (orderState.IsEnded())
+                continue;
+
+            order.DecreaseTimeRemaining(delta);
+
+            if (order.GetState() == OrderState.FailedExpired)
+            {
+                
+            }
+        }
+    }
+
     private void MakeNewOrder()
     {
         Log.PrintVerbose($"Orders still to generate: {totalLevelOrders - currentLevelOrders.Count}", true);
-
-        var newOrder = new Order();
         
         var availableRecipes = recipeAvailabilityManager.GetAvailableRecipes();
         //TODO change to use RNG at least, if not overhaul entirely
         var selectedRecipe = availableRecipes[RNG.RandiRange(0, availableRecipes.Count - 1)];
-        newOrder.SetRecipe(selectedRecipe);
+        var newOrder = new Order(selectedRecipe);
+        newOrder.Initialise();
 
         currentLevelOrders.Add(newOrder);
         timeSinceLastOrderCreated = 0;
@@ -89,7 +111,7 @@ public class OrderManager : AbstractManager
             Injection.Get<EquipmentDisplayController>().RefreshEquipmentDisplay(equipment);
         
         orderDisplayController ??= Injection.Get<OrderDisplayController>();
-        orderDisplayController.OnOrderCompleted(order);
+        orderDisplayController.OnOrderEnded(order);
     }
 
     public void BinOrder(Order order)
@@ -102,7 +124,7 @@ public class OrderManager : AbstractManager
             Injection.Get<EquipmentDisplayController>().RefreshEquipmentDisplay(equipment);
 
         orderDisplayController ??= Injection.Get<OrderDisplayController>();
-        orderDisplayController.OnOrderBinned(order);
+        orderDisplayController.OnOrderEnded(order);
         
         order.Bin();
     }

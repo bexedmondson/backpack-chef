@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public partial class OrderDisplay : Control
@@ -10,6 +11,21 @@ public partial class OrderDisplay : Control
 
     [Export]
     private InstancePlaceholder stepDisplayPlaceholder;
+
+    [Export]
+    private TextureProgressBar timeRemainingBar;
+
+    [Export]
+    private ScrollContainer scrollContainer;
+
+    [Export]
+    private VBoxContainer scrollChild;
+
+    [Export]
+    private AnimationPlayer animationPlayer;
+
+    [Export]
+    private Godot.Collections.Dictionary<OrderState, string> orderEndAnimationNameMap = new();
 
     private Order order;
 
@@ -28,6 +44,27 @@ public partial class OrderDisplay : Control
         }
     }
 
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+        if (order == null || order.GetState().IsEnded())
+            return;
+        
+        timeRemainingBar.Value = order.GetTimeRemainingProportion() * timeRemainingBar.MaxValue;
+    }
+
+    public async void DoOrderRemovalAnimation(Action AnimationFinishedAction)
+    {
+        var orderState = order.GetState();
+
+        var animationStateToPlay = orderEndAnimationNameMap[orderState];
+        
+        animationPlayer.Play(animationStateToPlay);
+        await ToSignal(animationPlayer, AnimationPlayer.SignalName.AnimationFinished);
+        
+        AnimationFinishedAction?.Invoke();
+    }
+
     public override Variant _GetDragData(Vector2 atPosition)
     {
         SetDragPreview(GetDragPreview());
@@ -42,6 +79,20 @@ public partial class OrderDisplay : Control
         
         this.Modulate = Colors.Transparent;
         return dupe;
+    }
+
+    public void AnimateBackgroundHeight()
+    {
+        scrollContainer.Size = scrollChild.Size;
+        scrollContainer.CustomMinimumSize = scrollChild.Size;
+        
+        var tween = CreateTween();
+        tween.SetEase(Tween.EaseType.InOut);
+        tween.SetTrans(Tween.TransitionType.Sine);
+        tween.SetParallel(true);
+        tween.TweenProperty(scrollContainer, "size", new Vector2(scrollContainer.Size.X, 0), 1);
+        tween.TweenProperty(scrollContainer, "custom_minimum_size", new Vector2(scrollContainer.CustomMinimumSize.X, 0), 1);
+        tween.Play();
     }
     
     public override void _Notification(int what)
