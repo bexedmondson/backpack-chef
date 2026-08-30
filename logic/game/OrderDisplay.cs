@@ -42,6 +42,8 @@ public partial class OrderDisplay : Control
             var newStepDisplay = stepDisplayPlaceholder.CreateInstance() as OrderStepDisplay;
             newStepDisplay.SetStep(i, step);
         }
+
+        timeRemainingBar.MaxValue = Mathf.RoundToInt(timeRemainingBar.Size.X);
     }
 
     public override void _Process(double delta)

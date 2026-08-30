@@ -14,6 +14,8 @@ public class Order(Recipe recipe)
 
     private OrderState state = OrderState.WaitingToStart;
 
+    private Stack<OrderState> stateHistory = new( [ OrderState.WaitingToStart ] );
+
     public void Initialise()
     {
         initialTimeRemaining = recipe.defaultTimeLimit;
@@ -29,13 +31,7 @@ public class Order(Recipe recipe)
         currentStep.OnStepFinished += OnCurrentStepFinished;
         currentStep.OnStepFailed += OnCurrentStepFailed;
     }
-
-    public bool CanMoveToNextStep()
-    {
-        var state = GetState();
-        return state is OrderState.WaitingToProgress or OrderState.WaitingToStart;
-    }
-
+    
     public void MoveToNextStep()
     {
         currentStep.OnStepFinished -= OnCurrentStepFinished;
@@ -43,7 +39,7 @@ public class Order(Recipe recipe)
         currentStep = GetNextStep();
         currentStep.OnStepFinished += OnCurrentStepFinished;
         currentStep.OnStepFailed += OnCurrentStepFailed;
-        this.state = OrderState.InProgress;
+        SetState(OrderState.InProgress);
     }
 
     private void OnCurrentStepFinished()
@@ -61,14 +57,14 @@ public class Order(Recipe recipe)
         if (!isAtEquipment)
             return;
 
-        this.state = OrderState.FailedStep;
+        SetState(OrderState.FailedStep);
         
         Injection.Get<EquipmentDisplayController>().RefreshEquipmentDisplay(equipment);
     }
 
     public OrderStep GetNextStep()
     {
-        if (state == OrderState.WaitingToStart)
+        if (GetState() == OrderState.WaitingToStart)
             return currentStep;
         
         int currentStepIndex = orderSteps.IndexOf(currentStep);
@@ -84,7 +80,7 @@ public class Order(Recipe recipe)
 
     public void Bin()
     {
-        state = OrderState.FailedBinned;
+        SetState(OrderState.FailedBinned);
     }
 
     public OrderState GetState()
@@ -94,6 +90,18 @@ public class Order(Recipe recipe)
 
         RefreshState();
         return state;
+    }
+
+    public bool HasMadeAnyProgress()
+    {
+        return stateHistory.Contains(OrderState.InProgress);
+    }
+
+    private void SetState(OrderState newState)
+    {
+        state = newState;
+        if (stateHistory.TryPeek(out var prevState) && prevState != newState)
+            stateHistory.Push(newState);
     }
 
     public double GetTimeRemainingProportion()
@@ -108,20 +116,20 @@ public class Order(Recipe recipe)
         //only need to update state if not ended already, so return early here
         if (state.IsEnded())
             return;
-        
-        state = currentStepState switch {
+
+        SetState(currentStepState switch {
             OrderStepState.FinishedFailed => OrderState.FailedStep,
-            
+
             OrderStepState.None when currentStep == steps[0] => OrderState.WaitingToStart,
-            
+
             OrderStepState.InProgress => OrderState.InProgress,
-            
+
             OrderStepState.Finished when currentStep == steps[^1] => OrderState.Complete,
-            
+
             OrderStepState.Finished => OrderState.WaitingToProgress,
-            
+
             _ => state
-        };
+        });
     }
 
     public void DecreaseTimeRemaining(double delta)
@@ -129,7 +137,7 @@ public class Order(Recipe recipe)
         timeRemaining -= delta;
 
         if (timeRemaining <= 0)
-            state = OrderState.FailedExpired;
+            SetState(OrderState.FailedExpired);
     }
 
     public OrderStepState GetCurrentStepState()
