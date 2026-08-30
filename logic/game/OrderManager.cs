@@ -87,6 +87,9 @@ public class OrderManager : AbstractManager
         
         if (isAtEquipment)
             Injection.Get<EquipmentDisplayController>().RefreshEquipmentDisplay(equipment);
+        
+        orderDisplayController ??= Injection.Get<OrderDisplayController>();
+        orderDisplayController.OnOrderCompleted(order);
     }
 
     public void BinOrder(Order order)
