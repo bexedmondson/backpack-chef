@@ -5,6 +5,9 @@ public partial class FryingPanDisplay : EquipmentDisplay
     [Export]
     private Slider slider;
 
+    [Export]
+    private Control sliderFill;
+
     private int minSliderValueForProgress = 5;
     private int maxSliderValueForProgress = 15;
 
@@ -76,5 +79,15 @@ public partial class FryingPanDisplay : EquipmentDisplay
             return;
         
         equipment.ProgressCurrentOrder(equipment.GetProgressPercent(slider.Value));
+    }
+
+
+    public override void RefreshCurrentOrderDisplay()
+    {
+        base.RefreshCurrentOrderDisplay();
+
+        sliderFill.SetInstanceShaderParameter("instance_shader_parameters/target_area_min_value", minSliderValueForProgress);
+        sliderFill.SetInstanceShaderParameter("instance_shader_parameters/target_area_max_value", maxSliderValueForProgress);
+        sliderFill.SetInstanceShaderParameter("instance_shader_parameters/bar_max_value", slider.MaxValue);
     }
 }
