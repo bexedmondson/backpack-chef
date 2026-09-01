@@ -165,18 +165,22 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Smoke" type="AnimatedSprite2D" parent="SmokeContainer" unique_id=688705918]
-position = Vector2(21, 24)
+visible = false
+self_modulate = Color(0.5720907, 0.5720906, 0.5720906, 1)
+position = Vector2(16, 17)
 sprite_frames = SubResource("SpriteFrames_rwy7e")
 autoplay = "default"
-frame = 2
 
 [node name="Smoke2" type="AnimatedSprite2D" parent="SmokeContainer" unique_id=373614320]
-position = Vector2(35, 49)
+visible = false
+self_modulate = Color(0.5720907, 0.5720906, 0.5720906, 1)
+position = Vector2(28, 39)
 sprite_frames = SubResource("SpriteFrames_rwy7e")
 autoplay = "default"
-frame = 5
 
 [node name="Smoke3" type="AnimatedSprite2D" parent="SmokeContainer" unique_id=1840719254]
-position = Vector2(58, 26)
+visible = false
+self_modulate = Color(0.5720907, 0.5720906, 0.5720906, 1)
+position = Vector2(48, 15)
 sprite_frames = SubResource("SpriteFrames_rwy7e")
 autoplay = "default"

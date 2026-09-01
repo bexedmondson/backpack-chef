@@ -28,7 +28,7 @@ public abstract partial class Equipment : AbstractLoadableDataResource
         OnChange?.Invoke();
     }
 
-    public virtual double GetProgressPercent(double input = 1)
+    public virtual double GetProgressPercentDelta(double input = 1)
     {
         return defaultProgress * input;
     }
@@ -42,6 +42,11 @@ public abstract partial class Equipment : AbstractLoadableDataResource
             return;
         
         order.currentStep.MakeProgress(percentIncrease);
+    }
+
+    public virtual bool IsOverheating()
+    {
+        return false;
     }
 
     public abstract bool HasOrderStepFailed(OrderStep step, double progress);

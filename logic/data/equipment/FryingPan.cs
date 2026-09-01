@@ -12,7 +12,7 @@ public partial class FryingPan : TimedEquipment
     [Export]
     public int sliderOkayDistanceFromOptimal { get; private set; } = 5;
 
-    public override double GetProgressPercent(double input = 1)
+    public override double GetProgressPercentDelta(double input = 1)
     {
         //input for frying pan should be slider value
         if (input > sliderOptimal + sliderOkayDistanceFromOptimal) //order is burning!

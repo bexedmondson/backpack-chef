@@ -33,7 +33,7 @@ public partial class ChoppingBoardDisplay : EquipmentDisplay
 
     protected override void MakeProgress()
     {
-        equipment.ProgressCurrentOrder(equipment.GetProgressPercent());
+        equipment.ProgressCurrentOrder(equipment.GetProgressPercentDelta());
     }
 
     private void OnButtonDown()

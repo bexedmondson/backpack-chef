@@ -78,7 +78,22 @@ public partial class FryingPanDisplay : EquipmentDisplay
         if (!equipmentManager.HasOrder(equipment))
             return;
         
-        equipment.ProgressCurrentOrder(equipment.GetProgressPercent(slider.Value));
+        equipment.ProgressCurrentOrder(equipment.GetProgressPercentDelta(slider.Value));
+
+        CheckForOverheating();
+    }
+
+    private void CheckForOverheating()
+    {
+        if (equipment.IsOverheating())
+        {
+            if (!smokeParticleParent.IsVisible())
+                StartSmokeAnimation();
+        }
+        else if (smokeParticleParent.IsVisible())
+        {
+            StopSmokeAnimation();
+        }
     }
 
 

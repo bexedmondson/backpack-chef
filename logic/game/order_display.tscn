@@ -238,5 +238,4 @@ max_value = 40.0
 step = 1.0
 value = 40.0
 rounded = true
-fill_mode = 2
 show_percentage = false

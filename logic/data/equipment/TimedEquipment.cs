@@ -16,4 +16,17 @@ public abstract partial class TimedEquipment : Equipment
     {
         return progressPercent >= percentFailureThreshold;
     }
+
+    public override bool IsOverheating()
+    {
+        equipmentManager ??= Injection.Get<EquipmentManager>();
+        var hasOrder = equipmentManager.TryGetOrder(this, out var order);
+
+        if (!hasOrder)
+            return false;
+
+        var progress = order.currentStep.progressPercent;
+        Log.Print($"Timed equipment progress percent is {progress} and warning threshold is {percentWarningThreshold}");
+        return progress >= percentWarningThreshold;
+    }
 }

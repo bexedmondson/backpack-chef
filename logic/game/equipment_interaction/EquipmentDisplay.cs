@@ -12,7 +12,7 @@ public abstract partial class EquipmentDisplay : Control
     private Control readyIndicator;
 
     [Export]
-    private Control smokeParticleParent;
+    protected Control smokeParticleParent;
 
     [Export]
     private Godot.Collections.Array<AnimatedSprite2D> smokeParticles = new();
@@ -23,6 +23,8 @@ public abstract partial class EquipmentDisplay : Control
     protected Equipment equipment;
     protected OrderDisplay currentOrderDisplay;
     protected Control currentOrderStepVisualOverlay;
+
+    private Tween smokeAnimationTween;
     
     public override void _EnterTree()
     {
@@ -136,17 +138,32 @@ public abstract partial class EquipmentDisplay : Control
             smokeParticle.Visible = false;
         }
         
-        var tween = CreateTween();
+        smokeAnimationTween = CreateTween();
         for (int i = 0; i < smokeParticles.Count; i++)
         {
             var smokeParticle = smokeParticles[i];
-            tween.TweenCallback(Callable.From(() => StartSmokeParticle(smokeParticle)));
-            tween.TweenInterval(0.3 * (i + 1));
+            smokeAnimationTween.TweenCallback(Callable.From(() => StartSmokeParticle(smokeParticle)));
+            smokeAnimationTween.TweenInterval(0.3 * (i + 1));
         }
     }
 
     private void StartSmokeParticle(AnimatedSprite2D smokeParticle)
     {
         smokeParticle.Visible = true;
+    }
+
+    protected void StopSmokeAnimation() //TODO make this allow smoke animation to play out per particle
+    {
+        if (smokeAnimationTween.IsValid())
+        {
+            smokeAnimationTween.Kill();
+            smokeAnimationTween = null;
+        }
+        
+        smokeParticleParent.Visible = false;
+        foreach (var smokeParticle in smokeParticles)
+        {
+            smokeParticle.Visible = false;
+        }
     }
 }
