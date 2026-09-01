@@ -39,6 +39,12 @@ public partial class OrderDisplayController : Node, IInjectable
     {
         var display = orderToDisplayMap[order];
 
+        if (display == null)
+        {
+            Log.Warn($"Display for order {order.recipe.name} is null - probably already disposed. Returning.");
+            return;
+        }
+        
         display.DoOrderRemovalAnimation(() =>
         {
             RemoveOrderDisplayForOrder(order, display);
