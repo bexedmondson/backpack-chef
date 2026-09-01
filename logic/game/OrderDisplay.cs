@@ -92,8 +92,8 @@ public partial class OrderDisplay : Control
         tween.SetEase(Tween.EaseType.InOut);
         tween.SetTrans(Tween.TransitionType.Sine);
         tween.SetParallel(true);
-        tween.TweenProperty(scrollContainer, "size", new Vector2(scrollContainer.Size.X, 0), 1);
-        tween.TweenProperty(scrollContainer, "custom_minimum_size", new Vector2(scrollContainer.CustomMinimumSize.X, 0), 1);
+        tween.TweenProperty(scrollContainer, "size", new Vector2(scrollContainer.Size.X, 0), 0.6);
+        tween.TweenProperty(scrollContainer, "custom_minimum_size", new Vector2(scrollContainer.CustomMinimumSize.X, 0), 0.6);
         tween.Play();
     }
     
