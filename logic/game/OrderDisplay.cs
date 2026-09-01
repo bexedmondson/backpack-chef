@@ -13,7 +13,7 @@ public partial class OrderDisplay : Control
     private InstancePlaceholder stepDisplayPlaceholder;
 
     [Export]
-    private TextureProgressBar timeRemainingBar;
+    private ProgressBar timeRemainingBar;
 
     [Export]
     private ScrollContainer scrollContainer;

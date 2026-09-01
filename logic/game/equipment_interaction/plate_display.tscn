@@ -1,8 +1,12 @@
 [gd_scene format=3 uid="uid://dtha4u26k68i8"]
 
 [ext_resource type="PackedScene" uid="uid://m6w100o8crnd" path="res://logic/game/equipment_interaction/equipment_display.tscn" id="1_21djq"]
-[ext_resource type="Texture2D" uid="uid://dcdn08xo1hg45" path="res://assets/equipment/Plate.png" id="2_7whdj"]
 [ext_resource type="Script" uid="uid://dsywlcj7jmoem" path="res://logic/game/equipment_interaction/PlateDisplay.cs" id="2_f2jll"]
+[ext_resource type="Texture2D" uid="uid://dyhglash3i717" path="res://assets/equipment/kitchen_equipment_64x64.png" id="3_f2jll"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rwy7e"]
+atlas = ExtResource("3_f2jll")
+region = Rect2(128, 64, 64, 64)
 
 [node name="PlateDisplay" unique_id=1936882093 node_paths=PackedStringArray("orderDisplayContainer", "currentOrderStepVisualOverlayParent", "readyIndicator") instance=ExtResource("1_21djq")]
 script = ExtResource("2_f2jll")
@@ -14,7 +18,7 @@ readyIndicator = NodePath("ReadyToMoveTextureRect")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("2_7whdj")
+texture = SubResource("AtlasTexture_rwy7e")
 
 [node name="Button" type="Button" parent="." index="4" unique_id=723617770]
 layout_mode = 1

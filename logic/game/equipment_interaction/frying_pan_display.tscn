@@ -55,6 +55,12 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("2_4e6m7")
 
+[node name="CurrentOrderStepOverlayParent" parent="." index="1" unique_id=298280601]
+offset_left = -9.0
+offset_top = -2.0
+offset_right = -9.0
+offset_bottom = -2.0
+
 [node name="TemperatureSlider" type="HSlider" parent="." index="3" unique_id=1004662506]
 layout_mode = 1
 anchors_preset = 12

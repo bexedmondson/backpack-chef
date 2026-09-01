@@ -1,7 +1,7 @@
 [gd_resource type="AtlasTexture" format=3 uid="uid://cvf7o2xri2gsa"]
 
-[ext_resource type="Texture2D" uid="uid://cx300ns0raqnw" path="res://assets/equipment/FoodandStuff.png" id="1_gq47y"]
+[ext_resource type="Texture2D" uid="uid://dyhglash3i717" path="res://assets/equipment/kitchen_equipment_64x64.png" id="1_gq47y"]
 
 [resource]
 atlas = ExtResource("1_gq47y")
-region = Rect2(192, 48, 32, 32)
+region = Rect2(32, 0, 64, 64)

@@ -20,6 +20,7 @@ public abstract partial class Equipment : AbstractLoadableDataResource
     protected double defaultProgress;
 
     public Action OnChange;
+    protected EquipmentManager equipmentManager;
 
     private void OnCurrentOrderStepUpdated()
     {
@@ -34,7 +35,8 @@ public abstract partial class Equipment : AbstractLoadableDataResource
 
     public virtual void ProgressCurrentOrder(double percentIncrease)
     {
-        var hasOrder = Injection.Get<EquipmentManager>().TryGetOrder(this, out var order);
+        equipmentManager ??= Injection.Get<EquipmentManager>();
+        var hasOrder = equipmentManager.TryGetOrder(this, out var order);
 
         if (!hasOrder)
             return;

@@ -48,41 +48,41 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_mdxf6")
 script = ExtResource("2_ctdt0")
 equipmentDisplayParents = [NodePath("EquipmentDisplayParent"), NodePath("EquipmentDisplayParent2"), NodePath("EquipmentDisplayParent3"), NodePath("EquipmentDisplayParent4")]
 
-[node name="EquipmentDisplayParent" type="Control" parent="EquipmentDisplayController" unique_id=1603202176]
-custom_minimum_size = Vector2(32, 32)
+[node name="EquipmentDisplayParent" type="Control" parent="EquipmentDisplayController" unique_id=415324606]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 0
-offset_left = 377.0
-offset_top = 91.0
-offset_right = 417.0
-offset_bottom = 131.0
+offset_left = 109.0
+offset_top = 37.0
+offset_right = 173.0
+offset_bottom = 101.0
 
-[node name="EquipmentDisplayParent2" type="Control" parent="EquipmentDisplayController" unique_id=679292131]
-custom_minimum_size = Vector2(32, 32)
+[node name="EquipmentDisplayParent2" type="Control" parent="EquipmentDisplayController" unique_id=996659729]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 0
+offset_left = 230.0
+offset_top = 69.0
+offset_right = 294.0
+offset_bottom = 133.0
+
+[node name="EquipmentDisplayParent3" type="Control" parent="EquipmentDisplayController" unique_id=1603202176]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 0
+offset_left = 378.0
+offset_top = 52.0
+offset_right = 418.0
+offset_bottom = 92.0
+
+[node name="EquipmentDisplayParent4" type="Control" parent="EquipmentDisplayController" unique_id=679292131]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 0
 offset_left = 493.0
 offset_top = 26.0
 offset_right = 533.0
 offset_bottom = 66.0
-
-[node name="EquipmentDisplayParent3" type="Control" parent="EquipmentDisplayController" unique_id=996659729]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 1
-anchors_preset = 0
-offset_left = 203.0
-offset_top = 88.0
-offset_right = 243.0
-offset_bottom = 128.0
-
-[node name="EquipmentDisplayParent4" type="Control" parent="EquipmentDisplayController" unique_id=415324606]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 1
-anchors_preset = 0
-offset_left = 133.0
-offset_top = 24.0
-offset_right = 173.0
-offset_bottom = 64.0
 
 [node name="BinTextureRect" type="TextureRect" parent="EquipmentDisplayController" unique_id=144132135]
 layout_mode = 1

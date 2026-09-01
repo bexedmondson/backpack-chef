@@ -12,7 +12,7 @@ public partial class Plate : Equipment
     {
         base.ProgressCurrentOrder(percentIncrease);
 
-        var hasOrder = Injection.Get<EquipmentManager>().TryGetOrder(this, out var order);
+        var hasOrder = equipmentManager.TryGetOrder(this, out var order);
 
         if (hasOrder)
             Injection.Get<OrderManager>().ServeCompleteOrder(order);

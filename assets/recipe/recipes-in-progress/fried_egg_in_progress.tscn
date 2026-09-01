@@ -4,7 +4,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d05ak"]
 atlas = ExtResource("1_5043p")
-region = Rect2(168, 32, 16, 16)
+region = Rect2(160, 0, 32, 32)
 
 [node name="FriedEgg_InProgress" type="Control" unique_id=247871908]
 layout_mode = 3
@@ -18,10 +18,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
+offset_left = 15.0
 offset_top = 12.0
-offset_right = -16.0
-offset_bottom = -12.0
+offset_right = 7.0
+offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_d05ak")

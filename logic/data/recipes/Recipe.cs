@@ -17,5 +17,5 @@ public partial class Recipe : AbstractLoadableDataResource
     public Array<RecipeStep> steps { get; private set; }
 
     [Export]
-    public double defaultTimeLimit = 25;
+    public double defaultTimeLimit = 20;
 }

@@ -6,7 +6,7 @@ public partial class ChoppingBoardDisplay : EquipmentDisplay
             return false;
 
         var hasOrder = equipmentManager.TryGetOrder(equipment, out var currentOrder);
-        if (currentOrder.currentStep.isStepFinished)
+        if (hasOrder && currentOrder.currentStep.isStepFinished)
             return false;
         return true;
     }

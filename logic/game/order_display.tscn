@@ -137,13 +137,29 @@ _data = {
 &"rollup": SubResource("Animation_sevke")
 }
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ej5s1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_h611v"]
 atlas = ExtResource("5_ywrhs")
-region = Rect2(0, 96, 64, 16)
+region = Rect2(2, 98, 60, 12)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ywrhs"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ywrhs"]
+texture = SubResource("AtlasTexture_h611v")
+texture_margin_left = 6.0
+texture_margin_top = 4.0
+texture_margin_right = 6.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gali2"]
 atlas = ExtResource("5_ywrhs")
-region = Rect2(0, 144, 16, 16)
+region = Rect2(2, 146, 12, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h611v"]
+texture = SubResource("AtlasTexture_gali2")
+texture_margin_left = 5.0
+texture_margin_top = 1.0
+texture_margin_right = 5.0
+texture_margin_bottom = 1.0
+expand_margin_top = 1.0
+expand_margin_bottom = 1.0
 
 [node name="OrderDisplay" type="PanelContainer" unique_id=2056466931 node_paths=PackedStringArray("recipeNameLabel", "recipeIcon", "stepDisplayPlaceholder", "timeRemainingBar", "scrollContainer", "scrollChild", "animationPlayer")]
 custom_minimum_size = Vector2(51, 0)
@@ -155,7 +171,7 @@ script = ExtResource("1_yt0pd")
 recipeNameLabel = NodePath("DebugRecipeName/DebugRecipeNameLabel")
 recipeIcon = NodePath("ScrollContainer/VBoxContainer/FinalOrderImage")
 stepDisplayPlaceholder = NodePath("ScrollContainer/VBoxContainer/OrderStepContainer")
-timeRemainingBar = NodePath("ProgressBarContainer/TextureProgressBar")
+timeRemainingBar = NodePath("ProgressBarContainer/ProgressBar")
 scrollContainer = NodePath("ScrollContainer")
 scrollChild = NodePath("ScrollContainer/VBoxContainer")
 animationPlayer = NodePath("AnimationPlayer")
@@ -213,18 +229,16 @@ libraries/ = SubResource("AnimationLibrary_b036j")
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="ProgressBarContainer" unique_id=2077490421]
-layout_mode = 0
+[node name="ProgressBar" type="ProgressBar" parent="ProgressBarContainer" unique_id=737348278]
+layout_mode = 1
 offset_left = -4.0
 offset_top = 5.0
 offset_right = 44.0
 offset_bottom = 21.0
-value = 50.0
+theme_override_styles/background = SubResource("StyleBoxTexture_ywrhs")
+theme_override_styles/fill = SubResource("StyleBoxTexture_h611v")
+max_value = 40.0
+step = 1.0
+value = 40.0
 rounded = true
-nine_patch_stretch = true
-stretch_margin_left = 7
-stretch_margin_top = 5
-stretch_margin_right = 7
-stretch_margin_bottom = 5
-texture_under = SubResource("AtlasTexture_ej5s1")
-texture_progress = SubResource("AtlasTexture_ywrhs")
+show_percentage = false

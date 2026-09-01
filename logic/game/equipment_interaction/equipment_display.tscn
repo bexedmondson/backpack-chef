@@ -51,7 +51,8 @@ _data = {
 }
 
 [node name="EquipmentDisplay" type="Panel" unique_id=1936882093]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(64, 64)
+custom_maximum_size = Vector2(64, 64)
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 1
@@ -90,10 +91,9 @@ grow_horizontal = 2
 [node name="ReadyToMoveTextureRect" type="TextureRect" parent="." unique_id=110275400]
 visible = false
 layout_mode = 0
-offset_right = 40.0
+offset_right = 64.0
 offset_bottom = 40.0
 texture = SubResource("AtlasTexture_mlp44")
-expand_mode = 5
 stretch_mode = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ReadyToMoveTextureRect" unique_id=1042060568]

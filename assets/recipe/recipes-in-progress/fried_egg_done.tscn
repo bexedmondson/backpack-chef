@@ -4,9 +4,9 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d05ak"]
 atlas = ExtResource("1_gggph")
-region = Rect2(168, 32, 16, 16)
+region = Rect2(160, 0, 32, 32)
 
-[node name="FriedEgg_InProgress" type="Control" unique_id=1878788879]
+[node name="FriedEgg_Done" type="Control" unique_id=1878788879]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -14,14 +14,15 @@ offset_bottom = 40.0
 mouse_filter = 2
 
 [node name="Egg" type="TextureRect" parent="." unique_id=1739478509]
+self_modulate = Color(0.9607843, 0.84705883, 0.6431373, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 12.0
-offset_top = 13.0
-offset_right = -12.0
-offset_bottom = -11.0
+offset_left = 15.0
+offset_top = 12.0
+offset_right = 7.0
+offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_d05ak")
