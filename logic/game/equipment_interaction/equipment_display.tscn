@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://m6w100o8crnd"]
 
 [ext_resource type="Texture2D" uid="uid://bdl22t76vrgdk" path="res://assets/ui/MedievalFree.png" id="1_rwy7e"]
+[ext_resource type="Texture2D" uid="uid://dpimnoipfj1wy" path="res://assets/equipment/smoke_spriteatlas.png" id="2_n0i7f"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mdxf6"]
 
@@ -49,6 +50,63 @@ _data = {
 &"RESET": SubResource("Animation_n0i7f"),
 &"sparkle": SubResource("Animation_rwy7e")
 }
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0i7f"]
+atlas = ExtResource("2_n0i7f")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4huem"]
+atlas = ExtResource("2_n0i7f")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gt1h"]
+atlas = ExtResource("2_n0i7f")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mti14"]
+atlas = ExtResource("2_n0i7f")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_444y2"]
+atlas = ExtResource("2_n0i7f")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkwbj"]
+atlas = ExtResource("2_n0i7f")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rso7"]
+atlas = ExtResource("2_n0i7f")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rwy7e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n0i7f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4huem")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5gt1h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mti14")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_444y2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mkwbj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rso7")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="EquipmentDisplay" type="Panel" unique_id=1936882093]
 custom_minimum_size = Vector2(64, 64)
@@ -99,3 +157,26 @@ stretch_mode = 5
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ReadyToMoveTextureRect" unique_id=1042060568]
 libraries/ = SubResource("AnimationLibrary_n0i7f")
 autoplay = &"sparkle"
+
+[node name="SmokeContainer" type="Control" parent="." unique_id=588268939]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Smoke" type="AnimatedSprite2D" parent="SmokeContainer" unique_id=688705918]
+position = Vector2(21, 24)
+sprite_frames = SubResource("SpriteFrames_rwy7e")
+autoplay = "default"
+frame = 2
+
+[node name="Smoke2" type="AnimatedSprite2D" parent="SmokeContainer" unique_id=373614320]
+position = Vector2(35, 49)
+sprite_frames = SubResource("SpriteFrames_rwy7e")
+autoplay = "default"
+frame = 5
+
+[node name="Smoke3" type="AnimatedSprite2D" parent="SmokeContainer" unique_id=1840719254]
+position = Vector2(58, 26)
+sprite_frames = SubResource("SpriteFrames_rwy7e")
+autoplay = "default"

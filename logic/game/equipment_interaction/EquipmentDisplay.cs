@@ -11,6 +11,12 @@ public abstract partial class EquipmentDisplay : Control
     [Export]
     private Control readyIndicator;
 
+    [Export]
+    private Control smokeParticleParent;
+
+    [Export]
+    private Godot.Collections.Array<AnimatedSprite2D> smokeParticles = new();
+
     protected EquipmentManager equipmentManager;
     protected OrderDisplayController orderDisplayController;
     
@@ -120,4 +126,27 @@ public abstract partial class EquipmentDisplay : Control
     }
 
     protected abstract void MakeProgress();
+
+
+    protected virtual void StartSmokeAnimation()
+    {
+        smokeParticleParent.Visible = true;
+        foreach (var smokeParticle in smokeParticles)
+        {
+            smokeParticle.Visible = false;
+        }
+        
+        var tween = CreateTween();
+        for (int i = 0; i < smokeParticles.Count; i++)
+        {
+            var smokeParticle = smokeParticles[i];
+            tween.TweenCallback(Callable.From(() => StartSmokeParticle(smokeParticle)));
+            tween.TweenInterval(0.3 * (i + 1));
+        }
+    }
+
+    private void StartSmokeParticle(AnimatedSprite2D smokeParticle)
+    {
+        smokeParticle.Visible = true;
+    }
 }
