@@ -8,6 +8,7 @@ public partial class GameTimeMonitor : Node
     public override void _Ready()
     {
         base._Ready();
+        Injection.Get<KitchenManager>().OnGameStart();
         Injection.Get<OrderManager>().OnGameStart(this);
     }
 

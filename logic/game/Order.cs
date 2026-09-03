@@ -99,9 +99,20 @@ public class Order(Recipe recipe)
 
     private void SetState(OrderState newState)
     {
+        if (state == newState)
+            return;
+        
+        Log.Print($"Order {recipe.name} moving from state {state} to state {newState}");
         state = newState;
         if (stateHistory.TryPeek(out var prevState) && prevState != newState)
             stateHistory.Push(newState);
+
+        string history = "";
+        foreach (var orderState in stateHistory)
+        {
+            history += orderState;
+        }
+        Log.Print($"Order {recipe.name} state history now {history}");
     }
 
     public double GetTimeRemainingProportion()
