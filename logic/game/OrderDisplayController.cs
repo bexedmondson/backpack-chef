@@ -35,13 +35,26 @@ public partial class OrderDisplayController : Node, IInjectable
         //by this controller instead of passing that responsibility around to equipment displays and such
     }
 
+    public void OnOrderBinned(Order order)
+    {
+        var display = orderToDisplayMap[order];
+
+        if (display == null)
+        {
+            Log.Warn($"Display for binned order {order.recipe.name} is null! Returning??");
+            return;
+        }
+        
+        display.Reparent(orderDisplayPlaceholder.GetParent());
+    }
+
     public void OnOrderEnded(Order order)
     {
         var display = orderToDisplayMap[order];
 
         if (display == null)
         {
-            Log.Warn($"Display for order {order.recipe.name} is null - probably already disposed. Returning.");
+            Log.Warn($"Display for ended order {order.recipe.name} is null - probably already disposed. Returning.");
             return;
         }
         

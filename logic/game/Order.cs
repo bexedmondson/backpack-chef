@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 
 public class Order(Recipe recipe)
 {
@@ -80,7 +81,23 @@ public class Order(Recipe recipe)
 
     public void Bin()
     {
-        SetState(OrderState.FailedBinned);
+        SetState(OrderState.Binned);
+        SetState(OrderState.WaitingToStart);
+        currentStep.OnStepFailed -= OnCurrentStepFailed;
+        currentStep.OnStepFinished -= OnCurrentStepFinished;
+
+        currentStep = null;
+        orderSteps.Clear();
+        
+        foreach (var recipeStep in recipe.steps)
+        {
+            var orderStep = new OrderStep(recipeStep);
+            orderSteps.Add(orderStep);
+        }
+        
+        currentStep = orderSteps[0];
+        currentStep.OnStepFinished += OnCurrentStepFinished;
+        currentStep.OnStepFailed += OnCurrentStepFailed;
     }
 
     public OrderState GetState()
@@ -97,22 +114,26 @@ public class Order(Recipe recipe)
         return stateHistory.Contains(OrderState.InProgress);
     }
 
+    private OrderState[] historyArray;
     private void SetState(OrderState newState)
     {
         if (state == newState)
             return;
+
+        StringBuilder sb = new($"Order {recipe.name} moving from state {state} to state {newState}. History:");
         
-        Log.Print($"Order {recipe.name} moving from state {state} to state {newState}");
         state = newState;
         if (stateHistory.TryPeek(out var prevState) && prevState != newState)
             stateHistory.Push(newState);
 
-        string history = "";
-        foreach (var orderState in stateHistory)
+        historyArray = stateHistory.ToArray();
+        for (int i = historyArray.Length - 1; i >= 0; i--)
         {
-            history += orderState;
+            sb.Append($" {historyArray[i]},");
         }
-        Log.Print($"Order {recipe.name} state history now {history}");
+        
+        Log.PrintVerbose(sb.ToString());
+        historyArray = null;
     }
 
     public double GetTimeRemainingProportion()

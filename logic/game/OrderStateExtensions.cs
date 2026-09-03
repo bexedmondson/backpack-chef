@@ -7,6 +7,6 @@ public static class OrderStateExtensions
 
     public static bool IsFailed(this OrderState orderState)
     {
-        return orderState is OrderState.FailedStep or OrderState.FailedBinned or OrderState.Expired;
+        return orderState is OrderState.FailedStep or OrderState.Binned or OrderState.Expired;
     }
 }

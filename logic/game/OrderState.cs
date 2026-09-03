@@ -5,6 +5,6 @@ public enum OrderState
     WaitingToProgress,
     Complete,
     FailedStep,
-    FailedBinned,
+    Binned,
     Expired
 }

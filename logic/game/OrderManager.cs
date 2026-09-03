@@ -125,7 +125,7 @@ public class OrderManager : AbstractManager
             Injection.Get<EquipmentDisplayController>().RefreshEquipmentDisplay(equipment);
 
         orderDisplayController ??= Injection.Get<OrderDisplayController>();
-        orderDisplayController.OnOrderEnded(order);
+        orderDisplayController.OnOrderBinned(order);
         
         order.Bin();
     }
