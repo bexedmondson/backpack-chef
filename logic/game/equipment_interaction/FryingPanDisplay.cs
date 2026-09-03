@@ -75,10 +75,8 @@ public partial class FryingPanDisplay : EquipmentDisplay
         
         //add a timer between progress increases here
 
-        if (!equipmentManager.HasOrder(equipment))
-            return;
-        
-        equipment.ProgressCurrentOrder(equipment.GetProgressPercentDelta(slider.Value));
+        if (equipmentManager.HasOrder(equipment))
+            equipment.ProgressCurrentOrder(equipment.GetProgressPercentDelta(slider.Value));
 
         CheckForOverheating();
     }
@@ -104,5 +102,7 @@ public partial class FryingPanDisplay : EquipmentDisplay
         sliderFill.SetInstanceShaderParameter("instance_shader_parameters/target_area_min_value", minSliderValueForProgress);
         sliderFill.SetInstanceShaderParameter("instance_shader_parameters/target_area_max_value", maxSliderValueForProgress);
         sliderFill.SetInstanceShaderParameter("instance_shader_parameters/bar_max_value", slider.MaxValue);
+        
+        CheckForOverheating();
     }
 }
