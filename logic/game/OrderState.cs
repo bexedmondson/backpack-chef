@@ -6,5 +6,5 @@ public enum OrderState
     Complete,
     FailedStep,
     FailedBinned,
-    FailedExpired
+    Expired
 }

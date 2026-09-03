@@ -66,7 +66,7 @@ public class OrderManager : AbstractManager
 
             order.DecreaseTimeRemaining(delta);
 
-            if (order.GetState() == OrderState.FailedExpired && !order.HasMadeAnyProgress())
+            if (order.GetState() == OrderState.Expired && !order.HasMadeAnyProgress())
             {
                 orderDisplayController ??= Injection.Get<OrderDisplayController>();
                 orderDisplayController.OnOrderEnded(order);

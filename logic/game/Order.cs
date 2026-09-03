@@ -129,7 +129,7 @@ public class Order(Recipe recipe)
             return;
 
         SetState(currentStepState switch {
-            OrderStepState.FinishedFailed => OrderState.FailedStep,
+            OrderStepState.Failed => OrderState.FailedStep,
 
             OrderStepState.None when currentStep == steps[0] => OrderState.WaitingToStart,
 
@@ -148,13 +148,13 @@ public class Order(Recipe recipe)
         timeRemaining -= delta;
 
         if (timeRemaining <= 0)
-            SetState(OrderState.FailedExpired);
+            SetState(OrderState.Expired);
     }
 
     public OrderStepState GetCurrentStepState()
     {
         return currentStep switch {
-            { didStepFail: true } => OrderStepState.FinishedFailed,
+            { didStepFail: true } => OrderStepState.Failed,
             { isStepFinished: true } => OrderStepState.Finished,
             { isStepInProgress: true } => OrderStepState.InProgress,
             _ => OrderStepState.None
