@@ -32,7 +32,7 @@ project/assembly_name="Backpack Chef"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/ReorderableContainer/plugin.cfg")
 
 [gui]
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-public partial class OrderDisplayController : Node, IInjectable
+public partial class OrderDisplayController : ScrollContainer, IInjectable
 {
     [Export]
     public InstancePlaceholder orderDisplayPlaceholder;

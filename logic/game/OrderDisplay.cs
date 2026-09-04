@@ -67,7 +67,7 @@ public partial class OrderDisplay : Control
         AnimationFinishedAction?.Invoke();
     }
 
-    public override Variant _GetDragData(Vector2 atPosition)
+    /*public override Variant _GetDragData(Vector2 atPosition)
     {
         SetDragPreview(GetDragPreview());
         return this;
@@ -81,7 +81,7 @@ public partial class OrderDisplay : Control
         
         this.Modulate = Colors.Transparent;
         return dupe;
-    }
+    }*/
 
     public void AnimateBackgroundHeight()
     {

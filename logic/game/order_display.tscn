@@ -161,6 +161,7 @@ texture_margin_right = 5.0
 custom_minimum_size = Vector2(51, 0)
 offset_right = 51.0
 offset_bottom = 69.0
+size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ej5s1")
 script = ExtResource("1_yt0pd")
@@ -180,11 +181,13 @@ orderEndAnimationNameMap = Dictionary[int, String]({
 
 [node name="BGPanel" type="Panel" parent="." unique_id=1368360397]
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_b036j")
 
 [node name="RollupBGPanel" type="Panel" parent="." unique_id=1164584895]
 visible = false
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_ej5s1")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=708927643]
@@ -225,6 +228,7 @@ libraries/ = SubResource("AnimationLibrary_b036j")
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
+mouse_filter = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="ProgressBarContainer" unique_id=737348278]
 layout_mode = 1

@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bq6yxwctqf5i3" path="res://logic/game/equipment_interaction/EquipmentDisplayController.cs" id="2_ctdt0"]
 [ext_resource type="Texture2D" uid="uid://b2miutiudxeth" path="res://assets/foodbin.png" id="4_7w1vn"]
 [ext_resource type="Script" uid="uid://cgap0gwea33xu" path="res://logic/game/BinDisplay.cs" id="4_ct3hu"]
+[ext_resource type="Script" uid="uid://bai12jl63os3t" path="res://addons/ReorderableContainer/ReorderableHBox.cs" id="6_xr0pu"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mdxf6"]
 texture = ExtResource("2_ct3hu")
@@ -100,22 +101,33 @@ script = ExtResource("4_ct3hu")
 defaultTexture = SubResource("AtlasTexture_7w1vn")
 hoverTexture = SubResource("AtlasTexture_4phug")
 
-[node name="OrderDisplayController" type="HBoxContainer" parent="." unique_id=1214550338 node_paths=PackedStringArray("orderDisplayPlaceholder")]
+[node name="OrderDisplayController" type="ScrollContainer" parent="." unique_id=638076849 node_paths=PackedStringArray("orderDisplayPlaceholder")]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = 8.0
 offset_bottom = 77.0
 grow_horizontal = 2
-theme_override_constants/separation = 8
-alignment = 2
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
 script = ExtResource("1_3xvsb")
-orderDisplayPlaceholder = NodePath("OrderDisplay")
+orderDisplayPlaceholder = NodePath("ReorderableHBox/OrderDisplay")
 
 [node name="Line2D" type="Line2D" parent="OrderDisplayController" unique_id=1202454588]
 points = PackedVector2Array(-1, 3, 641, 3)
 width = 2.0
 default_color = Color(0.3137255, 0.23137255, 0.14509805, 1)
 
-[node name="OrderDisplay" parent="OrderDisplayController" unique_id=2140043774 instance_placeholder="res://logic/game/order_display.tscn"]
+[node name="ReorderableHBox" type="Container" parent="OrderDisplayController" unique_id=1687685310 node_paths=PackedStringArray("scrollContainer")]
+process_mode = 1
+custom_minimum_size = Vector2(51, 0)
 layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+script = ExtResource("6_xr0pu")
+scrollContainer = NodePath("..")
+metadata/_custom_type_script = "uid://bai12jl63os3t"
+
+[node name="OrderDisplay" parent="OrderDisplayController/ReorderableHBox" unique_id=2140043774 instance_placeholder="res://logic/game/order_display.tscn"]
+layout_mode = 2
+mouse_filter = 1
