@@ -6,14 +6,14 @@ public partial  class ReorderableContainerPlugin : EditorPlugin
     public override void _EnterTree()
     {
         base._EnterTree();
-        var containerScript = GD.Load<Script>("res://addons/ReorderableContainer/ReorderableContainer.cs");
-        var containerIcon = GD.Load<Texture2D>("res://addons/ReorderableContainer/Icons/reorderable_container_icon.svg");
+        var containerScript = GD.Load<Script>("ReorderableContainer.cs");
+        var containerIcon = GD.Load<Texture2D>("Icons/reorderable_container_icon.svg");
         AddCustomType("ReorderableContainer", "Container", containerScript, containerIcon);
-        var containerVBoxScript = GD.Load<Script>("res://addons/ReorderableContainer/ReorderableVBox.cs");
-        var containerVBoxIcon = GD.Load<Texture2D>("res://addons/ReorderableContainer/Icons/reorderable_vbox_icon.svg");
+        var containerVBoxScript = GD.Load<Script>("ReorderableVBox.cs");
+        var containerVBoxIcon = GD.Load<Texture2D>("Icons/reorderable_vbox_icon.svg");
         AddCustomType("ReorderableVBox", "Container", containerVBoxScript, containerVBoxIcon);
-        var containerHBoxScript = GD.Load<Script>("res://addons/ReorderableContainer/ReorderableHBox.cs");
-        var containerHBoxIcon = GD.Load<Texture2D>("res://addons/ReorderableContainer/Icons/reorderable_hbox_icon.svg");
+        var containerHBoxScript = GD.Load<Script>("ReorderableHBox.cs");
+        var containerHBoxIcon = GD.Load<Texture2D>("Icons/reorderable_hbox_icon.svg");
         AddCustomType("ReorderableHBox", "Container", containerHBoxScript, containerHBoxIcon);
     }
 

@@ -3,17 +3,28 @@ using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
 
-[Tool]
+/**
+ * A container that allows its child to be reorder and arranges horizontally or vertically.
+ *
+ * A container similar to [BoxContainer] but extended with drag-and-drop style reordering functionality,
+ * and auto-scroll functionality when placed under [ScrollContainer].[br][br]
+ * [b]Note:[/b] This addon also works with SmoothScroll by SpyrexDE.
+ * 
+ * @tutorial(SmoothScroll): https://github.com/SpyrexDE/SmoothScroll
+ * @tutorial(Using Containers): https://docs.godotengine.org/en/4.1/tutorials/ui/gui_containers.html
+ **/
+
+[Tool, Icon("Icons/reorderable_container_icon.svg")]
 public partial class ReorderableContainer : Container
 {
 	private Action<int, int> Reordered;
 
-	private const float dropZoneExtend = 2000;
+	private const float k_dropZoneExtend = 2000f;
 
 	[Export]
 	private float holdDuration = 0.5f;
 
-	[Export(PropertyHint.Range, "3,30,0.01,or_greater,or_less")]
+	[Export(PropertyHint.Range, "3, 30, 0.01, or_greater, or_less")]
 	private float speed = 10f;
 
 	[Export]
@@ -25,14 +36,14 @@ public partial class ReorderableContainer : Container
 		get => _separation;
 		set
 		{
-			if (value == _separation || value < 0)
+			if (Mathf.IsEqualApprox(value, _separation) || value < 0)
 				return;
 			_separation = value;
 			OnSortChildren();
 		}
 	}
 
-	//horrible hack to hide things in editor - can't modify PropertyUsageFlags otherwise :/
+	// Hack to hide things in editor - can't modify PropertyUsageFlags in C# otherwise
 	public override void _ValidateProperty(Dictionary property)
 	{
 		base._ValidateProperty(property);
@@ -60,12 +71,12 @@ public partial class ReorderableContainer : Container
 	[Export(PropertyHint.Range, "0, 0.5")]
 	private float autoScrollRange = 0.3f;
 
-	// The scrolling threshold in pixel. In a nutshell, user will have hard time trying to drag a child if it too low
-	// && user will accidentally drag a child when scrolling if it too high.
+	// The scrolling threshold in pixels. The user will have a hard time trying to drag a child if it's too low
+	// and user might accidentally drag a child when scrolling if it's too high.
 	[Export]
 	private float scrollThreshold = 30f;
 
-	// Uses when debugging
+	// Use when debugging
 	[Export]
 	private bool isDebugging = false;
 
@@ -165,7 +176,7 @@ public partial class ReorderableContainer : Container
 			}
 			else
 			{
-				// If user scroll more than scroll_threshold, press is abort.
+				// If user scrolls more than scrollThreshold, press is aborted.
 				isPress = Mathf.Abs(scrollPoint - scrollStartingPoint) <= scrollThreshold;
 			}
 		}
@@ -175,7 +186,7 @@ public partial class ReorderableContainer : Container
 
 	private void OnStartDragging()
 	{
-		// Force _on_sort_children to use process update for linear interpolation
+		// Force OnSortChildren to use process update for linear interpolation
 		isUsingProcess = true;
 		focusChild.ZIndex = 1;
 		// Workaround for SmoothScroll addon
@@ -290,7 +301,7 @@ public partial class ReorderableContainer : Container
 
 	private void OnSortChildren(double delta)
 	{
-		if (isUsingProcess && delta == -1.0)
+		if (isUsingProcess && Mathf.IsEqualApprox(delta, -1.0))
 			return;
 		
 		AdjustExpectedChildRect();
@@ -393,7 +404,7 @@ public partial class ReorderableContainer : Container
 				if (i == 0)
 				{
 					// First child
-					dropZoneRect.Position = new Vector2(child.Position.X, child.Position.Y - dropZoneExtend);
+					dropZoneRect.Position = new Vector2(child.Position.X, child.Position.Y - k_dropZoneExtend);
 					dropZoneRect.End = new Vector2(child.Size.X, child.GetRect().GetCenter().Y);
 					dropZones.Add(dropZoneRect);
 				}
@@ -410,7 +421,7 @@ public partial class ReorderableContainer : Container
 				{
 					// Is also last child
 					dropZoneRect.Position = new Vector2(child.Position.X, child.GetRect().GetCenter().Y);
-					dropZoneRect.End = new Vector2(child.Size.X, child.GetRect().End.Y + dropZoneExtend);
+					dropZoneRect.End = new Vector2(child.Size.X, child.GetRect().End.Y + k_dropZoneExtend);
 					dropZones.Add(dropZoneRect);
 				}
 			}
@@ -419,7 +430,7 @@ public partial class ReorderableContainer : Container
 				if (i == 0)
 				{
 					// First child
-					dropZoneRect.Position = new Vector2(child.Position.X - dropZoneExtend, child.Position.Y);
+					dropZoneRect.Position = new Vector2(child.Position.X - k_dropZoneExtend, child.Position.Y);
 					dropZoneRect.End = new Vector2(child.GetRect().GetCenter().X, child.Size.Y);
 					dropZones.Add(dropZoneRect);
 				}
@@ -436,7 +447,7 @@ public partial class ReorderableContainer : Container
 				{
 					// Is also last child
 					dropZoneRect.Position = new Vector2(child.GetRect().GetCenter().X, child.Position.Y);
-					dropZoneRect.End = new Vector2(child.GetRect().End.X + dropZoneExtend, child.Size.Y);
+					dropZoneRect.End = new Vector2(child.GetRect().End.X + k_dropZoneExtend, child.Size.Y);
 					dropZones.Add(dropZoneRect);
 				}
 			}
