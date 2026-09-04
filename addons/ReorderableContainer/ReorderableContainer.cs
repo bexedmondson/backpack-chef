@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
@@ -5,8 +6,7 @@ using Godot.Collections;
 [Tool]
 public partial class ReorderableContainer : Container
 {
-	[Signal]
-	public delegate void ReorderedEventHandler(int from, int to);
+	private Action<int, int> Reordered;
 
 	private const float dropZoneExtend = 2000;
 
@@ -94,13 +94,21 @@ public partial class ReorderableContainer : Container
 		ProcessMode = ProcessModeEnum.Pausable;
 		AdjustExpectedChildRect();
 		
-		//SortChildren -= OnSortChildren;
 		SortChildren += OnSortChildren;
-
-		//GetTree().NodeAdded -= OnNodeAdded;
 		GetTree().NodeAdded += OnNodeAdded;
 		
 		OnSortChildren();
+	}
+
+	protected override void Dispose(bool disposing)
+	{
+		base.Dispose(disposing);
+	
+		/* handling this here as per https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/c_sharp_signals.html#no-automatic-disconnection-a-lambda-expression-that-captures-a-variable
+		   "Another option is to connect to signals in _Ready and disconnect in Dispose."
+		*/
+		SortChildren -= OnSortChildren;
+		GetTree().NodeAdded -= OnNodeAdded;
 	}
 
 	public override void _GuiInput(InputEvent @event)
@@ -192,7 +200,9 @@ public partial class ReorderableContainer : Container
 		focusChild.ZIndex = 0;
 		var focusChildIndex = focusChild.GetIndex();
 		MoveChild(focusChild, dropZoneIndex);
-		EmitSignal(SignalName.Reordered, focusChildIndex, dropZoneIndex);
+		
+		Reordered?.Invoke(focusChildIndex, dropZoneIndex);
+		
 		focusChild = null;
 		dropZoneIndex = -1;
 		if (isSmoothScroll)
