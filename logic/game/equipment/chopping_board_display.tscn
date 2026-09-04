@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://o8nng32mwv2l"]
 
-[ext_resource type="PackedScene" uid="uid://m6w100o8crnd" path="res://logic/game/equipment_interaction/equipment_display.tscn" id="1_jryne"]
-[ext_resource type="Script" uid="uid://dxc2vp76eys45" path="res://logic/game/equipment_interaction/ChoppingBoardDisplay.cs" id="2_leowp"]
+[ext_resource type="PackedScene" uid="uid://m6w100o8crnd" path="res://logic/game/equipment/equipment_display.tscn" id="1_jryne"]
+[ext_resource type="Script" uid="uid://dxc2vp76eys45" path="res://logic/game/equipment/ChoppingBoardDisplay.cs" id="2_leowp"]
 [ext_resource type="Texture2D" uid="uid://bfmf8f477qmly" path="res://assets/woodpanel_bg_frame.png" id="2_tc2qu"]
 [ext_resource type="Texture2D" uid="uid://cvf7o2xri2gsa" path="res://assets/equipment/knife.tres" id="3_abrio"]
 [ext_resource type="Texture2D" uid="uid://dyhglash3i717" path="res://assets/equipment/kitchen_equipment_64x64.png" id="4_mweva"]

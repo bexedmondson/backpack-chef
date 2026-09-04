@@ -10,5 +10,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="logic\data\recipes\" />
+    <Folder Include="logic\game\orders\" />
   </ItemGroup>
 </Project>

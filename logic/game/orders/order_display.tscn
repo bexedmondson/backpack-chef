@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dkrxnal3wdmbd"]
 
 [ext_resource type="Texture2D" uid="uid://ccdwhk1vyx4d7" path="res://assets/order_bg.png" id="1_sevke"]
-[ext_resource type="Script" uid="uid://di6njgthdfm1e" path="res://logic/game/OrderDisplay.cs" id="1_yt0pd"]
+[ext_resource type="Script" uid="uid://di6njgthdfm1e" path="res://logic/game/orders/OrderDisplay.cs" id="1_yt0pd"]
 [ext_resource type="Texture2D" uid="uid://doak00et0bpfr" path="res://assets/recipe/friedegg.png" id="3_b036j"]
 [ext_resource type="Texture2D" uid="uid://d2wnogqq4wplx" path="res://assets/order_bg_rolled.png" id="3_ej5s1"]
 [ext_resource type="Texture2D" uid="uid://bdl22t76vrgdk" path="res://assets/ui/MedievalFree.png" id="5_ywrhs"]

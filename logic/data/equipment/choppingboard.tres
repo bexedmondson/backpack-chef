@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cvf7o2xri2gsa" path="res://assets/equipment/knife.tres" id="1_2a6pr"]
 [ext_resource type="Script" uid="uid://c64483n2fo0gt" path="res://logic/data/equipment/ChoppingBoard.cs" id="1_02rkv"]
-[ext_resource type="PackedScene" uid="uid://o8nng32mwv2l" path="res://logic/game/equipment_interaction/chopping_board_display.tscn" id="2_kxw0k"]
+[ext_resource type="PackedScene" uid="uid://o8nng32mwv2l" path="res://logic/game/equipment/chopping_board_display.tscn" id="2_kxw0k"]
 [ext_resource type="Texture2D" uid="uid://bcwdt4mfhltgy" path="res://assets/equipment/knife_small.tres" id="3_piqnw"]
 
 [resource]

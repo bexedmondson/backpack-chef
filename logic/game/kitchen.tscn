@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://bnncd67bcv1yx"]
 
-[ext_resource type="Script" uid="uid://dnhi1hxx2ssfr" path="res://logic/game/OrderDisplayController.cs" id="1_3xvsb"]
+[ext_resource type="Script" uid="uid://dnhi1hxx2ssfr" path="res://logic/game/orders/OrderDisplayController.cs" id="1_3xvsb"]
 [ext_resource type="Script" uid="uid://co5om3p7g4qmk" path="res://logic/game/GameTimeMonitor.cs" id="1_jlkki"]
 [ext_resource type="Texture2D" uid="uid://bfmf8f477qmly" path="res://assets/woodpanel_bg_frame.png" id="2_ct3hu"]
-[ext_resource type="Script" uid="uid://bq6yxwctqf5i3" path="res://logic/game/equipment_interaction/EquipmentDisplayController.cs" id="2_ctdt0"]
+[ext_resource type="Script" uid="uid://bq6yxwctqf5i3" path="res://logic/game/equipment/EquipmentDisplayController.cs" id="2_ctdt0"]
 [ext_resource type="Texture2D" uid="uid://b2miutiudxeth" path="res://assets/foodbin.png" id="4_7w1vn"]
 [ext_resource type="Script" uid="uid://cgap0gwea33xu" path="res://logic/game/BinDisplay.cs" id="4_ct3hu"]
 [ext_resource type="Script" uid="uid://bai12jl63os3t" path="res://addons/ReorderableContainer/ReorderableHBox.cs" id="6_xr0pu"]
+[ext_resource type="PackedScene" uid="uid://dkrxnal3wdmbd" path="res://logic/game/orders/order_display.tscn" id="8_4phug"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mdxf6"]
 texture = ExtResource("2_ct3hu")
@@ -133,6 +134,5 @@ _separation = 10.0
 scrollContainer = NodePath("..")
 metadata/_custom_type_script = "uid://bai12jl63os3t"
 
-[node name="OrderDisplay" parent="OrderDisplayController/ReorderableHBox" unique_id=2140043774 instance_placeholder="res://logic/game/order_display.tscn"]
+[node name="OrderDisplay" parent="OrderDisplayController/ReorderableHBox" unique_id=2056466931 instance=ExtResource("8_4phug")]
 layout_mode = 2
-mouse_filter = 1

@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://c0on5w86bm2fr"]
 
-[ext_resource type="PackedScene" uid="uid://m6w100o8crnd" path="res://logic/game/equipment_interaction/equipment_display.tscn" id="1_2sqgr"]
+[ext_resource type="PackedScene" uid="uid://m6w100o8crnd" path="res://logic/game/equipment/equipment_display.tscn" id="1_2sqgr"]
 [ext_resource type="Texture2D" uid="uid://bnknvwkp5npct" path="res://assets/equipment/fryingpan.tres" id="2_4e6m7"]
-[ext_resource type="Script" uid="uid://c5kqen54tyru1" path="res://logic/game/equipment_interaction/FryingPanDisplay.cs" id="2_rylgc"]
+[ext_resource type="Script" uid="uid://c5kqen54tyru1" path="res://logic/game/equipment/FryingPanDisplay.cs" id="2_rylgc"]
 [ext_resource type="Texture2D" uid="uid://bdl22t76vrgdk" path="res://assets/ui/MedievalFree.png" id="4_rylgc"]
-[ext_resource type="Shader" uid="uid://d3j8q7q0xuq5l" path="res://logic/game/equipment_interaction/target_area_progress_bar.gdshader" id="5_7lff3"]
+[ext_resource type="Shader" uid="uid://d3j8q7q0xuq5l" path="res://logic/game/equipment/target_area_progress_bar.gdshader" id="5_7lff3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rylgc"]
 atlas = ExtResource("4_rylgc")

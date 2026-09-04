@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://clnim2vile6y4"]
 
-[ext_resource type="Script" uid="uid://xeyni75ylrww" path="res://logic/game/OrderStepDisplay.cs" id="1_6ho77"]
+[ext_resource type="Script" uid="uid://xeyni75ylrww" path="res://logic/game/orders/OrderStepDisplay.cs" id="1_6ho77"]
 [ext_resource type="Texture2D" uid="uid://bdl22t76vrgdk" path="res://assets/ui/MedievalFree.png" id="2_6ho77"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b036j"]
