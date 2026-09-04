@@ -96,21 +96,11 @@ public partial class ReorderableContainer : Container
 		
 		SortChildren += OnSortChildren;
 		GetTree().NodeAdded += OnNodeAdded;
+		//will be auto-cleaned up on dispose - found this out by trying to clean it up in Dispose() which crashed godot every time I built the code!
 		
 		OnSortChildren();
 	}
-
-	protected override void Dispose(bool disposing)
-	{
-		base.Dispose(disposing);
 	
-		/* handling this here as per https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/c_sharp_signals.html#no-automatic-disconnection-a-lambda-expression-that-captures-a-variable
-		   "Another option is to connect to signals in _Ready and disconnect in Dispose."
-		*/
-		SortChildren -= OnSortChildren;
-		GetTree().NodeAdded -= OnNodeAdded;
-	}
-
 	public override void _GuiInput(InputEvent @event)
 	{
 		base._GuiInput(@event);

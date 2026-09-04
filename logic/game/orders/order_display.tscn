@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://di6njgthdfm1e" path="res://logic/game/orders/OrderDisplay.cs" id="1_yt0pd"]
 [ext_resource type="Texture2D" uid="uid://doak00et0bpfr" path="res://assets/recipe/friedegg.png" id="3_b036j"]
 [ext_resource type="Texture2D" uid="uid://d2wnogqq4wplx" path="res://assets/order_bg_rolled.png" id="3_ej5s1"]
+[ext_resource type="PackedScene" uid="uid://clnim2vile6y4" path="res://logic/game/orders/order_step_display.tscn" id="5_hcr1v"]
 [ext_resource type="Texture2D" uid="uid://bdl22t76vrgdk" path="res://assets/ui/MedievalFree.png" id="5_ywrhs"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ej5s1"]
@@ -207,7 +208,7 @@ layout_mode = 2
 texture = ExtResource("3_b036j")
 stretch_mode = 5
 
-[node name="OrderStepContainer" parent="ScrollContainer/VBoxContainer" unique_id=436217235 instance_placeholder="res://logic/game/order_step_display.tscn"]
+[node name="OrderStepContainer" parent="ScrollContainer/VBoxContainer" unique_id=436217235 instance=ExtResource("5_hcr1v")]
 layout_mode = 2
 
 [node name="DebugRecipeName" type="Control" parent="." unique_id=392949586]
